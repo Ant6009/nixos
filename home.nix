@@ -70,6 +70,10 @@
 
   services.dunst = {
     enable = true; 
+#    global = {
+#      transparency = 10;
+#      frame_color = "#efefef";
+#    };
   };
 
   # Hyprland setup
