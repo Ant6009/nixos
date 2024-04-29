@@ -1,6 +1,12 @@
 { config, pkgs, ... }:
 
+
 {
+
+  home.packages = with pkgs; [
+    thefuck
+    ];
+
     programs = {
         zsh = {
             enable = true;
