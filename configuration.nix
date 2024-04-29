@@ -122,6 +122,9 @@
     rofi-wayland-unwrapped 
     samba
   ];
+
+  programs.zsh.enable = true;
+  users.users.antoine.shell = pkgs.zsh;
   
   #Garbage colector
 #  nix.gc = {
