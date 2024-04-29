@@ -122,11 +122,18 @@
     rofi-wayland-unwrapped 
     samba
   ];
+  
+  #Garbage colector
+#  nix.gc = {
+#    automatic = true;
+#    dates = "weekly";
+#    options = "--delete-older-than 7d";
+#  };
 
   home-manager = {
     extraSpecialArgs = {inherit inputs;};
     users = {
-      "antoine" = import ./home.nix;
+      "antoine" = import ./home/home.nix;
     };
   };
 
