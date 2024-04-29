@@ -21,14 +21,14 @@
             autosuggestion.enable = true;
             enableCompletion = true;
             syntaxHighlighting.enable = true;
-        };
+            shellAliases = {
+              ll = "ls -l";
+              vim = "nvim";
+              update = "sudo nixos-rebuild switch";
+            };
+	};
     };
 
-#    shellAliases = {
-#      ll = "ls -l";
-#      vim = "nvim";
-#      update = "sudo nixos-rebuild switch";
-#    };
 
 #    home.file.".zshrc".text = ''
 #export PATH=$HOME/bin:/usr/local/bin:$PATH
