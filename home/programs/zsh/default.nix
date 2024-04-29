@@ -18,11 +18,16 @@
 		    "thefuck"
                 ];
             };
-
-            enableAutosuggestions = true;
+            autosuggestions.enable = true;
             enableCompletion = true;
-            enableSyntaxHighlighting = true;
+            syntaxHighlighting.enable = true;
         };
+    };
+
+    shellAliases = {
+      ll = "ls -l";
+      vim = "nvim";
+      update = "sudo nixos-rebuild switch";
     };
 
 #    home.file.".zshrc".text = ''
