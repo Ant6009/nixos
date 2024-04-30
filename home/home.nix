@@ -60,6 +60,9 @@
     enable = true;
     userName = "ant6009";
     userEmail = "ant.rivoire@gmail.com";
+    extraConfig = {
+      init.defaultBranch = "main";
+      };
     };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

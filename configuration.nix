@@ -118,6 +118,7 @@
     wget
     git
     curl
+    git-credential-manager
     waybar
     rofi-wayland-unwrapped 
     samba
@@ -127,11 +128,11 @@
   users.users.antoine.shell = pkgs.zsh;
   
   #Garbage colector
-#  nix.gc = {
-#    automatic = true;
-#    dates = "weekly";
-#    options = "--delete-older-than 7d";
-#  };
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 7d";
+  };
 
   home-manager = {
     extraSpecialArgs = {inherit inputs;};
