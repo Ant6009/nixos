@@ -15,7 +15,7 @@
                 theme = "refined";
                 plugins = [
                     "git"
-		    "thefuck"
+            		    "thefuck"
                 ];
             };
             autosuggestion.enable = true;
@@ -26,6 +26,7 @@
               la = "eza -a";
               vim = "nvim";
               update = "sudo nixos-rebuild switch";
+              nvim = "nix run /home/antoine/flakes/neovim-nix --";
             };
 	};
     };

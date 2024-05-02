@@ -6,8 +6,6 @@
 
     nix-colors.url = "github:misterio77/nix-colors";    
 
-    nvim.url = "github:Ant6009/neovim";
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -38,4 +36,5 @@
     ];
   };
 };
-} 
+}
+ 
