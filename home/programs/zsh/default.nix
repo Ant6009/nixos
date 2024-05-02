@@ -22,7 +22,8 @@
             enableCompletion = true;
             syntaxHighlighting.enable = true;
             shellAliases = {
-              ll = "ls -l";
+              ll = "eza -l";
+              la = "eza -a";
               vim = "nvim";
               update = "sudo nixos-rebuild switch";
             };

@@ -46,6 +46,9 @@
     waybar
     wofi
     fzf
+    eza
+    ripgrep
+    fd
     nerdfonts
     btop
     pavucontrol
@@ -54,6 +57,10 @@
     hydrogen
     tidal-hifi
     neovim
+    csound
+    supercollider
+    vimPlugins.scnvim
+    roam-research
   ];
 
   programs.git = {
@@ -64,6 +71,7 @@
       init.defaultBranch = "main";
       };
     };
+
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
