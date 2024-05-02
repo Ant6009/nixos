@@ -61,6 +61,7 @@
     supercollider
     vimPlugins.scnvim
     roam-research
+    lazygit
   ];
 
   programs.git = {
