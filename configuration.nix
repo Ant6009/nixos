@@ -1,29 +1,31 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, inputs, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      inputs.home-manager.nixosModules.default
-    ];
+  config,
+  pkgs,
+  inputs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    inputs.home-manager.nixosModules.default
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "my-nixos"; # Define your hostname.
-#  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  #  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
-    networking.networkmanager.enable = true;
+  networking.networkmanager.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Dublin";
@@ -47,10 +49,10 @@
   services.xserver.enable = true;
 
   # Enable the XFCE Desktop Environment.
-#  services.xserver.displayManager.lightdm.enable = true;
-#  services.xserver.desktopManager.xfce.enable = true;
+  #  services.xserver.displayManager.lightdm.enable = true;
+  #  services.xserver.desktopManager.xfce.enable = true;
   programs.hyprland.enable = true;
-# programs.hyprland.portalPackage = pakgs.xdg-desktop-portal ;
+  # programs.hyprland.portalPackage = pakgs.xdg-desktop-portal ;
 
   # Configure keymap in X11
   services.xserver = {
@@ -78,12 +80,12 @@
 
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
-    #media-session.enable = true;   
-};
+    #media-session.enable = true;
+  };
 
-#   Enable bluetooth
+  #   Enable bluetooth
   hardware.bluetooth.enable = true; # enables support for Bluetooth
-  hardware.bluetooth.powerOnBoot = true; 
+  hardware.bluetooth.powerOnBoot = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -92,10 +94,10 @@
   users.users.antoine = {
     isNormalUser = true;
     description = "antoine";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = ["networkmanager" "wheel"];
     packages = with pkgs; [
       firefox
-    #  thunderbird
+      #  thunderbird
       kitty
       vim
     ];
@@ -121,18 +123,18 @@
     curl
     git-credential-manager
     waybar
-    rofi-wayland-unwrapped 
-    samba
+    rofi-wayland-unwrapped
+    cifs-utils
   ];
 
   programs.zsh.enable = true;
   users.users.antoine.shell = pkgs.zsh;
-  
+
   #Garbage colector
   nix.gc = {
     automatic = true;
     dates = "weekly";
- 
+
     options = "--delete-older-than 7d";
   };
 
@@ -142,7 +144,6 @@
       "antoine" = import ./home/home.nix;
     };
   };
-
 
   environment.variables.EDITOR = "vim";
 
@@ -157,8 +158,8 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-    services.openssh.enable = true;
-    programs.ssh.askPassword = "";
+  services.openssh.enable = true;
+  programs.ssh.askPassword = "";
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -174,4 +175,11 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
 
+  fileSystems."/mnt/share" = {
+    device = "192.168.68.130/config";
+    fsType = "cifs";
+    options = let
+      automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
+    in ["${automount_opts}, credentials=/etc/nixos/smb-secrets"];
+  };
 }
