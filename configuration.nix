@@ -125,6 +125,7 @@
     waybar
     rofi-wayland-unwrapped
     cifs-utils
+    neofetch
   ];
 
   programs.zsh.enable = true;
