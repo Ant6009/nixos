@@ -62,6 +62,9 @@
     vimPlugins.scnvim
     roam-research
     lazygit
+    supercollider
+    zoxide
+    entr
   ];
 
   programs.git = {
@@ -150,5 +153,7 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }
+
+
 
 

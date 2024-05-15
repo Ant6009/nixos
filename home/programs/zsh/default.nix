@@ -16,6 +16,7 @@
         plugins = [
           "git"
           "thefuck"
+          "zoxide"
         ];
       };
       autosuggestion.enable = true;
