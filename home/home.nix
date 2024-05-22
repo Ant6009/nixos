@@ -43,7 +43,6 @@
     keepassxc
     dunst
     alacritty
-    waybar
     wofi
     fzf
     eza
@@ -128,7 +127,7 @@
       );
   };
 
-  
+  programs.waybar.enable = true;
   
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. If you  don't want to manage your shell through Home
@@ -150,7 +149,7 @@
   };
 
 
-  # Let Home Manager install and manage itself.
+   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }
 

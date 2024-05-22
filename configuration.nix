@@ -74,7 +74,7 @@
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
-    pulse.enable = true;
+    pulse.enable = false;
     # If you want to use JACK applications, uncomment this
     jack.enable = true;
 
@@ -168,6 +168,19 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
+  # cifs-utils shares mounting:
+
+  fileSystems."/mnt/ha" = {
+    device = "//192.168.68.130/config/";
+    fsType = "cifs";
+    options = let
+      # this line prevents hanging on network split
+      automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
+
+    in ["${automount_opts},credentials=/etc/nixos/smb-secrets"];
+  };
+
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
@@ -176,11 +189,4 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
 
-  fileSystems."/mnt/share" = {
-    device = "192.168.68.130/config";
-    fsType = "cifs";
-    options = let
-      automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
-    in ["${automount_opts}, credentials=/etc/nixos/smb-secrets"];
-  };
 }
