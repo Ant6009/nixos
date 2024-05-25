@@ -19,7 +19,7 @@
   # release notes.
   home.stateVersion = "23.11"; # Please read the comment before changing.
 
-  nixpkgs.config.allowUnfree = true;  
+  nixpkgs.config.allowUnfree = true;
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -66,15 +66,27 @@
     entr
   ];
 
-  programs.git = {
-    enable = true;
-    userName = "ant6009";
-    userEmail = "ant.rivoire@gmail.com";
-    extraConfig = {
-      init.defaultBranch = "main";
+  programs = {
+    git = {
+      enable = true;
+      userName = "ant6009";
+      userEmail = "ant.rivoire@gmail.com";
+      extraConfig = {
+        init.defaultBranch = "main";
+        };
+      };
+    direnv = {
+      enable = true;
+      enableZshIntegration = true;
+      nix-direnv.enable = true;
+    };
+    zsh = {
+      enable = true;
+      oh-my-zsh = {
+      enable = true;
       };
     };
-
+  };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -152,6 +164,7 @@
    # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }
+
 
 
 

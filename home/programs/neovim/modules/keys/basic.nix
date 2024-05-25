@@ -42,6 +42,8 @@ in {
 
         # Clear Search
         "<leader>dv" = ":noh<CR>";
+        "jk" = "<Esc>";
+        "kj" = "<Esc>";
       }
       else {};
 

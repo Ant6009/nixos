@@ -17,6 +17,7 @@
           "git"
           "thefuck"
           "zoxide"
+          "direnv"
         ];
       };
       autosuggestion.enable = true;
