@@ -64,6 +64,7 @@
     supercollider
     zoxide
     entr
+    blueberry
   ];
 
   programs = {
