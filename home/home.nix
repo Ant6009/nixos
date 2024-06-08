@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   imports = [
     ./programs
   ];
@@ -74,8 +76,8 @@
       userEmail = "ant.rivoire@gmail.com";
       extraConfig = {
         init.defaultBranch = "main";
-        };
       };
+    };
     direnv = {
       enable = true;
       enableZshIntegration = true;
@@ -84,7 +86,7 @@
     zsh = {
       enable = true;
       oh-my-zsh = {
-      enable = true;
+        enable = true;
       };
     };
   };
@@ -105,11 +107,11 @@
   };
 
   services.dunst = {
-    enable = true; 
-#    global = {
-#      transparency = 10;
-#      frame_color = "#efefef";
-#    };
+    enable = true;
+    #    global = {
+    #      transparency = 10;
+    #      frame_color = "#efefef";
+    #    };
   };
 
   # Hyprland setup
@@ -141,7 +143,7 @@
   };
 
   programs.waybar.enable = true;
- 
+
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. If you  don't want to manage your shell through Home
   # Manager then you have to manually source 'hm-session-vars.sh' located at
@@ -161,12 +163,6 @@
     # EDITOR = "emacs";
   };
 
-
-   # Let Home Manager install and manage itself.
+  # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }
-
-
-
-
-

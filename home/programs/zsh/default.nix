@@ -28,7 +28,8 @@
         la = "eza -a";
         vim = "nvim";
         update = "sudo nixos-rebuild switch";
-        nvim = "nix run /home/antoine/flakes/neovim-nix --";
+        nvim = "nix run /home/antoine/flakes/kickstartnix-nvim/ --";
+        mqtt-explorer = "nix run /home/antoine/flakes/mqtt-explorer --";
       };
     };
   };
