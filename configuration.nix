@@ -123,7 +123,7 @@
     curl
     git-credential-manager
     waybar
-    rofi-wayland-unwrapped
+    wlogout
     cifs-utils
     neofetch
   ];

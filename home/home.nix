@@ -42,30 +42,36 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
-    keepassxc
+
+    # Desktop
     dunst
-    alacritty
     wofi
+
+    # Terminal
+    alacritty
     fzf
+    fzf-zsh
     eza
     ripgrep
     fd
-    nerdfonts
+    lazygit
+    zoxide
     btop
+
+    # Music & Sound
     pavucontrol
-    discord
-    wl-clipboard
     hydrogen
-    tidal-hifi
-    neovim
     csound
     supercollider
-    vimPlugins.scnvim
+    tidal-hifi
+
+    # Communication
+    discord
+
+    # Misc
+    wl-clipboard
+    nerdfonts
     roam-research
-    lazygit
-    supercollider
-    zoxide
-    entr
     blueberry
   ];
 
