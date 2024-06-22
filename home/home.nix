@@ -46,6 +46,7 @@
     # Desktop
     dunst
     wofi
+    tofi
 
     # Terminal
     alacritty

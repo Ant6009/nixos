@@ -63,8 +63,8 @@
   };
 
   
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
-  stylix.image = ./hyprland/fake.png;  
+#  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
+#  stylix.image = ./hyprland/fake.png;  
 
   # Configure console keymap
   console.keyMap = "uk";

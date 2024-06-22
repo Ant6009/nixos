@@ -24,7 +24,7 @@
       url = "github:Ant6009/kickstartnix-nvim";
     };
 
-    stylix.url = "github:danth/stylix";
+#    stylix.url = "github:danth/stylix";
   };
 
   outputs = {
@@ -46,7 +46,7 @@
       modules = [
         ./configuration.nix
         inputs.home-manager.nixosModules.default
-        inputs.stylix.nixosModules.stylix
+#        inputs.stylix.nixosModules.stylix
       ];
     };
   };
