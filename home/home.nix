@@ -47,6 +47,11 @@
     dunst
     wofi
     tofi
+    swappy
+    grim
+    slurp
+    grimblast
+    showmethekey
 
     # Terminal
     alacritty

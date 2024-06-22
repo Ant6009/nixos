@@ -132,6 +132,7 @@
     wlogout
     cifs-utils
     neofetch
+    gnome.nautilus
   ];
 
   programs.zsh.enable = true;
