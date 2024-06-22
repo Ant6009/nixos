@@ -6,7 +6,9 @@
   pkgs,
   inputs,
   ...
-}: {
+}: 
+
+{
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -59,6 +61,10 @@
     xkb.layout = "gb";
     xkb.variant = "mac_intl";
   };
+
+  
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
+  stylix.image = ./hyprland/fake.png;  
 
   # Configure console keymap
   console.keyMap = "uk";
