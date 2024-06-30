@@ -18,6 +18,10 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  
+  # kernel modules
+  boot.kernelModules = [ "v4l2loopback" ];
+  boot.extraModulePackages = [ pkgs.linuxPackages.v4l2loopback ];
 
   networking.hostName = "my-nixos"; # Define your hostname.
   #  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -54,6 +58,7 @@
   #  services.xserver.displayManager.lightdm.enable = true;
   #  services.xserver.desktopManager.xfce.enable = true;
   programs.hyprland.enable = true;
+   
   # programs.hyprland.portalPackage = pakgs.xdg-desktop-portal ;
 
   # Configure keymap in X11
@@ -114,7 +119,7 @@
   services.displayManager.autoLogin.user = "antoine";
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.wayland.enable = true;
-  services.displayManager.sddm.theme = "Elegant";
+  services.displayManager.sddm.sugarCandyNix.enable = true;
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -142,6 +147,10 @@
     hypridle
     hyprlock
     hyprpaper
+    
+    obs-studio
+    v4l-utils
+
   ];
 
 

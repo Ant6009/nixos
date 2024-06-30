@@ -24,6 +24,12 @@
       url = "github:Ant6009/kickstartnix-nvim";
     };
 
+   sddm-sugar-candy-nix = {
+      url = "gitlab:Zhaith-Izaliel/sddm-sugar-candy-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    
+
 #    stylix.url = "github:danth/stylix";
   };
 
@@ -32,13 +38,18 @@
     nixpkgs,
     home-manager,
     kickstartnix-nvim,
+    sddm-sugar-candy-nix,
     ...
   } @ inputs: let
     system = "x86_64-linux";
     # pkgs = nixpkgs.legacyPackages.${system};
     pkgs = import nixpkgs {
       system = system;
-      overlays = [ <kickstartnix-nvim>.overlays.default ];
+      overlays = [ 
+      <kickstartnix-nvim>.overlays.default 
+      sddm-sugar-candy-nix.overlays.default
+      ];
+
     };
   in {
     nixosConfigurations.my-nixos = nixpkgs.lib.nixosSystem {
@@ -46,7 +57,8 @@
       modules = [
         ./configuration.nix
         inputs.home-manager.nixosModules.default
-#        inputs.stylix.nixosModules.stylix
+        sddm-sugar-candy-nix.nixosModules.default
+#     inputs.stylix.nixosModules.stylix
       ];
     };
   };
