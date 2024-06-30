@@ -72,7 +72,7 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # Enable sound with pipewire.
+  # Enable sound with pipewire 
   sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -100,7 +100,7 @@
   users.users.antoine = {
     isNormalUser = true;
     description = "antoine";
-    extraGroups = ["networkmanager" "wheel"];
+    extraGroups = ["networkmanager" "wheel" "camera"];
     packages = with pkgs; [
       firefox
       #  thunderbird
@@ -110,9 +110,11 @@
   };
 
   # Enable automatic login for the user.
-  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.enable = false;
   services.displayManager.autoLogin.user = "antoine";
-
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
+  services.displayManager.sddm.theme = "Elegant";
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -123,17 +125,26 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    # utilities
     unzip
     wget
     git
     curl
     git-credential-manager
+    cifs-utils
+
+    # Desktop 
     waybar
     wlogout
-    cifs-utils
     neofetch
     gnome.nautilus
+    elegant-sddm
+    hypridle
+    hyprlock
+    hyprpaper
   ];
+
+
 
   programs.zsh.enable = true;
   users.users.antoine.shell = pkgs.zsh;
@@ -188,6 +199,10 @@
   };
 
 
+  # Ollama to run local LLMs
+  services.ollama = {
+    enable = true;
+  };
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
