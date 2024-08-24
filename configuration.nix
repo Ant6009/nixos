@@ -117,9 +117,21 @@
   # Enable automatic login for the user.
   services.displayManager.autoLogin.enable = false;
   services.displayManager.autoLogin.user = "antoine";
-  services.displayManager.sddm.enable = true;
-  services.displayManager.sddm.wayland.enable = true;
-  services.displayManager.sddm.sugarCandyNix.enable = true;
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
+    sugarCandyNix = {
+      enable = true;
+      settings = {
+#        Background =  ./Backgrounds/Desert.jpg;
+        FormPosition = "left"; 
+        HaveFormBackground = true;
+        PartialBlur = true;
+        ScreenWidth = 3440;
+        ScreenHeight = 1440;
+      };
+    }; 
+  };
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -158,7 +170,7 @@
   programs.zsh.enable = true;
   users.users.antoine.shell = pkgs.zsh;
 
-  #Garbage colector
+  #Garbage collector
   nix.gc = {
     automatic = true;
     dates = "weekly";

@@ -78,7 +78,10 @@
     wl-clipboard
     nerdfonts
     roam-research
+    zotero
     blueberry
+    bitwarden-desktop
+    bitwarden-cli
   ];
 
   programs = {
