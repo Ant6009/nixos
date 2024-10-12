@@ -97,6 +97,7 @@
   #   Enable bluetooth
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true;
+  services.blueman.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -154,8 +155,10 @@
     waybar
     wlogout
     neofetch
-    gnome.nautilus
+    nautilus
     elegant-sddm
+    pyprland
+    hyprcursor
     hypridle
     hyprlock
     hyprpaper
