@@ -162,7 +162,7 @@
     hypridle
     hyprlock
     hyprpaper
-    
+    inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default
     obs-studio
     v4l-utils
 

@@ -24,11 +24,12 @@
       url = "github:Ant6009/kickstartnix-nvim";
     };
 
-   sddm-sugar-candy-nix = {
+    sddm-sugar-candy-nix = {
       url = "gitlab:Zhaith-Izaliel/sddm-sugar-candy-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     
+    rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
 
 #    stylix.url = "github:danth/stylix";
   };
