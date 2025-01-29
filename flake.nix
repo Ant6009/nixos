@@ -21,7 +21,7 @@
     };
 
     kickstartnix-nvim = {
-      url = "github:Ant6009/kickstartnix-nvim";
+      url = "github:Ant6009/kickstart-nix.nvim";
     };
 
     sddm-sugar-candy-nix = {
@@ -30,6 +30,8 @@
     };
     
     rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
+
+    musnix  = { url = "github:musnix/musnix"; };
 
 #    stylix.url = "github:danth/stylix";
   };
@@ -47,7 +49,7 @@
     pkgs = import nixpkgs {
       system = system;
       overlays = [ 
-      <kickstartnix-nvim>.overlays.default 
+      <kickstart-nix.nvim>.overlays.default 
       sddm-sugar-candy-nix.overlays.default
       ];
 
@@ -59,6 +61,7 @@
         ./configuration.nix
         inputs.home-manager.nixosModules.default
         sddm-sugar-candy-nix.nixosModules.default
+        inputs.musnix.nixosModules.musnix
 #     inputs.stylix.nixosModules.stylix
       ];
     };

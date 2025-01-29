@@ -70,13 +70,13 @@
     csound
     supercollider
     tidal-hifi
+    reaper
 
     # Communication
     discord
 
     # Misc
     wl-clipboard
-    nerdfonts
     roam-research
     zotero
     blueberry
