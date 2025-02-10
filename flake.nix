@@ -4,6 +4,8 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    hardware.url = "github:nixos/nixos-hardware";
+
     nix-colors.url = "github:misterio77/nix-colors";
 
     home-manager = {
@@ -11,59 +13,94 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprland = {
-      url = "github:hyprwm/hyprland";
-    };
+    catppuccin.url = "github:catppuccin/nix";
 
-    hyprpaper = {
-      url = "github:hyprwm/hyprpaper";
+ #   hardware.url = "github:nixos/nixos-hardware";
+
+    darwin = {
+      url = "github:LnL7/nix-darwin";    
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    kickstartnix-nvim = {
-      url = "github:Ant6009/kickstart-nix.nvim";
-    };
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
-    sddm-sugar-candy-nix = {
-      url = "gitlab:Zhaith-Izaliel/sddm-sugar-candy-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    
-    rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
-
-    musnix  = { url = "github:musnix/musnix"; };
-
-#    stylix.url = "github:danth/stylix";
   };
 
   outputs = {
     self,
     nixpkgs,
+    catppuccin,
+    nix-homebrew,
+    darwin,
     home-manager,
-    kickstartnix-nvim,
+    kickstartnix-nvim, 
     sddm-sugar-candy-nix,
     ...
   } @ inputs: let
-    system = "x86_64-linux";
-    # pkgs = nixpkgs.legacyPackages.${system};
-    pkgs = import nixpkgs {
-      system = system;
-      overlays = [ 
-      <kickstart-nix.nvim>.overlays.default 
-      sddm-sugar-candy-nix.overlays.default
-      ];
+    inherit (self) outputs;
 
+
+  users = {
+    antoine = {
+      email = "ant.rivoire@gmail.com";
+      fullName = "Antoine Rivoire";
+      };
     };
+  
+  mkNixosConfiguration = hostname: username:
+    nixpkgs.lib.nixosSystem {
+      specialArgs = {
+        inherit inputs outputs hostname;
+        userConfig = users.${username};
+        nixosModules = "${self}/modules/nixos";
+      };
+      modules = [./hosts/${hostname}];
+    };
+
+ # Function for nix-darwin system configuration
+    mkDarwinConfiguration = hostname: username:
+      darwin.lib.darwinSystem {
+        system = "aarch64-darwin";
+        specialArgs = {
+          inherit inputs outputs hostname;
+          userConfig = users.${username};
+        };
+        modules = [
+          ./hosts/${hostname}
+          home-manager.darwinModules.home-manager
+          nix-homebrew.darwinModules.nix-homebrew
+        ];
+      };
+
+    # Function for Home Manager configuration
+    mkHomeConfiguration = system: username: hostname:
+      home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {inherit system;};
+        extraSpecialArgs = {
+          inherit inputs outputs;
+          userConfig = users.${username};
+          nhModules = "${self}/modules/home-manager";
+        };
+        modules = [
+          ./home/${username}/${hostname}
+          catppuccin.homeManagerModules.catppuccin
+        ];
+      };
   in {
-    nixosConfigurations.my-nixos = nixpkgs.lib.nixosSystem {
-      specialArgs = {inherit inputs;};
-      modules = [
-        ./configuration.nix
-        inputs.home-manager.nixosModules.default
-        sddm-sugar-candy-nix.nixosModules.default
-        inputs.musnix.nixosModules.musnix
-#     inputs.stylix.nixosModules.stylix
-      ];
+    nixosConfigurations = {
+      my-nixos = mkNixosConfiguration "my-nixos" "antoine";
+    /*  antoine-mac = mkNixosConfiguration "antoine-mac" "antoine"; */
     };
+
+    darwinConfigurations = {
+      "antoine-mac" = mkDarwinConfiguration "antoine-mac" "antoine";
+    };
+
+    homeConfigurations = {
+      "antoine@my-nixos" = mkHomeConfiguration "x86_64-linux" "antoine" "my-nixos";
+      "antoine@antoine-mac" = mkHomeConfiguration "aarch64-darwin" "antoine" "antoine-mac";
+    };
+
+    overlays = import ./overlays {inherit inputs;};
   };
 }

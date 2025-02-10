@@ -58,6 +58,7 @@
   #  services.xserver.displayManager.lightdm.enable = true;
   #  services.xserver.desktopManager.xfce.enable = true;
   programs.hyprland.enable = true;
+  programs.hyprland.withUWSM = true;
    
   # programs.hyprland.portalPackage = pakgs.xdg-desktop-portal ;
 
@@ -107,7 +108,7 @@
   users.users.antoine = {
     isNormalUser = true;
     description = "antoine";
-    extraGroups = ["networkmanager" "wheel" "camera"];
+    extraGroups = ["networkmanager" "wheel" "camera" "dialout"];
     packages = with pkgs; [
       firefox
       #  thunderbird
@@ -122,10 +123,10 @@
   services.displayManager.sddm = {
     enable = true;
     wayland.enable = true;
-    sugarCandyNix = {
+      sugarCandyNix = {
       enable = true;
       settings = {
-#        Background =  ./Backgrounds/Desert.jpg;
+#       Background =  ./Backgrounds/Desert.jpg;
         FormPosition = "left"; 
         HaveFormBackground = true;
         PartialBlur = true;
@@ -171,7 +172,10 @@
     yabridgectl
 
     nerd-fonts.zed-mono
+    nerd-fonts.jetbrains-mono
 
+    open-webui
+    oterm
   ];
 
 
@@ -236,6 +240,19 @@
   services.ollama = {
     enable = true;
   };
+
+  services.open-webui = {
+    enable = true;
+    environment = {
+      ANONYMIZED_TELEMETRY = "False";
+      DO_NOT_TRACK = "True";
+      SCARF_NO_ANALYTICS = "True";
+      OLLAMA_API_BASE_URL = "http://127.0.0.1:11434/api";
+      OLLAMA_BASE_URL = "http://127.0.0.1:11434";
+    };
+  }; 
+
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave

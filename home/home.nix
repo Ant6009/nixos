@@ -157,6 +157,7 @@
         );
   };
      
+  fonts.fontconfig.enable = true;  
 
   programs.waybar.enable = true;
   # Home Manager can also manage your environment variables through
