@@ -7,8 +7,8 @@
   gtk = {
     enable = true;
     iconTheme = {
-      name = "Tela-circle-dark";
-      package = pkgs.tela-circle-icon-theme;
+      name = "Reversal Icon Theme";
+      package = pkgs.reversal-icon-theme;
     };
     cursorTheme = {
       name = "Yaru";
