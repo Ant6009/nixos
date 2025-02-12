@@ -145,6 +145,8 @@
     unzip
     wget
     curl
+    firefox
+    home-manager
   ];
 
   # Docker configuration

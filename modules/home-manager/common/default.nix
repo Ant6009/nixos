@@ -57,6 +57,7 @@
       pipenv
       python3
       ripgrep
+      firefox
     ]
     ++ lib.optionals stdenv.isDarwin [
       colima
@@ -76,6 +77,7 @@
       grimblast
       showmethekey
       tidal-hifi
+      
     ];
 
   # Catpuccin flavor and accent
