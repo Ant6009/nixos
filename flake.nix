@@ -15,8 +15,6 @@
 
     catppuccin.url = "github:catppuccin/nix";
 
- #   hardware.url = "github:nixos/nixos-hardware";
-
     darwin = {
       url = "github:LnL7/nix-darwin";    
       inputs.nixpkgs.follows = "nixpkgs";
@@ -33,8 +31,7 @@
     nix-homebrew,
     darwin,
     home-manager,
-    kickstartnix-nvim, 
-    sddm-sugar-candy-nix,
+  #   sddm-sugar-candy-nix,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -49,6 +46,7 @@
   
   mkNixosConfiguration = hostname: username:
     nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
       specialArgs = {
         inherit inputs outputs hostname;
         userConfig = users.${username};

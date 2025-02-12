@@ -12,7 +12,6 @@
     ./hardware-configuration.nix
     "${nixosModules}/common"
     "${nixosModules}/desktop/hyprland"
-    "${nixosModules}/programs/steam"
   ];
 
   # Set hostname
