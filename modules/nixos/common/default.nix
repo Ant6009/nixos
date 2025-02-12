@@ -61,10 +61,10 @@
   networking.networkmanager.enable = true;
 
   # Timezone
-  time.timeZone = "Europe/Warsaw";
+  time.timeZone = "Europe/Dublin";
 
   # Internationalization
-  i18n.defaultLocale = "en_US.UTF-8";
+  i18n.defaultLocale = "en_GB.UTF-8";
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "en_IE.UTF-8";
     LC_IDENTIFICATION = "en_IE.UTF-8";
@@ -112,7 +112,7 @@
   # User configuration
   users.users.${userConfig.name} = {
     description = userConfig.fullName;
-    extraGroups = ["networkmanager" "wheel" "docker"];
+    extraGroups = ["networkmanager" "wheel" "camera"];
     isNormalUser = true;
     shell = pkgs.zsh;
   };
@@ -142,6 +142,9 @@
     gnumake
     killall
     mesa
+    unzip
+    wget
+    curl
   ];
 
   # Docker configuration
