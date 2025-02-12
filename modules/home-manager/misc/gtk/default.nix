@@ -6,10 +6,6 @@
   # GTK theme configuration
   gtk = {
     enable = true;
-    iconTheme = {
-      name = "Reversal Icon Theme";
-      package = pkgs.reversal-icon-theme;
-    };
     cursorTheme = {
       name = "Yaru";
       package = pkgs.yaru-theme;
