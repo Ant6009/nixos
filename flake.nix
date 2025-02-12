@@ -39,9 +39,11 @@
 
   users = {
     antoine = {
+      name = "antoine";
       email = "ant.rivoire@gmail.com";
       fullName = "Antoine Rivoire";
-      };
+      avatar = ./files/avatar/face;
+     };
     };
   
   mkNixosConfiguration = hostname: username:
