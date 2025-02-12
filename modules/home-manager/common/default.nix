@@ -6,17 +6,12 @@
 }: {
   imports = [
     ../programs/alacritty
-    ../programs/atuin
     ../programs/bat
-    ../programs/brave
     ../programs/btop
-    ../programs/fastfetch
     ../programs/fzf
     ../programs/git
-    ../programs/go
     ../programs/gpg
     ../programs/lazygit
-    ../programs/neovim
     ../programs/obs-studio
     ../programs/starship
     ../programs/tmux
@@ -77,7 +72,7 @@
       grimblast
       showmethekey
       tidal-hifi
-      
+      neofetch
     ];
 
   # Catpuccin flavor and accent
