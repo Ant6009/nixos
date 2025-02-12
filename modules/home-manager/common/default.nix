@@ -66,7 +66,6 @@
       dunst
       wofi
       tofi
-      swappi
       grim
       slurp
       grimblast

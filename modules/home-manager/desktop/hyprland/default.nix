@@ -13,7 +13,7 @@
     "${nhModules}/programs/wofi"
     "${nhModules}/services/cliphist"
     "${nhModules}/services/kanshi"
-    "${nhModules}/services/swaync"
+   #  "${nhModules}/services/swaync"
     "${nhModules}/services/waybar"
   ];
 
