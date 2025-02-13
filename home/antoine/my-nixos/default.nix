@@ -5,6 +5,7 @@
     "${nhModules}/programs/zoom"
     "${nhModules}/services/easyeffects"
     "${nhModules}/services/ulauncher"
+    "${nhModules}/programs/nvf"
   ];
 
   # Enable home-manager

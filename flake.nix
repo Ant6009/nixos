@@ -16,12 +16,13 @@
     catppuccin.url = "github:catppuccin/nix";
 
     darwin = {
-      url = "github:LnL7/nix-darwin";    
+      url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
+    nvf.url = "github:notashelf/nvf";
   };
 
   outputs = {
@@ -31,33 +32,34 @@
     nix-homebrew,
     darwin,
     home-manager,
-  #   sddm-sugar-candy-nix,
+    nvf,
     ...
   } @ inputs: let
     inherit (self) outputs;
 
-
-  users = {
-    antoine = {
-      name = "antoine";
-      email = "ant.rivoire@gmail.com";
-      fullName = "Antoine Rivoire";
-      avatar = ./files/avatar/face;
-     };
-    };
-  
-  mkNixosConfiguration = hostname: username:
-    nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs = {
-        inherit inputs outputs hostname;
-        userConfig = users.${username};
-        nixosModules = "${self}/modules/nixos";
+    users = {
+      antoine = {
+        name = "antoine";
+        email = "ant.rivoire@gmail.com";
+        fullName = "Antoine Rivoire";
+        avatar = ./files/avatar/face;
       };
-      modules = [./hosts/${hostname}];
     };
 
- # Function for nix-darwin system configuration
+    mkNixosConfiguration = hostname: username:
+      nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit inputs outputs hostname;
+          userConfig = users.${username};
+          nixosModules = "${self}/modules/nixos";
+        };
+        modules = [
+          ./hosts/${hostname}
+        ];
+      };
+
+    # Function for nix-darwin system configuration
     mkDarwinConfiguration = hostname: username:
       darwin.lib.darwinSystem {
         system = "aarch64-darwin";
@@ -83,13 +85,16 @@
         };
         modules = [
           ./home/${username}/${hostname}
+          nvf.homeManagerModules.default
           catppuccin.homeManagerModules.catppuccin
         ];
       };
   in {
     nixosConfigurations = {
       my-nixos = mkNixosConfiguration "my-nixos" "antoine";
-    /*  antoine-mac = mkNixosConfiguration "antoine-mac" "antoine"; */
+      /*
+      antoine-mac = mkNixosConfiguration "antoine-mac" "antoine";
+      */
     };
 
     darwinConfigurations = {
