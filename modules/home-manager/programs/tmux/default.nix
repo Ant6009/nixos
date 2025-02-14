@@ -12,14 +12,14 @@
 
     extraConfig = ''
       # Set the prefix to `ctrl + q` instead of `ctrl + b`
-      set -g prefix C-q
-      unbind C-b
+      #set -g prefix C-q
+      #unbind C-b
 
       # Use | and - to split a window vertically and horizontally instead of " and % respoectively
-      unbind '"'
-      unbind %
-      bind v split-window -h -c "#{pane_current_path}"
-      bind s split-window -v -c "#{pane_current_path}"
+      #unbind '"'
+      #unbind %
+      #bind v split-window -h -c "#{pane_current_path}"
+      #bind s split-window -v -c "#{pane_current_path}"
 
       # Bind Arrow keys to resize the window
       bind -n S-Down resize-pane -D 8
@@ -47,6 +47,8 @@
 
       # Set default escape-time
       set-option -sg escape-time 10
+      
+      set -g status-position top
 
       # Smart pane switching with awareness of Vim splits
       is_vim="ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|l?n?vim?x?|fzf|atuin)(diff)?$'"
