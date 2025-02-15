@@ -147,6 +147,7 @@
     curl
     firefox
     home-manager
+    bitwarden-cli
   ];
 
   # Docker configuration
