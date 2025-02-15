@@ -3,7 +3,7 @@
   programs.git = {
     enable = true;
     userName = "ant6009";
-    userEmail = userConfig.email;
+    userEmail = "ant.rivoire@gmail.com";
     signing = {
    #    key = userConfig.gitKey;
       signByDefault = true;
