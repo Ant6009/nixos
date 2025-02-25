@@ -1,7 +1,0 @@
-{
-  imports = [
-    ./dunst
-    ./zsh
-    ./tmux
-  ];
-}
