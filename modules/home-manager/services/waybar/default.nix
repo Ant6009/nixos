@@ -15,6 +15,7 @@
         margin-right = 4;
 
         modules-left = [
+          "custom/power"
           "hyprland/workspaces"
           "cpu"
           "temperature"
@@ -29,7 +30,7 @@
 
         modules-right = [
           "custom/recorder"
-          "hyprland/language"
+          #  "hyprland/language"
           "tray"
           "bluetooth"
           "pulseaudio"
@@ -203,6 +204,12 @@
           exec-if = "pgrep wf-recorder";
           interval = 1;
           on-click = "screen-recorder";
+        };
+
+        "custom/power" = {
+          format = " ⏻ ";
+          tooltip = false;
+          on-click = "wlogout --protocol layer-shell";
         };
       };
     };
