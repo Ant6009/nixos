@@ -79,6 +79,7 @@
       showmethekey
       tidal-hifi
       neofetch
+      wlogout
     ];
 
   # Catpuccin flavor and accent

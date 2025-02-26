@@ -13,8 +13,9 @@
     "${nhModules}/programs/wofi"
     "${nhModules}/services/cliphist"
     "${nhModules}/services/kanshi"
-   #  "${nhModules}/services/swaync"
+    #  "${nhModules}/services/swaync"
     "${nhModules}/services/waybar"
+    "${nhModules}/services/wlogout"
   ];
 
   # Consistent cursor theme across all applications.
@@ -48,7 +49,7 @@
 
     "hypr/hyprlock.conf".text = ''
       background {
-          monitor = HDMI-A-1 
+          monitor = HDMI-A-1
           path = ${config.wallpaper}
           blur_passes = 3
           contrast = 0.8916
@@ -65,7 +66,7 @@
 
       # HDMI-A-1  Conifg
       input-field {
-          monitor = HDMI-A-1 
+          monitor = HDMI-A-1
           size = 250, 60
           outline_thickness = 2
           dots_size = 0.2 # Scale of input-field height, 0.2 - 0.8
@@ -86,7 +87,7 @@
 
       # Date
       label {
-        monitor = HDMI-A-1 
+        monitor = HDMI-A-1
         text = cmd[update:1000] echo "<span>$(date '+%A, %d %B')</span>"
         color = rgba(255, 255, 255, 0.8)
         font_size = 15
@@ -98,7 +99,7 @@
 
       # Time
       label {
-          monitor = HDMI-A-1 
+          monitor = HDMI-A-1
           text = cmd[update:1000] echo "<span>$(date '+%H:%M')</span>"
           color = rgba(255, 255, 255, 0.8)
           font_size = 120
@@ -110,7 +111,7 @@
 
       # Keyboard layout
       label {
-        monitor = HDMI-A-1 
+        monitor = HDMI-A-1
         text = $LAYOUT
         color = rgba(255, 255, 255, 0.9)
         font_size = 10
@@ -122,7 +123,7 @@
 
       # eHDMI-A-1  Conifg
       input-field {
-          monitor = eHDMI-A-1 
+          monitor = eHDMI-A-1
           size = 500, 120
           outline_thickness = 2
           dots_size = 0.2 # Scale of input-field height, 0.2 - 0.8
@@ -143,7 +144,7 @@
 
       # Date
       label {
-        monitor = eHDMI-A-1 
+        monitor = eHDMI-A-1
         text = cmd[update:1000] echo "<span>$(date '+%A, %d %B')</span>"
         color = rgba(255, 255, 255, 0.8)
         font_size = 30
@@ -155,7 +156,7 @@
 
       # Time
       label {
-          monitor = eHDMI-A-1 
+          monitor = eHDMI-A-1
           text = cmd[update:1000] echo "<span>$(date '+%H:%M')</span>"
           color = rgba(255, 255, 255, 0.8)
           font_size = 240
@@ -167,7 +168,7 @@
 
       # Keyboard layout
       label {
-        monitor = eHDMI-A-1 
+        monitor = eHDMI-A-1
         text = $LAYOUT
         color = rgba(255, 255, 255, 0.9)
         font_size = 20
