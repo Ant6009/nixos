@@ -109,6 +109,9 @@
     jack.enable = true;
   };
 
+  # automount/unmount drives
+  services.udisks2.enable = true;
+
   # User configuration
   users.users.${userConfig.name} = {
     description = userConfig.fullName;

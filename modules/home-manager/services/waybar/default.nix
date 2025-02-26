@@ -15,7 +15,6 @@
         margin-right = 4;
 
         modules-left = [
-          "custom/power"
           "hyprland/workspaces"
           "cpu"
           "temperature"
@@ -25,15 +24,15 @@
 
         modules-center = [
           "clock"
-          "custom/notification"
+          #"custom/power"
         ];
 
         modules-right = [
           "custom/recorder"
           #  "hyprland/language"
           "tray"
-          "bluetooth"
           "pulseaudio"
+          "bluetooth"
           "pulseaudio#microphone"
           "battery"
         ];
