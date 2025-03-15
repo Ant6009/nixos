@@ -45,6 +45,14 @@
         avatar = ./files/avatar/face;
         gitKey = "0x81530002610B5435";
       };
+      "a.rivoire" = {
+        name = "a.rivoire";
+        email = "ant.rivoire@gmail.com";
+        fullName = "Antoine Rivoire";
+        avatar = ./files/avatar/face;
+        gitKey = "0x81530002610B5435";
+      };
+
     };
 
     mkNixosConfiguration = hostname: username:
@@ -99,12 +107,12 @@
     };
 
     darwinConfigurations = {
-      "antoine-mac" = mkDarwinConfiguration "antoine-mac" "antoine";
+      "antoine-mac" = mkDarwinConfiguration "antoine-mac"  "a.rivoire";
     };
 
     homeConfigurations = {
       "antoine@rocinante" = mkHomeConfiguration "x86_64-linux" "antoine" "rocinante";
-      "antoine@antoine-mac" = mkHomeConfiguration "aarch64-darwin" "antoine" "antoine-mac";
+      "a.rivoire@antoine-mac" = mkHomeConfiguration "aarch64-darwin" "a.rivoire" "antoine-mac";
     };
 
     overlays = import ./overlays {inherit inputs;};
