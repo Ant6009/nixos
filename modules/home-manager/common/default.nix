@@ -41,7 +41,7 @@
   };
 
   # Ensure common packages are installed
-  home.packages = with pkgs;
+  home.packages = builtins.trace "Loading home.packages ..." (with pkgs;
     [
       dig
       du-dust
@@ -59,7 +59,6 @@
       slack
       discord
       devenv
-      brave
     ]
     ++ lib.optionals stdenv.isDarwin [
       colima
@@ -79,7 +78,9 @@
       showmethekey
       tidal-hifi
       neofetch
-    ];
+      brave
+    ]
+    );
 
   # Catpuccin flavor and accent
   catppuccin = {

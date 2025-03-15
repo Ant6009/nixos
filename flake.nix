@@ -78,7 +78,7 @@
         };
         modules = [
           ./hosts/${hostname}
-          home-manager.darwinModules.home-manager
+         # home-manager.darwinModules.home-manager
           nix-homebrew.darwinModules.nix-homebrew
         ];
       };
