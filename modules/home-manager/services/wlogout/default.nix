@@ -19,7 +19,7 @@
       #      }
       #      {
       #        label = "hybernate";
-      #        action = "systemctl hybernate";
+      #        action = "systemctl Hybernate";
       #        text = "Hybernate";
       #        keybind = "h";
       #      }
@@ -31,7 +31,7 @@
       #      }
       #      {
       #        label = "suspend";
-      #        action = "systemctl syspend";
+      #        action = "systemctl suspend";
       #        text = "Suspend";
       #        keybind = "u";
       #      }

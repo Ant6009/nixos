@@ -43,7 +43,7 @@
         email = "ant.rivoire@gmail.com";
         fullName = "Antoine Rivoire";
         avatar = ./files/avatar/face;
-        gitKey = "0x81530002610B5435";
+        gitKey = "E4B6639BFD0391F3";
       };
     };
 

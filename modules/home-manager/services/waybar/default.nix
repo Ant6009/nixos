@@ -15,6 +15,7 @@
         margin-right = 4;
 
         modules-left = [
+          "custom/wlogout"
           "hyprland/workspaces"
           "cpu"
           "temperature"
@@ -31,8 +32,8 @@
           "custom/recorder"
           #  "hyprland/language"
           "tray"
-          "pulseaudio"
           "bluetooth"
+          "pulseaudio"
           "pulseaudio#microphone"
           "battery"
         ];
