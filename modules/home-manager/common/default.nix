@@ -40,46 +40,48 @@
   };
 
   # Ensure common packages are installed
-  home.packages = builtins.trace "Loading home.packages ..." (with pkgs;
-    [
-      dig
-      du-dust
-      eza
-      fd
-      jq
-      nh
-      zsh-vi-mode
-      openconnect
-      pipenv
-      python3
-      ripgrep
-      firefox
-      roam-research
-      slack
-      discord
-      devenv
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      colima
-    ]
-    ++ lib.optionals (!stdenv.isDarwin) [
-      pavucontrol
-      pulseaudio
-      tesseract
-      unzip
-      wl-clipboard
-      dunst
-      wofi
-      tofi
-      grim
-      slurp
-      grimblast
-      showmethekey
-      tidal-hifi
-      neofetch
-      brave
-    ]
-    );
+  home.packages = builtins.trace "Loading home.packages ..." (
+    with pkgs;
+      [
+        dig
+        du-dust
+        eza
+        fd
+        jq
+        nh
+        zsh-vi-mode
+        openconnect
+        pipenv
+        python3
+        ripgrep
+        firefox
+        roam-research
+        slack
+        discord
+        devenv
+        logseq
+      ]
+      ++ lib.optionals stdenv.isDarwin [
+        colima
+      ]
+      ++ lib.optionals (!stdenv.isDarwin) [
+        pavucontrol
+        pulseaudio
+        tesseract
+        unzip
+        wl-clipboard
+        dunst
+        wofi
+        tofi
+        grim
+        slurp
+        grimblast
+        showmethekey
+        tidal-hifi
+        neofetch
+        brave
+      ]
+  );
 
   # Catpuccin flavor and accent
   catppuccin = {
