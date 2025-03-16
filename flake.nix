@@ -43,16 +43,15 @@
         email = "ant.rivoire@gmail.com";
         fullName = "Antoine Rivoire";
         avatar = ./files/avatar/face;
-        gitKey = "0x81530002610B5435";
+        gitKey = "E4B6639BFD0391F3";
       };
       "a.rivoire" = {
         name = "a.rivoire";
         email = "ant.rivoire@gmail.com";
         fullName = "Antoine Rivoire";
         avatar = ./files/avatar/face;
-        gitKey = "0x81530002610B5435";
+        gitKey = "E4B6639BFD0391F3";
       };
-
     };
 
     mkNixosConfiguration = hostname: username:
@@ -78,7 +77,7 @@
         };
         modules = [
           ./hosts/${hostname}
-         # home-manager.darwinModules.home-manager
+          # home-manager.darwinModules.home-manager
           nix-homebrew.darwinModules.nix-homebrew
         ];
       };
@@ -107,7 +106,7 @@
     };
 
     darwinConfigurations = {
-      "antoine-mac" = mkDarwinConfiguration "antoine-mac"  "a.rivoire";
+      "antoine-mac" = mkDarwinConfiguration "antoine-mac" "a.rivoire";
     };
 
     homeConfigurations = {
