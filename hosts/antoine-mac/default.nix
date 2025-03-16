@@ -26,31 +26,33 @@
   # Nix settings
   nix.settings = {
     experimental-features = "nix-command flakes";
-   # auto-optimise-store = true;
+    # auto-optimise-store = true;
     # nix.optimise.automatic = true;
   };
 
   nix.package = pkgs.nix;
 
   # Enable Nix daemon
-   #services.nix-daemon.enable = true;
-   nix.enable = false;
+  #services.nix-daemon.enable = true;
+  nix.enable = false;
 
-home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    users.${userConfig.name} = import ../../home/${userConfig.name}/antoine-mac;
-  };
+  services.aerospace.enable = true;
 
-  # User configuration
-  users.users.${userConfig.name} = {
-    name = "${userConfig.name}";
-    home = "/Users/${userConfig.name}";
-  };
+  #home-manager = {
+  #    useGlobalPkgs = true;
+  #    useUserPackages = true;
+  #    users.${userConfig.name} = import ../../home/${userConfig.name}/antoine-mac;
+  #  };
+
+  #  # User configuration
+  #  users.users.${userConfig.name} = {
+  #    name = "${userConfig.name}";
+  #    home = "/Users/${userConfig.name}";
+  #  };
 
   # Add ability to use TouchID for sudo
-#  security.pam.enableSudoTouchIdAuth = true;
-security.pam.services.sudo_local.touchIdAuth = true;
+  #  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
   # System settings
   system = {
     defaults = {
@@ -116,6 +118,7 @@ security.pam.services.sudo_local.touchIdAuth = true;
       enableKeyMapping = true;
       # swapLeftCtrlAndFn = true;
       # Remap §± to ~
+      remapCapsLockToControl = true;
       userKeyMapping = [
         {
           HIDKeyboardModifierMappingDst = 30064771125;

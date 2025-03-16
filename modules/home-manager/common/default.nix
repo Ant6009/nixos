@@ -16,7 +16,6 @@
     ../programs/starship
     ../programs/tmux
     ../programs/zsh
-    ../programs/dunst
     ../scripts
   ];
 
