@@ -59,7 +59,6 @@
         slack
         discord
         devenv
-        logseq
       ]
       ++ lib.optionals stdenv.isDarwin [
         colima
