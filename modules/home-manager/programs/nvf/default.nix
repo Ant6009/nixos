@@ -45,7 +45,7 @@
         lua.enable = true;
         python.enable = true;
         typst.enable = true;
-        csharp.enable = true;
+        #csharp.enable = true;
       };
 
       autopairs.nvim-autopairs.enable = true;
