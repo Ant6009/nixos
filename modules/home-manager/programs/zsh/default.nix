@@ -3,6 +3,8 @@
   programs.zsh = {
     enable = true;
     enableCompletion = true;
+    #enableAutosuggestion = true;
+    #syntaxHighLighting.enable = true;
     shellAliases = {
       ff = "fastfetch";
 
@@ -30,9 +32,10 @@
       la = "eza -abhl --icons --group-directories-first"; # all list
       lt = "eza --tree --level=2 --icons"; # tree
     };
+
     initExtra = ''
       # kubectl auto-complete
-      source <(kubectl completion zsh)
+      # source <(kubectl completion zsh)
 
       # bindings
       bindkey -e

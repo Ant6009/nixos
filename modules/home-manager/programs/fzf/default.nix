@@ -2,7 +2,7 @@
   # Install fzf via home-manager module
   programs.fzf = {
     enable = true;
-
+    enableZshIntegration = true;
     defaultCommand = "find .";
     defaultOptions = [
       "--bind '?:toggle-preview'"

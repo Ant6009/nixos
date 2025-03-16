@@ -16,6 +16,7 @@
     ../programs/starship
     ../programs/tmux
     ../programs/zsh
+    ../programs/dunst
     ../scripts
   ];
 
@@ -48,11 +49,17 @@
       fd
       jq
       nh
+      zsh-vi-mode
       openconnect
       pipenv
       python3
       ripgrep
       firefox
+      roam-research
+      slack
+      discord
+      devenv
+      brave
     ]
     ++ lib.optionals stdenv.isDarwin [
       colima
@@ -72,6 +79,7 @@
       showmethekey
       tidal-hifi
       neofetch
+      wlogout
     ];
 
   # Catpuccin flavor and accent

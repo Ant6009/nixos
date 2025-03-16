@@ -43,7 +43,7 @@
         email = "ant.rivoire@gmail.com";
         fullName = "Antoine Rivoire";
         avatar = ./files/avatar/face;
-        gitKey = "E7B6639BFD0391F3";
+        gitKey = "E4B6639BFD0391F3";
       };
     };
 
@@ -92,7 +92,7 @@
       };
   in {
     nixosConfigurations = {
-      my-nixos = mkNixosConfiguration "my-nixos" "antoine";
+      rocinante = mkNixosConfiguration "rocinante" "antoine";
       /*
       antoine-mac = mkNixosConfiguration "antoine-mac" "antoine";
       */
@@ -103,7 +103,7 @@
     };
 
     homeConfigurations = {
-      "antoine@my-nixos" = mkHomeConfiguration "x86_64-linux" "antoine" "my-nixos";
+      "antoine@rocinante" = mkHomeConfiguration "x86_64-linux" "antoine" "rocinante";
       "antoine@antoine-mac" = mkHomeConfiguration "aarch64-darwin" "antoine" "antoine-mac";
     };
 

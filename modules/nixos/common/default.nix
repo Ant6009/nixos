@@ -38,14 +38,14 @@
 
   # Boot settings
   boot = {
-    kernelPackages = pkgs.linuxKernel.packages.linux_6_12;
-    consoleLogLevel = 0;
-    initrd.verbose = false;
+    #    kernelPackages = pkgs.linuxKernel.packages.linux_6_12;
+    #    consoleLogLevel = 0;
+    #    initrd.verbose = false;
     kernelParams = ["quiet" "splash"];
     loader.efi.canTouchEfiVariables = true;
     loader.systemd-boot.enable = true;
-    loader.timeout = 0;
-    plymouth.enable = true;
+    #   loader.timeout = 0;
+    #    plymouth.enable = true;
 
     # v4l (virtual camera) module settings
     kernelModules = ["v4l2loopback"];
@@ -109,10 +109,13 @@
     jack.enable = true;
   };
 
+  # automount/unmount drives
+  services.udisks2.enable = true;
+
   # User configuration
   users.users.${userConfig.name} = {
     description = userConfig.fullName;
-    extraGroups = ["networkmanager" "wheel" "camera"];
+    extraGroups = ["networkmanager" "wheel" "camera" "dialout"];
     isNormalUser = true;
     shell = pkgs.zsh;
   };
@@ -145,13 +148,17 @@
     unzip
     wget
     curl
+    kitty
     firefox
+    vim
     home-manager
-    bitwarden-cli
+    quickemu
+    shotcut
+    ardour
   ];
 
   # Docker configuration
- # virtualisation.docker.enable = true;
+  # virtualisation.docker.enable = true;
   #virtualisation.docker.rootless.enable = true;
   #virtualisation.docker.rootless.setSocketVariable = true;
 
@@ -170,4 +177,10 @@
 
   # OpenSSH daemon
   services.openssh.enable = true;
+
+  # Let devenv manage caches in the nix store
+
+  nix.extraOptions = ''
+    trusted-users = root antoine
+  '';
 }
