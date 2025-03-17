@@ -44,11 +44,11 @@
   #    users.${userConfig.name} = import ../../home/${userConfig.name}/antoine-mac;
   #  };
 
-  #  # User configuration
-  #  users.users.${userConfig.name} = {
-  #    name = "${userConfig.name}";
-  #    home = "/Users/${userConfig.name}";
-  #  };
+  # User configuration
+  users.users.${userConfig.name} = {
+    name = "${userConfig.name}";
+    home = "/Users/${userConfig.name}";
+  };
 
   # Add ability to use TouchID for sudo
   #  security.pam.enableSudoTouchIdAuth = true;
