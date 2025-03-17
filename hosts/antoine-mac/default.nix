@@ -36,7 +36,7 @@
   #services.nix-daemon.enable = true;
   nix.enable = false;
 
-  services.aerospace.enable = true;
+  #  services.aerospace.enable = true;
 
   #  home-manager = {
   #    useGlobalPkgs = true;

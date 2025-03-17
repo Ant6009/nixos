@@ -5,6 +5,7 @@
   ...
 }: {
   imports = [
+    ../programs/aerospace
     ../programs/alacritty
     ../programs/bat
     ../programs/btop
@@ -62,7 +63,6 @@
       ]
       ++ lib.optionals stdenv.isDarwin [
         colima
-        aerospace
       ]
       ++ lib.optionals (!stdenv.isDarwin) [
         pavucontrol
