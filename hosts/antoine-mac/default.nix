@@ -38,7 +38,7 @@
 
   services.aerospace.enable = true;
 
-  #home-manager = {
+  #  home-manager = {
   #    useGlobalPkgs = true;
   #    useUserPackages = true;
   #    users.${userConfig.name} = import ../../home/${userConfig.name}/antoine-mac;
@@ -141,8 +141,8 @@
   homebrew = {
     enable = true;
     casks = [
-      "aerospace"
       "anki"
+      "logseq"
       "brave-browser"
       "obs"
       "raycast"

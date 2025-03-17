@@ -62,6 +62,7 @@
       ]
       ++ lib.optionals stdenv.isDarwin [
         colima
+        aerospace
       ]
       ++ lib.optionals (!stdenv.isDarwin) [
         pavucontrol
