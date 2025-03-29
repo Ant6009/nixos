@@ -155,6 +155,9 @@
     quickemu
     shotcut
     ardour
+    nmap
+    tftp-hpa
+    tcpdump
   ];
 
   # Docker configuration
