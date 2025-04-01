@@ -7,7 +7,7 @@
   # Add nix-homebrew configuration
   nix-homebrew = {
     enable = true;
-    enableRosetta = true;
+    enableRosetta = false;
     user = "${userConfig.name}";
     autoMigrate = true;
   };
@@ -146,6 +146,9 @@
       "brave-browser"
       "obs"
       "raycast"
+      "tidal"
+      "bitwarden"
+      "Zotero"
     ];
     taps = [
       "nikitabobko/tap"
