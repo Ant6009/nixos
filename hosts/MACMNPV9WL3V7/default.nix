@@ -38,11 +38,11 @@
 
   #  services.aerospace.enable = true;
 
-  #  home-manager = {
-  #    useGlobalPkgs = true;
-  #    useUserPackages = true;
-  #    users.${userConfig.name} = import ../../home/${userConfig.name}/antoine-mac;
-  #  };
+#   home-manager = {
+#      useGlobalPkgs = true;
+#      useUserPackages = true;
+#      users.${userConfig.name} = import ../../home/${userConfig.name}/MACMNPV9WL3V7;
+#    };
 
   # User configuration
   users.users.${userConfig.name} = {

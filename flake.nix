@@ -77,7 +77,7 @@
         };
         modules = [
           ./hosts/${hostname}
-          # home-manager.darwinModules.home-manager
+          home-manager.darwinModules.home-manager
           nix-homebrew.darwinModules.nix-homebrew
         ];
       };
@@ -111,7 +111,7 @@
 
     homeConfigurations = {
       "antoine@rocinante" = mkHomeConfiguration "x86_64-linux" "antoine" "rocinante";
-      "a.rivoire@antoine-mac" = mkHomeConfiguration "aarch64-darwin" "a.rivoire" "MACMNPV9WL3V7";
+      "a.rivoire@MACMNPV9WL3V7" = mkHomeConfiguration "aarch64-darwin" "a.rivoire" "MACMNPV9WL3V7";
     };
 
     overlays = import ./overlays {inherit inputs;};

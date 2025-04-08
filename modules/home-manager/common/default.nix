@@ -56,7 +56,6 @@
         python3
         ripgrep
         firefox
-        roam-research
         slack
         discord
         devenv
