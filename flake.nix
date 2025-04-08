@@ -106,12 +106,12 @@
     };
 
     darwinConfigurations = {
-      "antoine-mac" = mkDarwinConfiguration "MACMNPV9WL3V7" "a.rivoire";
+      "MACMNPV9WL3V7" = mkDarwinConfiguration "MACMNPV9WL3V7" "a.rivoire";
     };
 
     homeConfigurations = {
       "antoine@rocinante" = mkHomeConfiguration "x86_64-linux" "antoine" "rocinante";
-      "a.rivoire@antoine-mac" = mkHomeConfiguration "aarch64-darwin" "a.rivoire" "antoine-mac";
+      "a.rivoire@antoine-mac" = mkHomeConfiguration "aarch64-darwin" "a.rivoire" "MACMNPV9WL3V7";
     };
 
     overlays = import ./overlays {inherit inputs;};
