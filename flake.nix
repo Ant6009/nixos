@@ -106,7 +106,7 @@
     };
 
     darwinConfigurations = {
-      "antoine-mac" = mkDarwinConfiguration "antoine-mac" "a.rivoire";
+      "antoine-mac" = mkDarwinConfiguration "MACMNPV9WL3V7" "a.rivoire";
     };
 
     homeConfigurations = {
