@@ -101,7 +101,7 @@
     nixosConfigurations = {
       rocinante = mkNixosConfiguration "rocinante" "antoine";
       /*
-      antoine-mac = mkNixosConfiguration "antoine-mac" "antoine";
+      antoine-mac = mkNixosConfiguration "MACMNPV9WL3V7" "antoine";
       */
     };
 
