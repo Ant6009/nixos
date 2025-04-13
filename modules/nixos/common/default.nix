@@ -156,8 +156,8 @@
     shotcut
     ardour
     nmap
-    tftp-hpa
     tcpdump
+    cifs-utils
   ];
 
   # Docker configuration
