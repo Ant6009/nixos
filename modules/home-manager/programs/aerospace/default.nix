@@ -47,15 +47,15 @@
       # Main mode bindings
       [mode.main.binding]
       # Launch applications
-      alt-shift-enter = 'exec-and-forget open -na alacritty'
-      alt-shift-b = 'exec-and-forget open -a "Brave Browser"'
-      alt-shift-f = 'exec-and-forget open -a Finder'
+      cmd-shift-a = 'exec-and-forget open -na alacritty'
+      cmd-shift-b = 'exec-and-forget open -a "Brave Browser"'
+      cmd-shift-f = 'exec-and-forget open -a Finder'
 
       # Window management
-      alt-q = "close"
-      alt-slash = 'layout tiles horizontal vertical'
-      alt-comma = 'layout accordion horizontal vertical'
-      alt-m = 'fullscreen'
+      cmd-q = "close"
+      cmd-slash = 'layout tiles horizontal vertical'
+      cmd-comma = 'layout accordion horizontal vertical'
+      cmd-m = 'fullscreen'
 
       # Focus movement
       alt-h = 'focus left'

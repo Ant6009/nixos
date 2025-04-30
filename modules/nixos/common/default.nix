@@ -34,6 +34,7 @@
   nix.settings = {
     experimental-features = "nix-command flakes";
     auto-optimise-store = true;
+    trusted-users = ["root" "antoine" "a.rivoire"];
   };
 
   # Boot settings
@@ -157,7 +158,6 @@
     ardour
     nmap
     tcpdump
-    cifs-utils
   ];
 
   # Docker configuration
@@ -184,6 +184,6 @@
   # Let devenv manage caches in the nix store
 
   nix.extraOptions = ''
-    trusted-users = root antoine
+    trusted-users = root antoine a.rivoire
   '';
 }

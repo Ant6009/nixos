@@ -28,9 +28,9 @@
     experimental-features = "nix-command flakes";
     # auto-optimise-store = true;
     # nix.optimise.automatic = true;
+    package = pkgs.nix;
+    trusted-users = "root a.rivoire";
   };
-
-  nix.package = pkgs.nix;
 
   # Enable Nix daemon
   #services.nix-daemon.enable = true;
@@ -95,6 +95,7 @@
       };
       dock = {
         autohide = true;
+        orientation = "left";
         expose-animation-duration = 0.15;
         show-recents = false;
         showhidden = true;

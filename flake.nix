@@ -47,10 +47,10 @@
       };
       "a.rivoire" = {
         name = "a.rivoire";
-        email = "ant.rivoire@gmail.com";
+        email = "a.rivoire@ulster.ac.uk";
         fullName = "Antoine Rivoire";
         avatar = ./files/avatar/face;
-        gitKey = "E4B6639BFD0391F3";
+        gitKey = "41647D6B470660D4";
       };
     };
 
@@ -114,6 +114,7 @@
       "a.rivoire@MACMNPV9WL3V7" = mkHomeConfiguration "aarch64-darwin" "a.rivoire" "MACMNPV9WL3V7";
     };
 
+
     overlays = import ./overlays {inherit inputs;};
-  };
+};
 }
