@@ -156,6 +156,7 @@
     quickemu
     shotcut
     ardour
+    cardinal
     nmap
     tcpdump
   ];
