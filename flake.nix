@@ -94,7 +94,7 @@
         modules = [
           ./home/${username}/${hostname}
           nvf.homeManagerModules.default
-          catppuccin.homeManagerModules.catppuccin
+          catppuccin.homeModules.catppuccin
         ];
       };
   in {
@@ -112,6 +112,8 @@
     homeConfigurations = {
       "antoine@rocinante" = mkHomeConfiguration "x86_64-linux" "antoine" "rocinante";
       "a.rivoire@MACMNPV9WL3V7" = mkHomeConfiguration "aarch64-darwin" "a.rivoire" "MACMNPV9WL3V7";
+      "antoine" = mkHomeConfiguration "x86_64-linux" "antoine" "rocinante";
+      "a.rivoire" = mkHomeConfiguration "aarch64-darwin" "a.rivoire" "MACMNPV9WL3V7";
     };
 
 

@@ -165,7 +165,8 @@
   # virtualisation.docker.enable = true;
   #virtualisation.docker.rootless.enable = true;
   #virtualisation.docker.rootless.setSocketVariable = true;
-
+  virtualisation.spiceUSBRedirection.enable = true;
+  virtualisation.libvirtd.enable = true;
   # Zsh configuration
   programs.zsh.enable = true;
 
