@@ -116,7 +116,7 @@
   # User configuration
   users.users.${userConfig.name} = {
     description = userConfig.fullName;
-    extraGroups = ["networkmanager" "wheel" "camera" "dialout"];
+    extraGroups = ["networkmanager" "wheel" "camera" "dialout" "libvirtd"];
     isNormalUser = true;
     shell = pkgs.zsh;
   };
@@ -159,14 +159,33 @@
     cardinal
     nmap
     tcpdump
+    zioxide
   ];
 
   # Docker configuration
   # virtualisation.docker.enable = true;
   #virtualisation.docker.rootless.enable = true;
   #virtualisation.docker.rootless.setSocketVariable = true;
+  # virtualisation.libvirtd = {
+  #   enable = true;
+  #   qemu = {
+  #     package = pkgs.qemu_kvm;
+  #     runAsRoot = true;
+  #     swtpm.enable = true;
+  #     ovmf = {
+  #       enable = true;
+  #       packages = [
+  #         (pkgs.OVMF.override {
+  #           secureBoot = true;
+  #           tpmSupport = true;
+  #         }).fd
+  #       ];
+  #     };
+  #   };
+  # };
   virtualisation.spiceUSBRedirection.enable = true;
   virtualisation.libvirtd.enable = true;
+
   # Zsh configuration
   programs.zsh.enable = true;
 

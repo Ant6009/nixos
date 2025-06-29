@@ -6,6 +6,8 @@
     "${nhModules}/services/easyeffects"
     "${nhModules}/services/ulauncher"
     "${nhModules}/programs/nvf"
+    "${nhModules}/services/hyprpaper"
+    "${nhModules}/services/hyprlock"
   ];
 
   # Enable home-manager

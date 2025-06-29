@@ -116,7 +116,6 @@
       "a.rivoire" = mkHomeConfiguration "aarch64-darwin" "a.rivoire" "MACMNPV9WL3V7";
     };
 
-
     overlays = import ./overlays {inherit inputs;};
-};
+  };
 }

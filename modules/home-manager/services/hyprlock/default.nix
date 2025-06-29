@@ -1,12 +1,10 @@
-{config, ...}: let
-  inherit (config.lib.stylix.colors) base00 base01 base05 base07;
-in {
+{config, ...}: {
   programs.hyprlock = {
     enable = true;
 
     settings = {
       background = {
-        path = "screenshot";
+        path = "screenshot"; # "screenshot" means Hyprlock will take a screenshot of your desktop and blur it
 
         blur_passes = 2;
         blur_size = 7;
@@ -14,7 +12,8 @@ in {
         brightness = 0.8;
         contrast = 0.8;
 
-        color = "${base00}99";
+        # Replaced ${base00}99 with a dark gray with 99 (60%) transparency
+        color = "rgb(282828)99"; # Example: Dark gray with 60% alpha (99 in hex)
       };
 
       input-field = {
@@ -27,9 +26,12 @@ in {
         dots_size = 0.33;
         dots_spacing = 0.15;
         dots_center = false;
-        outer_color = "${base01}";
-        inner_color = "${base07}";
-        font_color = "${base00}";
+        # Replaced ${base01} with a slightly lighter dark gray
+        outer_color = "rgb(3c3836)"; # Example: Slightly lighter dark gray
+        # Replaced ${base07} with a light gray/white
+        inner_color = "rgb(ebdbb2)"; # Example: Light gray/off-white
+        # Replaced ${base00} with a dark gray
+        font_color = "rgb(282828)"; # Example: Dark gray
         fade_on_empty = true;
         placeholder_text = "<i>Input Password...</i>";
         hide_input = false;
@@ -43,7 +45,8 @@ in {
 
       label = {
         text = "$TIME";
-        color = "${base05}";
+        # Replaced ${base05} with a medium gray
+        color = "rgb(a89984)"; # Example: Medium gray
         font_size = 50;
         font_family = "Noto Sans";
         position = {

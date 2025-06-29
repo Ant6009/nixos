@@ -2,6 +2,9 @@
   # Call dbus-update-activation-environment on login
   services.xserver.updateDbusEnvironment = true;
 
+  # Enable GDM display manager
+  services.xserver.displayManager.gdm.enable = true;
+
   # Enables support for Bluetooth
   hardware.bluetooth = {
     enable = true;
@@ -42,12 +45,10 @@
     seahorse # keyring manager
     totem # Video player
 
+    hyprpicker
+
     brightnessctl
     grim
-    hypridle
-    hyprlock
-    hyprpaper
-    hyprpicker
     libnotify
     networkmanagerapplet
     pamixer

@@ -16,6 +16,7 @@
     #  "${nhModules}/services/swaync"
     "${nhModules}/services/waybar"
     "${nhModules}/services/wlogout"
+    "${nhModules}/services/hyprpaper"
   ];
 
   # Consistent cursor theme across all applications.
@@ -27,17 +28,19 @@
     size = 24;
   };
 
+  services.hyprpaper.enable = true;
+
   # Source hyprland config from the home-manager store
   xdg.configFile = {
     "hypr/hyprland.conf" = {
       source = ./hyprland.conf;
     };
 
-    "hypr/hyprpaper.conf".text = ''
-      splash = false
-      preload = ${config.wallpaper}
-      wallpaper = HDMI-A-1 , ${config.wallpaper}
-    '';
+    #    "hypr/hyprpaper.conf".text = ''
+    #      splash = false
+    #      preload = ${config.wallpaper}
+    #      wallpaper = HDMI-A-1 , ${config.wallpaper}
+    #    '';
 
     "hypr/hypridle.conf".text = ''
       general {
