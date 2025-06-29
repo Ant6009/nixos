@@ -8,6 +8,7 @@
     "${nhModules}/programs/nvf"
     "${nhModules}/services/hyprpaper"
     "${nhModules}/services/hyprlock"
+    "${nhModules}/misc/wallpaper"
   ];
 
   # Enable home-manager

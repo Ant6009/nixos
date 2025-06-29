@@ -159,7 +159,7 @@
     cardinal
     nmap
     tcpdump
-    zioxide
+    zoxide
   ];
 
   # Docker configuration

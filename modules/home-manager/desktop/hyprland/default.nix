@@ -36,11 +36,12 @@
       source = ./hyprland.conf;
     };
 
-    #    "hypr/hyprpaper.conf".text = ''
-    #      splash = false
-    #      preload = ${config.wallpaper}
-    #      wallpaper = HDMI-A-1 , ${config.wallpaper}
-    #    '';
+    "hypr/hyprpaper.conf".text = ''
+      splash = true
+      ipc = on
+      preload = ${config.wallpaper}
+      wallpaper = HDMI-A-1 , ${config.wallpaper}
+    '';
 
     "hypr/hypridle.conf".text = ''
       general {
