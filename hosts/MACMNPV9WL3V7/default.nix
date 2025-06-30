@@ -55,6 +55,7 @@
 
   # System settings
   system = {
+    primaryUser = "a.rivoire";
     defaults = {
       ".GlobalPreferences" = {
         "com.apple.mouse.scaling" = -1.0;
@@ -150,6 +151,8 @@
       "tidal"
       "bitwarden"
       "Zotero"
+      "android-platform-tools"
+      "lm-studio"
     ];
     taps = [
       "nikitabobko/tap"
