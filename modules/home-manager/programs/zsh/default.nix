@@ -16,7 +16,6 @@
       ggl = "git pull";
       ggp = "git push";
 
-
       ld = "lazydocker";
       lg = "lazygit";
 
@@ -31,6 +30,8 @@
       ll = "eza -bhl --icons --group-directories-first"; # long list
       la = "eza -abhl --icons --group-directories-first"; # all list
       lt = "eza --tree --level=2 --icons"; # tree
+
+      z = "zoxide";
     };
 
     initExtra = ''

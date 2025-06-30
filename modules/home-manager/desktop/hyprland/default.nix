@@ -36,18 +36,35 @@
       source = ./hyprland.conf;
     };
 
-    "hypr/hyprpaper.conf".text = ''
-      splash = true
-      ipc = on
-      preload = ${config.wallpaper}
-      wallpaper = HDMI-A-1 , ${config.wallpaper}
-    '';
+    #   "hypr/hyprpaper.conf".text = ''
+    #     splash = true
+    #     ipc = on
+    #     preload = ${config.wallpaper}
+    #     wallpaper = HDMI-A-1 , ${config.wallpaper}
+    #   '';
 
     "hypr/hypridle.conf".text = ''
       general {
         lock_cmd = pidof hyprlock || hyprlock
         before_sleep_cmd = loginctl lock-session
-        after_sleep_cmd = hyprctl dispatch dpms on
+             after_sleep_cmd = hyprctl dispatch dpms on
+           }
+           listener {
+           on-resumebrightnessctl -rd rgb:kbd_backlight
+       on-timeout=brightnessctl -sd rgb:kbd_backlight set 0
+        timeout=300
+      }
+
+      listener {
+        on-timeout=loginctl lock-session
+        timeout=360
+      }
+
+      listener {
+        on-resume=hyprctl dispatch dpms on
+        on-timeout=hyprctl dispatch dpms off
+        timeout=420
+      }
       }
     '';
 
