@@ -55,7 +55,7 @@
 
   # System settings
   system = {
-    primaryUser = "a.rivoire";
+    #  primaryUser = "a.rivoire";
     defaults = {
       ".GlobalPreferences" = {
         "com.apple.mouse.scaling" = -1.0;
