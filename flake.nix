@@ -110,8 +110,8 @@
     };
 
     homeConfigurations = {
-      "antoine@rocinante" = mkHomeConfiguration "x86_64-linux" "antoine" "rocinante";
-      "a.rivoire@MACMNPV9WL3V7" = mkHomeConfiguration "aarch64-darwin" "a.rivoire" "MACMNPV9WL3V7";
+     # "antoine@rocinante" = mkHomeConfiguration "x86_64-linux" "antoine" "rocinante";
+     # "a.rivoire@MACMNPV9WL3V7" = mkHomeConfiguration "aarch64-darwin" "a.rivoire" "MACMNPV9WL3V7";
       "antoine" = mkHomeConfiguration "x86_64-linux" "antoine" "rocinante";
       "a.rivoire" = mkHomeConfiguration "aarch64-darwin" "a.rivoire" "MACMNPV9WL3V7";
     };

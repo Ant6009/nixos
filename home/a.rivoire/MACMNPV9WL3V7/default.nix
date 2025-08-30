@@ -1,7 +1,7 @@
 {nhModules, ...}: {
   imports = [
     "${nhModules}/common"
-    "${nhModules}/programs/nvf"
+#    "${nhModules}/programs/nvf"
   ];
 
   # Enable home-manager

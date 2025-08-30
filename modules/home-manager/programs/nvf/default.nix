@@ -19,80 +19,81 @@
 
       spellcheck.enable = true;
 
-      lsp = {
-        enable = true;
-        formatOnSave = true;
-        lspkind.enable = false;
-        lightbulb.enable = true;
-        trouble.enable = true;
-        nvim-docs-view.enable = true;
-        otter-nvim.enable = true;
-      };
+      #autocomplete.nvim-cmp.enable = true;
+       #       enable = true;
+       #       formatOnSave = true;
+       #       lspkind.enable = false;
+       #       lightbulb.enable = true;
+       #       trouble.enable = true;
+       #       nvim-docs-view.enable = true;
+       #       otter-nvim.enable = true;
+       #     };
+       #
+      ##     languages = {
+      ##       enableFormat = true;
+      ##       enableTreesitter = true;
+      #       enableExtraDiagnostics = true;
+      #       nix.enable = true;
+      #       markdown.enable = true;
+      #       bash.enable = true;
+      #       css.enable = true;
+      #       html.enable = true;
+      #       sql.enable = true;
+      #       kotlin.enable = true;
+      #       ts.enable = true;
+      #       go.enable = true;
+      #       lua.enable = true;
+      #       python.enable = true;
+      #       #        typst.enable = true;
+      #       #csharp.enable = true;
+      #     };
 
-      languages = {
-        enableFormat = true;
-        enableTreesitter = true;
-        enableExtraDiagnostics = true;
-        nix.enable = true;
-        markdown.enable = true;
-        bash.enable = true;
-        css.enable = true;
-        html.enable = true;
-        sql.enable = true;
-        kotlin.enable = true;
-        ts.enable = true;
-        go.enable = true;
-        lua.enable = true;
-        python.enable = true;
-        typst.enable = true;
-        #csharp.enable = true;
-      };
+      #     autopairs.nvim-autopairs.enable = true;
+      #     autocomplete.nvim-cmp.enable = true;
 
-      autopairs.nvim-autopairs.enable = true;
-      autocomplete.nvim-cmp.enable = true;
+      #     binds = {
+      #       whichKey.enable = true;
+      #       cheatsheet.enable = true;
+      #     };
 
-      binds = {
-        whichKey.enable = true;
-        cheatsheet.enable = true;
-      };
+           telescope.enable = true;
 
-      telescope.enable = true;
+           git = {
+             enable = true;
+             gitsigns.enable = true;
+             gitsigns.codeActions.enable = false; # throws an annoying debug message
+           };
 
-      git = {
-        enable = true;
-        gitsigns.enable = true;
-        gitsigns.codeActions.enable = false; # throws an annoying debug message
-      };
+           minimap = {
+             minimap-vim.enable = false;
+             codewindow.enable = true; # lighter, faster, and uses lua for configuration
+           };
+           dashboard = {
+             dashboard-nvim.enable = false;
+             alpha.enable = true;
+           };
 
-      minimap = {
-        minimap-vim.enable = false;
-        codewindow.enable = true; # lighter, faster, and uses lua for configuration
-      };
-      dashboard = {
-        dashboard-nvim.enable = false;
-        alpha.enable = true;
-      };
+           notify = {
+             nvim-notify.enable = true;
+           };
 
-      notify = {
-        nvim-notify.enable = true;
-      };
+           projects = {
+            project-nvim.enable = true;
+           };
 
-      projects = {
-        project-nvim.enable = true;
-      };
+           visuals = {
+             nvim-cursorline.enable = true;
+             fidget-nvim.enable = true;
+             rainbow-delimiters.enable = false;
+             indent-blankline.enable = true;
+           };
 
-      visuals = {
-        nvim-cursorline.enable = true;
-        fidget-nvim.enable = true;
-        rainbow-delimiters.enable = false;
-        indent-blankline.enable = true;
-      };
-
-      terminal = {
-        toggleterm = {
-          enable = true;
-        };
-      };
+           terminal = {
+             toggleterm = {
+               enable = true;
+             };
+           };
     };
-  };
-}
+    };
+    }
+
