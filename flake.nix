@@ -22,7 +22,10 @@
 
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
-    nvf.url = "github:notashelf/nvf";
+    nvf = {
+      url = "github:notashelf/nvf";
+      inputs.nixpkgs.follows = "nixpkgs";
+      };
   };
 
   outputs = {

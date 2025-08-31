@@ -7,18 +7,31 @@
         enable = true;
         name = "catppuccin";
         style = "macchiato";
-        transparent = false;
+        transparent = true;
       };
 
-      statusline = {
-        lualine = {
-          enable = true;
-          theme = "catppuccin";
-        };
+
+        statusline.lualine.enable = true;
+        binds.whichKey.enable = true;   # Menu / keybinding helper
+        telescope.enable = true;  # Fuzzy finder menu
+        treesitter.enable = true;
+        lsp.formatOnSave = true;
+
+      # Languages with LSP + Treesitter
+      languages = {
+        ts.enable = true;
+        ts.lsp.enable = true;
+        ts.treesitter.enable = true;
+        enableFormat = true;
+
+        python.enable = true;
+        python.lsp.enable = true;
+
+        rust.enable = true;
+        rust.lsp.enable = true;
       };
 
-      spellcheck.enable = true;
-
+        autocomplete.blink-cmp.enable = true;
       #autocomplete.nvim-cmp.enable = true;
        #       enable = true;
        #       formatOnSave = true;
@@ -56,7 +69,6 @@
       #       cheatsheet.enable = true;
       #     };
 
-           telescope.enable = true;
 
            git = {
              enable = true;
