@@ -29,6 +29,8 @@
 
         rust.enable = true;
         rust.lsp.enable = true;
+
+        nix.enable = true;
       };
 
         autocomplete.blink-cmp.enable = true;

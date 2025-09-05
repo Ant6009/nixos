@@ -204,7 +204,4 @@
 
   # Let devenv manage caches in the nix store
 
-  nix.extraOptions = ''
-    trusted-users = root antoine a.rivoire
-  '';
 }

@@ -29,7 +29,7 @@
     # auto-optimise-store = true;
     # nix.optimise.automatic = true;
     package = pkgs.nix;
-    trusted-users = "root a.rivoire";
+    trusted-users = ["root" "a.rivoire"];
   };
 
   # Enable Nix daemon
@@ -55,7 +55,7 @@
 
   # System settings
   system = {
-    #  primaryUser = "a.rivoire";
+    primaryUser = "a.rivoire";
     defaults = {
       ".GlobalPreferences" = {
         "com.apple.mouse.scaling" = -1.0;
