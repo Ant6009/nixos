@@ -7,7 +7,7 @@
     enable = true;
     settings = {
       vim.theme.enable = true;
-      vim.theme.name = "gruvbox";
+      vim.theme.name = "catpuccin";
       vim.theme.style = "dark";
 
       vim.languages.nix.enable = true;

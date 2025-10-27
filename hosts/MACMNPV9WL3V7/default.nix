@@ -14,9 +14,9 @@
 
   # Nixpkgs configuration
   nixpkgs = {
-    overlays = [
-      outputs.overlays.stable-packages
-    ];
+#    overlays = [
+#      outputs.overlays.stable-packages
+#    ];
 
     config = {
       allowUnfree = true;
@@ -29,7 +29,7 @@
     # auto-optimise-store = true;
     # nix.optimise.automatic = true;
     package = pkgs.nix;
-    trusted-users = "root a.rivoire";
+    trusted-users = ["root" "a.rivoire"];
   };
 
   # Enable Nix daemon
@@ -51,10 +51,11 @@
   };
 
   # Add ability to use TouchID for sudo
-  # security.pam.services.sudo_local.touchIdAuth = true;
+   security.pam.services.sudo_local.touchIdAuth = true;
 
   # System settings
   system = {
+    primaryUser = "a.rivoire";
     defaults = {
       ".GlobalPreferences" = {
         "com.apple.mouse.scaling" = -1.0;
@@ -150,6 +151,8 @@
       "tidal"
       "bitwarden"
       "Zotero"
+      "android-platform-tools"
+      "lm-studio"
     ];
     taps = [
       "nikitabobko/tap"

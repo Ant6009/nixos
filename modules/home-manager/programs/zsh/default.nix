@@ -34,7 +34,7 @@
       z = "zoxide";
     };
 
-    initExtra = ''
+    initContent = ''
       # kubectl auto-complete
       # source <(kubectl completion zsh)
 
