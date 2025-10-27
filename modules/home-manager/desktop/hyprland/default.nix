@@ -57,7 +57,7 @@
       #         }
 
       listener {
-        timeout = 60
+        timeout = 360
         on-timeout = loginctl lock-session && brightnessctl -s set 10
         on-resume = notify-send "Resuming" && brightnessctl -r
       }

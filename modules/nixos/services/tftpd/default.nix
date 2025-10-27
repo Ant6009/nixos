@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   services.atftpd = {
-    enable = false;
+    enable = true;
     root = "/srv/tftp";
     extraOptions = [
       "--bind-address 192.168.0.66"

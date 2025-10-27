@@ -112,11 +112,12 @@
 
   # automount/unmount drives
   services.udisks2.enable = true;
+  services.gvfs.enable = true;
 
   # User configuration
   users.users.${userConfig.name} = {
     description = userConfig.fullName;
-    extraGroups = ["networkmanager" "wheel" "camera" "dialout" "libvirtd"];
+    extraGroups = ["networkmanager" "wheel" "camera" "dialout" "libvirtd" "storage"];
     isNormalUser = true;
     shell = pkgs.zsh;
   };
@@ -160,6 +161,11 @@
     nmap
     tcpdump
     zoxide
+    sox
+    bc
+    qjackctl
+    alsa-utils
+    ffmpeg
   ];
 
   # Docker configuration

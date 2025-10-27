@@ -93,6 +93,20 @@
           enable = true;
         };
       };
+      assistant = {
+        avante-nvim = {
+          enable = true;
+          setupOpts = {
+            provider = "litellm";
+            providers = {
+              litellm = {
+                endpoint = "http://192.168.68.220:4000";
+                model = "gpt-5";
+              };
+            };
+          };
+        };
+      };
     };
   };
 }
