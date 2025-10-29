@@ -12,7 +12,7 @@
     ./hardware-configuration.nix
     "${nixosModules}/common"
     "${nixosModules}/desktop/hyprland"
-    "${nixosModules}/services/tftpd"
+  #  "${nixosModules}/services/tftpd"
   ];
 
   # Set hostname
