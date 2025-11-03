@@ -166,6 +166,8 @@
     qjackctl
     alsa-utils
     ffmpeg
+    vcv-rack
+
   ];
 
   # Docker configuration
