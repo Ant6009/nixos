@@ -60,6 +60,7 @@
         slack
         discord
         devenv
+        powershell
       ]
       ++ lib.optionals stdenv.isDarwin [
         colima
