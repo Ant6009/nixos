@@ -11,6 +11,7 @@
   nixpkgs = {
     overlays = [
   #    outputs.overlays.stable-packages
+   #      (import ../../../overlays/vcv-rack.nix)
     ];
 
     config = {
@@ -117,7 +118,7 @@
   # User configuration
   users.users.${userConfig.name} = {
     description = userConfig.fullName;
-    extraGroups = ["plugdev" "networkmanager" "wheel" "camera" "dialout" "libvirtd" "storage"];
+    extraGroups = ["plugdev" "networkmanager" "wheel" "camera" "dialout" "libvirtd" "storage" "audio" "jackaudio"];
     isNormalUser = true;
     shell = pkgs.zsh;
   };
@@ -156,7 +157,6 @@
     home-manager
     quickemu
     shotcut
-    ardour
     cardinal
     nmap
     tcpdump
@@ -203,6 +203,7 @@
     nerd-fonts.meslo-lg
     roboto
   ];
+  fonts.fontDir.enable = true;
 
   # Additional services
   services.locate.enable = true;
