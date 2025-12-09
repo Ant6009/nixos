@@ -168,6 +168,7 @@
     alsa-utils
     ffmpeg
     vcv-rack
+    google-chrome
 
   ];
 
