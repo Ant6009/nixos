@@ -61,6 +61,7 @@
 
   # Networking
   networking.networkmanager.enable = true;
+  networking.firewall.enable = true;
 
   # Timezone
   time.timeZone = "Europe/Dublin";
