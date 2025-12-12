@@ -14,14 +14,35 @@
       binds.whichKey.enable = true; # Menu / keybinding helper
       telescope.enable = true; # Fuzzy finder menu
       treesitter.enable = true;
-      lsp.formatOnSave = true;
+
+      spellcheck = {
+        enable = true;
+        programmingWordlist.enable = true;
+      };
+
+      lsp = {
+        enable = true;
+        formatOnSave = true;
+        lspkind.enable = true;
+        lightbulb.enable = true;
+        lspsaga.enable = true;
+        trouble.enable = true;
+        otter-nvim.enable = true;
+        nvim-docs-view.enable = true;
+      };
 
       # Languages with LSP + Treesitter
       languages = {
-        ts.enable = true;
-        ts.lsp.enable = true;
-        ts.treesitter.enable = true;
         enableFormat = true;
+        enableTreesitter = true;
+
+        bash.enable = true;
+
+        css.enable = true;
+        html.enable = true;
+        typst.enable = true;
+
+        ts.enable = true;
 
         python.enable = true;
         python.lsp.enable = true;
@@ -32,7 +53,11 @@
         nix.enable = true;
       };
 
-      autocomplete.blink-cmp.enable = true;
+      autocomplete = {
+        blink-cmp.enable = true;
+      };
+
+      autopairs.nvim-autopairs.enable = true;
 
       git = {
         enable = true;
@@ -60,11 +85,23 @@
       terminal = {
         toggleterm = {
           enable = true;
+          lazygit.enable = true;
         };
       };
+
+      ui = {
+        borders.enable = true;
+        noice.enable = true;
+        colorizer.enable = true;
+        breadcrumbs = {
+          enable = true;
+          navbuddy.enable = true;
+        };
+      };
+
       assistant = {
         avante-nvim = {
-          enable = true;
+          enable = false;
           setupOpts = {
             provider = "litellm";
             providers = {
