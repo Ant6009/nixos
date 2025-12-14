@@ -17,7 +17,7 @@
 
       spellcheck = {
         enable = true;
-        programmingWordlist.enable = true;
+        programmingWordlist.enable = false;
       };
 
       lsp = {
@@ -99,15 +99,21 @@
         };
       };
 
+      clipboard = {
+        providers.wl-copy.enable = true;
+        registers = "unnamedplus";
+      };
+
       assistant = {
         avante-nvim = {
-          enable = false;
+          enable = true;
           setupOpts = {
             provider = "litellm";
             providers = {
               litellm = {
-                endpoint = "http://192.168.68.220:4000";
-                model = "gpt-5";
+                endpoint = "http://192.168.68.220:4000/v1/chat/completions";
+                model = "claude-sonnet-4-5-20250929";
+                api_key_name = "sk-wacbkcq5ef9zzf-kb-x6gw";
               };
             };
           };
