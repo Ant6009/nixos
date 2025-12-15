@@ -111,9 +111,10 @@
             provider = "litellm";
             providers = {
               litellm = {
-                endpoint = "http://192.168.68.220:4000/v1/chat/completions";
+                __inherited_from = "openai";
+                endpoint = "http://192.168.68.220:4000/v1";
                 model = "claude-sonnet-4-5-20250929";
-                api_key_name = "sk-wacbkcq5ef9zzf-kb-x6gw";
+                api_key_name = "LITELLM_API_KEY";
               };
             };
           };

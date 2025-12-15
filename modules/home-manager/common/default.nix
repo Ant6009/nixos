@@ -41,6 +41,9 @@
       else "/home/${userConfig.name}";
   };
 
+  home.sessionVariables = {
+    LITELLM_API_KEY = "sk-wAcBKCQ5Ef9zzF-KB-X6Gw";
+  };
   # Ensure common packages are installed
   home.packages = builtins.trace "Loading home.packages ..." (
     with pkgs;
