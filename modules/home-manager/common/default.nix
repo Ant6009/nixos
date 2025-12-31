@@ -18,6 +18,7 @@
     ../programs/tmux
     ../programs/zsh
     ../programs/nvf
+    ../programs/claude-code
     ../scripts
   ];
 

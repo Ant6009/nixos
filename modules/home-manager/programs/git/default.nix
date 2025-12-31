@@ -2,24 +2,27 @@
   # Install git via home-manager module
   programs.git = {
     enable = true;
-    userName = "ant6009";
-    userEmail = "ant.rivoire@gmail.com";
     signing = {
       key = userConfig.gitKey;
       signByDefault = true;
     };
-    delta = {
-      enable = true;
-      options = {
-        keep-plus-minus-markers = true;
-        light = false;
-        line-numbers = true;
-        navigate = true;
-        width = 280;
+    settings = {
+      user = {
+        Name = "ant6009";
+        Email = "ant.rivoire@gmail.com";
       };
-    };
-    extraConfig = {
       pull.rebase = "true";
+    };
+  };
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options = {
+      keep-plus-minus-markers = true;
+      light = false;
+      line-numbers = true;
+      navigate = true;
+      width = 280;
     };
   };
 
