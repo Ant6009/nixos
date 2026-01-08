@@ -65,6 +65,7 @@
         discord
         devenv
         powershell
+        typst
       ]
       ++ lib.optionals stdenv.isDarwin [
         colima
