@@ -16,11 +16,11 @@
         color = "rgb(282828)99"; # Example: Dark gray with 60% alpha (99 in hex)
       };
 
-      input-field = {
-        size = {
+       input-field = {
+         /*size = {
           width = 200;
           height = 50;
-        };
+        };*/
 
         outline_thickness = 3;
         dots_size = 0.33;

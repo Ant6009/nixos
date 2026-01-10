@@ -10,8 +10,8 @@
   # Nixpkgs configuration
   nixpkgs = {
     overlays = [
-  #    outputs.overlays.stable-packages
-   #      (import ../../../overlays/vcv-rack.nix)
+      #    outputs.overlays.stable-packages
+      #      (import ../../../overlays/vcv-rack.nix)
     ];
 
     config = {
@@ -169,7 +169,6 @@
     ffmpeg
     vcv-rack
     google-chrome
-
   ];
 
   # Docker configuration
@@ -197,7 +196,10 @@
   virtualisation.libvirtd.enable = true;
 
   # Zsh configuration
-  programs.zsh.enable = true;
+  programs.zsh = {
+    enable = true;
+    dotDir = "${config.xdg.configHome}/zsh";
+  };
 
   # Fonts configuration
   fonts.packages = with pkgs; [
@@ -215,12 +217,12 @@
 
   # Let devenv manage caches in the nix store
 
-users.groups.plugdev = {};
+  users.groups.plugdev = {};
 
-services.udev.extraRules = ''
-  # Teensy boards for M8
-  ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04[789]?", ENV{ID_MM_DEVICE_IGNORE}="1"
-  SUBSYSTEM=="hidraw", ATTRS{idVendor}=="16c0", MODE="0666"
-  SUBSYSTEMS=="usb", ATTRS{idVendor}=="16c0", MODE:="0666"
-'';
+  services.udev.extraRules = ''
+    # Teensy boards for M8
+    ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04[789]?", ENV{ID_MM_DEVICE_IGNORE}="1"
+    SUBSYSTEM=="hidraw", ATTRS{idVendor}=="16c0", MODE="0666"
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="16c0", MODE:="0666"
+  '';
 }

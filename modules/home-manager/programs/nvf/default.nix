@@ -27,7 +27,7 @@
         lightbulb.enable = true;
         lspsaga.enable = true;
         trouble.enable = true;
-        otter-nvim.enable = true;
+        otter-nvim.enable = false;
         nvim-docs-view.enable = true;
       };
 
@@ -35,6 +35,7 @@
       languages = {
         enableFormat = true;
         enableTreesitter = true;
+        enableExtraDiagnostics = true;
 
         bash.enable = true;
 
@@ -66,8 +67,8 @@
       };
 
       minimap = {
-        minimap-vim.enable = false;
-        codewindow.enable = true; # lighter, faster, and uses lua for configuration
+        minimap-vim.enable = true;
+        codewindow.enable = false; # lighter, faster, and uses lua for configuration
       };
       dashboard = {
         dashboard-nvim.enable = false;
@@ -95,7 +96,7 @@
         colorizer.enable = true;
         breadcrumbs = {
           enable = true;
-          navbuddy.enable = true;
+          navbuddy.enable = false;
         };
       };
 
@@ -106,7 +107,7 @@
 
       assistant = {
         avante-nvim = {
-          enable = true;
+          enable = false;
           setupOpts = {
             provider = "litellm";
             providers = {
