@@ -14,9 +14,9 @@
 
   # Nixpkgs configuration
   nixpkgs = {
-#    overlays = [
-#      outputs.overlays.stable-packages
-#    ];
+    #    overlays = [
+    #      outputs.overlays.stable-packages
+    #    ];
 
     config = {
       allowUnfree = true;
@@ -51,7 +51,7 @@
   };
 
   # Add ability to use TouchID for sudo
-   security.pam.services.sudo_local.touchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   # System settings
   system = {
@@ -153,6 +153,7 @@
       "Zotero"
       "android-platform-tools"
       "lm-studio"
+      "ollama"
     ];
     taps = [
       "nikitabobko/tap"

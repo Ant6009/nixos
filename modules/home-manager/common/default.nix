@@ -60,7 +60,6 @@
         pipenv
         python3
         ripgrep
-        firefox
         slack
         discord
         devenv

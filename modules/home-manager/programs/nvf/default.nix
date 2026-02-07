@@ -29,6 +29,7 @@
         trouble.enable = true;
         otter-nvim.enable = false;
         nvim-docs-view.enable = true;
+        harper-ls.enable = true;
       };
 
       # Languages with LSP + Treesitter
@@ -41,6 +42,11 @@
 
         css.enable = true;
         html.enable = true;
+        json.enable = true;
+        tailwind.enable = true;
+
+        sql.enable = true;
+
         typst.enable = true;
 
         ts.enable = true;
@@ -107,7 +113,7 @@
 
       assistant = {
         avante-nvim = {
-          enable = false;
+          enable = true;
           setupOpts = {
             provider = "litellm";
             providers = {
@@ -126,6 +132,14 @@
         fidget-nvim.enable = true;
         rainbow-delimiters.enable = false;
         indent-blankline.enable = true;
+      };
+      utility = {
+        motion = {
+          precognition.enable = false;
+        };
+        images = {
+          img-clip.enable = true;
+        };
       };
     };
   };
