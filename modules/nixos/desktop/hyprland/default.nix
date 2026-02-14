@@ -1,13 +1,16 @@
-{pkgs, ...}: {
-  # Enable Hyprland
-  programs.hyprland.enable = true;
+{config, pkgs, ...}: {
+  # Enable Hyprland with uwsm session management
+  programs.hyprland = {
+    enable = true;
+    withUWSM = true;
+  };
 
   # greetd display manager with tuigreet
   services.greetd = {
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd Hyprland";
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --sessions ${config.services.displayManager.sessionData.desktops}/share/wayland-sessions";
         user = "greeter";
       };
     };

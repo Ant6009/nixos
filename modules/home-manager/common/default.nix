@@ -71,9 +71,6 @@
       fastfetch
       brave
 
-      hyprpaper
-      hypridle
-      hyprlock
     ];
 
   # Catpuccin flavor and accent

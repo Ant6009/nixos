@@ -19,6 +19,7 @@
     "${nhModules}/services/waybar"
     "${nhModules}/services/wlogout"
     "${nhModules}/services/hyprpaper"
+    "${nhModules}/services/hypridle"
     "${nhModules}/services/hyprlock"
   ];
 
@@ -46,37 +47,6 @@
     #     wallpaper = HDMI-A-1 , ${config.wallpaper}
     #   '';
 
-    "hypr/hypridle.conf".text = ''
-      general {
-        lock_cmd = pidof hyprlock || hyprlock
-        before_sleep_cmd = loginctl lock-session
-             after_sleep_cmd = hyprctl dispatch dpms on
-           }
-      #              listener {
-      #              on-resumebrightnessctl -rd rgb:kbd_backlight
-      #          on-timeout=brightnessctl -sd rgb:kbd_backlight set 0
-      #           timeout=300
-      #         }
-
-      listener {
-        timeout = 360
-        on-timeout = loginctl lock-session && brightnessctl -s set 10
-        on-resume = notify-send "Resuming" && brightnessctl -r
-      }
-
-      listener {
-        on-timeout=hyprctl dispatch dpms off
-        on-resume=hyprctl dispatch dpms on
-
-        timeout=450
-      }
-
-      listener {
-        on-timeout= systemctl suspend
-        timeout=1000
-      }
-      }
-    '';
 
     #   "hypr/hyprlock.conf".text = ''
     #     background {
