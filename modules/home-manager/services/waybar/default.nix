@@ -2,8 +2,7 @@
   # Install and configure waybar via home-manager module
   programs.waybar = {
     enable = true;
-    systemd.enable = true;
-    systemd.target = "graphical-session.target";
+    systemd.enable = false;
     settings = {
       mainBar = {
         layer = "top";
