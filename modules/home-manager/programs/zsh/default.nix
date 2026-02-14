@@ -1,8 +1,9 @@
-{...}: {
+{config, ...}: {
   # Zsh shell configuration
   programs.zsh = {
     enable = true;
     enableCompletion = true;
+    dotDir = "${config.xdg.configHome}/zsh";
     #enableAutosuggestion = true;
     #syntaxHighLighting.enable = true;
     shellAliases = {

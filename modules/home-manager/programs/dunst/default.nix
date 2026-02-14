@@ -21,7 +21,7 @@ services.dunst = {
         progress_bar = true;
         transparency = 0;
         text_icon_padding = 0;
-        separator_color = "frame";
+        separator_color = "#494d64";
         sort = "yes";
         idle_threshold = 120;
         line_height = 0;
@@ -33,12 +33,12 @@ services.dunst = {
         sticky_history = "yes";
         history_length = 20;
         always_run_script = true;
-        corner_radius = 10;
+        corner_radius = 20;
         follow = "mouse";
-        font = "Source Sans Pro 10";
-        format = "<b>%s</b>\\n%b"; #format = "<span foreground='#f3f4f5'><b>%s %p</b></span>\n%b"
-        frame_color = "#232323";
-        frame_width = 1;
+        font = "Roboto 14";
+        format = "<b>%s</b>\\n%b";
+        frame_color = "#c6a0f6";
+        frame_width = 2;
         offset = "15x15";
         horizontal_padding = 10;
         icon_position = "left";
@@ -60,16 +60,19 @@ services.dunst = {
       fullscreen_delay_everything = {fullscreen = "delay";};
 
       urgency_critical = {
-        background = "#d64e4e";
-        foreground = "#f0e0e0";
+        background = "#24273a";
+        foreground = "#ed8796";
+        frame_color = "#ed8796";
       };
       urgency_low = {
-        background = "#232323";
-        foreground = "#2596be";
+        background = "#24273a";
+        foreground = "#a5adcb";
+        frame_color = "#494d64";
       };
       urgency_normal = {
-        background = "#1e1e2a";
-        foreground = "#2596be";
+        background = "#24273a";
+        foreground = "#cad3f5";
+        frame_color = "#c6a0f6";
       };
     };
   };

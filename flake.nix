@@ -68,6 +68,24 @@
         };
         modules = [
           ./hosts/${hostname}
+          home-manager.nixosModules.home-manager
+          {
+            nixpkgs.overlays = [inputs.claude-code.overlays.default];
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              extraSpecialArgs = {
+                inherit inputs outputs;
+                userConfig = users.${username};
+                nhModules = "${self}/modules/home-manager";
+              };
+              sharedModules = [
+                nvf.homeManagerModules.default
+                catppuccin.homeModules.catppuccin
+              ];
+              users.${username} = import ./home/${username}/${hostname};
+            };
+          }
         ];
       };
 
@@ -86,16 +104,20 @@
         ];
       };
 
-    # Function for Home Manager configuration
+    # Function for standalone Home Manager configuration (darwin)
     mkHomeConfiguration = system: username: hostname:
       home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {inherit system;};
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [inputs.claude-code.overlays.default];
+        };
         extraSpecialArgs = {
           inherit inputs outputs;
           userConfig = users.${username};
           nhModules = "${self}/modules/home-manager";
         };
         modules = [
+          {nixpkgs.config.allowUnfree = true;}
           ./home/${username}/${hostname}
           nvf.homeManagerModules.default
           catppuccin.homeModules.catppuccin
@@ -114,8 +136,7 @@
     };
 
     homeConfigurations = {
-      # "antoine@rocinante" = mkHomeConfiguration "x86_64-linux" "antoine" "rocinante";
-      # "a.rivoire@MACMNPV9WL3V7" = mkHomeConfiguration "aarch64-darwin" "a.rivoire" "MACMNPV9WL3V7";
+      # Standalone fallback — rocinante HM is now integrated via nixos-rebuild
       "antoine" = mkHomeConfiguration "x86_64-linux" "antoine" "rocinante";
       "a.rivoire" = mkHomeConfiguration "aarch64-darwin" "a.rivoire" "MACMNPV9WL3V7";
     };

@@ -1,7 +1,7 @@
 {
-  outputs,
   userConfig,
   pkgs,
+  lib,
   ...
 }: {
   imports = [
@@ -18,20 +18,9 @@
     ../programs/tmux
     ../programs/zsh
     ../programs/nvf
-    #../programs/claude-code
+    ../programs/claude-code
     ../scripts
   ];
-
-  # Nixpkgs configuration
-  nixpkgs = {
-    overlays = [
-      # outputs.overlays.stable-packages
-    ];
-
-    config = {
-      allowUnfree = true;
-    };
-  };
 
   # Home-Manager configuration for the user's home environment
   home = {
@@ -45,52 +34,47 @@
   home.sessionVariables = {
     LITELLM_API_KEY = "sk-wAcBKCQ5Ef9zzF-KB-X6Gw";
   };
-  # Ensure common packages are installed
-  home.packages = builtins.trace "Loading home.packages ..." (
-    with pkgs;
-      [
-        dig
-        dust
-        eza
-        fd
-        jq
-        nh
-        zsh-vi-mode
-        openconnect
-        pipenv
-        python3
-        ripgrep
-        slack
-        discord
-        devenv
-        powershell
-        typst
-      ]
-      ++ lib.optionals stdenv.isDarwin [
-        colima
-      ]
-      ++ lib.optionals (!stdenv.isDarwin) [
-        pavucontrol
-        pulseaudio
-        tesseract
-        unzip
-        wl-clipboard
-        dunst
-        wofi
-        tofi
-        grim
-        slurp
-        grimblast
-        showmethekey
-        tidal-hifi
-        neofetch
-        brave
 
-        hyprpaper
-        hypridle
-        hyprlock
-      ]
-  );
+  # Ensure common packages are installed
+  home.packages = with pkgs;
+    [
+      dig
+      dust
+      eza
+      fd
+      jq
+      nh
+      zsh-vi-mode
+      openconnect
+      pipenv
+      python3
+      ripgrep
+      slack
+      discord
+      devenv
+      powershell
+      typst
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      colima
+    ]
+    ++ lib.optionals (!stdenv.isDarwin) [
+      pavucontrol
+      pulseaudio
+      tesseract
+      wl-clipboard
+      grim
+      slurp
+      grimblast
+      showmethekey
+      tidal-hifi
+      fastfetch
+      brave
+
+      hyprpaper
+      hypridle
+      hyprlock
+    ];
 
   # Catpuccin flavor and accent
   catppuccin = {

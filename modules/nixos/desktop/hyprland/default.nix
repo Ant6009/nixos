@@ -1,9 +1,17 @@
 {pkgs, ...}: {
-  # Call dbus-update-activation-environment on login
-  services.xserver.updateDbusEnvironment = true;
+  # Enable Hyprland
+  programs.hyprland.enable = true;
 
-  # Enable GDM display manager
-  services.xserver.displayManager.gdm.enable = true;
+  # greetd display manager with tuigreet
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd Hyprland";
+        user = "greeter";
+      };
+    };
+  };
 
   # Enables support for Bluetooth
   hardware.bluetooth = {
@@ -14,17 +22,12 @@
   # Enable Bluetooth support
   services.blueman.enable = true;
 
-  # Enable Hyprland
-  programs.hyprland = {
-    enable = true;
-  };
-
   # Enable security services
   services.gnome.gnome-keyring.enable = true;
   security.polkit.enable = true;
   security.pam.services = {
     hyprlock = {};
-    gdm.enableGnomeKeyring = true;
+    greetd.enableGnomeKeyring = true;
   };
 
   # Enable Ozone Wayland support in Chromium and Electron based applications

@@ -1,5 +1,3 @@
-{...}: {
-  programs.claude-code = {
-    enable = true;
-  };
+{pkgs, ...}: {
+  home.packages = [pkgs.claude-code];
 }

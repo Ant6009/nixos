@@ -36,6 +36,8 @@
     experimental-features = "nix-command flakes";
     auto-optimise-store = true;
     trusted-users = ["root" "antoine" "a.rivoire"];
+    extra-substituters = ["https://claude-code.cachix.org"];
+    extra-trusted-public-keys = ["claude-code.cachix.org-1:YeXf2aNu7UTX8Vwrze0za1WEDS+4DuI2kVeWEE4fsRk="];
   };
 
   # Boot settings
@@ -83,14 +85,12 @@
   # Input settings
   services.libinput.enable = true;
 
-  # X11 settings
-  services.xserver = {
-    enable = true;
-    xkb.layout = "gb";
-    xkb.variant = "mac_intl";
-    excludePackages = with pkgs; [xterm];
-    displayManager.gdm.enable = true;
+  # Keyboard layout (used by console via useXkbConfig and XWayland)
+  services.xserver.xkb = {
+    layout = "gb";
+    variant = "mac_intl";
   };
+  console.useXkbConfig = true;
 
   # PATH configuration
   environment.localBinInPath = true;
@@ -196,10 +196,7 @@
   virtualisation.libvirtd.enable = true;
 
   # Zsh configuration
-  programs.zsh = {
-    enable = true;
-    dotDir = "${config.xdg.configHome}/zsh";
-  };
+  programs.zsh.enable = true;
 
   # Fonts configuration
   fonts.packages = with pkgs; [

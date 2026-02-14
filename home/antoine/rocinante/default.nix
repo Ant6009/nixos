@@ -5,7 +5,6 @@
     "${nhModules}/programs/zoom"
     "${nhModules}/services/easyeffects"
     "${nhModules}/services/ulauncher"
-    "${nhModules}/programs/nvf"
     "${nhModules}/services/hyprpaper"
     "${nhModules}/services/hyprlock"
     "${nhModules}/misc/wallpaper"

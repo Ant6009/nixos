@@ -15,6 +15,7 @@
         margin-right = 4;
 
         modules-left = [
+          "custom/power"
           "hyprland/workspaces"
           "cpu"
           "temperature"
@@ -24,7 +25,6 @@
 
         modules-center = [
           "clock"
-          #"custom/power"
         ];
 
         modules-right = [
@@ -319,6 +319,12 @@
 
       #custom-recorder {
         color: #ff2800;
+      }
+
+      #custom-power {
+        color: #dfdfdf;
+        padding: 0px 10px;
+        border-radius: 8px;
       }
     '';
   };
