@@ -12,7 +12,6 @@
       ipc = "on";
 
       splash = false;
-      splash_offset = 2.0;
 
       preload = ["/home/antoine/Pictures/wallpaper/expanse1.jpg"];
 
