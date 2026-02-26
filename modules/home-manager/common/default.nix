@@ -57,7 +57,6 @@
     ]
     ++ lib.optionals stdenv.isDarwin [
       colima
-      opencode
     ]
     ++ lib.optionals (!stdenv.isDarwin) [
       pavucontrol

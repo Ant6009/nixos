@@ -154,6 +154,7 @@
       "ollama"
       "android-platform-tools"
       "lm-studio"
+      "opencode-desktop"
     ];
     taps = [
       "nikitabobko/tap"
