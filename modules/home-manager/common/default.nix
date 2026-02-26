@@ -57,6 +57,7 @@
     ]
     ++ lib.optionals stdenv.isDarwin [
       colima
+      opencode
     ]
     ++ lib.optionals (!stdenv.isDarwin) [
       pavucontrol
@@ -70,7 +71,6 @@
       tidal-hifi
       fastfetch
       brave
-
     ];
 
   # Catpuccin flavor and accent
