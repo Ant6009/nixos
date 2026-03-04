@@ -39,6 +39,7 @@
         enableExtraDiagnostics = true;
 
         bash.enable = true;
+        csharp.enable = true;
 
         css.enable = true;
         html.enable = true;
@@ -58,6 +59,9 @@
         rust.lsp.enable = true;
 
         nix.enable = true;
+        csharp.treesitter.enable = true;
+        csharp.lsp.enable = true;
+        csharp.lsp.servers = ["omnisharp"];
       };
 
       autocomplete = {

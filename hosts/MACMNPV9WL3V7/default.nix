@@ -151,10 +151,9 @@
       "tidal"
       "bitwarden"
       "Zotero"
-      "ollama"
+      "ollama-app"
       "android-platform-tools"
       "lm-studio"
-      "opencode-desktop"
     ];
     taps = [
       "nikitabobko/tap"

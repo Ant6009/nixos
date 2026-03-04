@@ -19,6 +19,7 @@
     ../programs/zsh
     ../programs/nvf
     ../programs/claude-code
+    ../programs/opencode
     ../scripts
   ];
 
@@ -54,6 +55,7 @@
       devenv
       powershell
       typst
+      go
     ]
     ++ lib.optionals stdenv.isDarwin [
       colima
