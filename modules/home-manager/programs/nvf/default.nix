@@ -20,6 +20,13 @@
         programmingWordlist.enable = false;
       };
 
+      diagnostics = {
+        enable = true;
+        config = {
+          virtual_text = true;
+        };
+      };
+
       lsp = {
         enable = true;
         formatOnSave = true;
@@ -61,7 +68,7 @@
         nix.enable = true;
         csharp.treesitter.enable = true;
         csharp.lsp.enable = true;
-        csharp.lsp.servers = ["omnisharp"];
+        csharp.lsp.servers = ["roslyn_ls"];
       };
 
       autocomplete = {
@@ -138,6 +145,7 @@
         indent-blankline.enable = true;
       };
       utility = {
+        snacks-nvim.enable = true;
         motion = {
           precognition.enable = false;
         };
