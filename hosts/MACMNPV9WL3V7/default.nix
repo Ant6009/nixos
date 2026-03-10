@@ -23,17 +23,8 @@
     };
   };
 
-  # Nix settings
-  nix.settings = {
-    experimental-features = "nix-command flakes";
-    # auto-optimise-store = true;
-    # nix.optimise.automatic = true;
-    package = pkgs.nix;
-    trusted-users = ["root" "a.rivoire"];
-  };
-
-  # Enable Nix daemon
-  #services.nix-daemon.enable = true;
+  # Nix settings (nix.enable = false due to Determinate installer;
+  # configure nix settings in /etc/nix/nix.conf directly)
   nix.enable = false;
 
   #  services.aerospace.enable = true;
