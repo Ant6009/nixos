@@ -158,7 +158,7 @@
     home-manager
     quickemu
     shotcut
-    bitwig-studio6-latest
+    bitwig-studio-latest
     cardinal
     nmap
     tcpdump
@@ -170,7 +170,6 @@
     ffmpeg
     vcv-rack
     google-chrome
-    bitwig-studio6
   ];
 
   # Docker configuration

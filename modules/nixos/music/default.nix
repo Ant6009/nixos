@@ -10,7 +10,7 @@
   # Nixpkgs configuration
   nixpkgs = {
     overlays = [
-  #    outputs.overlays.stable-packages
+      #    outputs.overlays.stable-packages
     ];
 
     config = {
@@ -25,7 +25,6 @@
   musnix.enable = true;
   musnix.kernel.realtime = true;
   musnix.rtirq.enable = true;
-
 
   # Nix settings
   nix.settings = {
@@ -158,6 +157,7 @@
     qjackctl
     alsa-utils
     ffmpeg
+    bitwig-studio-latest
   ];
 
   # Docker configuration
@@ -181,8 +181,8 @@
   #     };
   #   };
   # };
-   #  virtualisation.spiceUSBRedirection.enable = true;
-   # virtualisation.libvirtd.enable = true;
+  #  virtualisation.spiceUSBRedirection.enable = true;
+  # virtualisation.libvirtd.enable = true;
 
   # Zsh configuration
   programs.zsh.enable = true;
@@ -202,12 +202,12 @@
 
   # Let devenv manage caches in the nix store
 
-users.groups.plugdev = {};
+  users.groups.plugdev = {};
 
-services.udev.extraRules = ''
-  # Teensy boards for M8
-  ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04[789]?", ENV{ID_MM_DEVICE_IGNORE}="1"
-  SUBSYSTEM=="hidraw", ATTRS{idVendor}=="16c0", MODE="0666"
-  SUBSYSTEMS=="usb", ATTRS{idVendor}=="16c0", MODE:="0666"
-'';
+  services.udev.extraRules = ''
+    # Teensy boards for M8
+    ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04[789]?", ENV{ID_MM_DEVICE_IGNORE}="1"
+    SUBSYSTEM=="hidraw", ATTRS{idVendor}=="16c0", MODE="0666"
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="16c0", MODE:="0666"
+  '';
 }
