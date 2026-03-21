@@ -27,6 +27,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     claude-code.url = "github:sadjow/claude-code-nix";
+
+    audio = {
+      url = "github:polygon/audio.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -70,7 +75,10 @@
           ./hosts/${hostname}
           home-manager.nixosModules.home-manager
           {
-            nixpkgs.overlays = [inputs.claude-code.overlays.default];
+            nixpkgs.overlays = [
+              inputs.claude-code.overlays.default
+              inputs.audio.overlays.default
+            ];
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
@@ -109,7 +117,10 @@
       home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
           inherit system;
-          overlays = [inputs.claude-code.overlays.default];
+          overlays = [
+            inputs.claude-code.overlays.default
+            inputs.audio.overlays.default
+          ];
         };
         extraSpecialArgs = {
           inherit inputs outputs;
