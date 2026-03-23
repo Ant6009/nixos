@@ -142,7 +142,7 @@
       "tidal"
       "bitwarden"
       "Zotero"
-      "ollama-app"
+      #"ollama-app"
       "android-platform-tools"
       "lm-studio"
     ];
