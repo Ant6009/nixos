@@ -45,6 +45,7 @@
       fd
       jq
       nh
+      gh
       zsh-vi-mode
       openconnect
       pipenv
