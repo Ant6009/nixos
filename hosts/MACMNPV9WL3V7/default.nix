@@ -146,8 +146,16 @@
       "android-platform-tools"
       "lm-studio"
     ];
+    brews = [
+      "omlx"
+    ];
     taps = [
       "nikitabobko/tap"
+      {
+        name = "jundot/omlx";
+        clone_target = "https://github.com/jundot/omlx";
+        force_auto_update = true;
+      }
     ];
     onActivation.cleanup = "zap";
   };
