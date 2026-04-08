@@ -49,7 +49,12 @@ in {
               inputs.nvf.homeManagerModules.default
               inputs.catppuccin.homeModules.catppuccin
             ];
-            users.antoine = import ../../home/antoine/rocinante;
+            users.antoine = {
+              imports = builtins.attrValues self.homeModules;
+              programs.home-manager.enable = true;
+              systemd.user.startServices = "sd-switch";
+              home.stateVersion = "24.11";
+            };
           };
         }
       ];
