@@ -20,28 +20,38 @@ in {
       hostname = "rocinante";
       nixosModules = "${self}/modules/nixos";
     };
-    modules = [
-      ../../hosts/rocinante
-      inputs.home-manager.nixosModules.home-manager
-      {
-        nixpkgs.overlays = [
-          inputs.claude-code.overlays.default
-          inputs.audio.overlays.default
-        ];
-        home-manager = {
-          useGlobalPkgs = true;
-          useUserPackages = true;
-          extraSpecialArgs = {
-            inherit inputs outputs userConfig;
-            nhModules = "${self}/modules/home-manager";
-          };
-          sharedModules = [
-            inputs.nvf.homeManagerModules.default
-            inputs.catppuccin.homeModules.catppuccin
+    modules =
+      (builtins.attrValues self.nixosModules)
+      ++ [
+        inputs.hardware.nixosModules.common-cpu-amd
+        inputs.hardware.nixosModules.common-gpu-amd
+        inputs.hardware.nixosModules.common-pc-ssd
+        ../../hosts/rocinante/hardware-configuration.nix
+        "${self}/modules/nixos/desktop/hyprland"
+        {
+          networking.hostName = "rocinante";
+          system.stateVersion = "24.11";
+        }
+        inputs.home-manager.nixosModules.home-manager
+        {
+          nixpkgs.overlays = [
+            inputs.claude-code.overlays.default
+            inputs.audio.overlays.default
           ];
-          users.antoine = import ../../home/antoine/rocinante;
-        };
-      }
-    ];
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            extraSpecialArgs = {
+              inherit inputs outputs userConfig;
+              nhModules = "${self}/modules/home-manager";
+            };
+            sharedModules = [
+              inputs.nvf.homeManagerModules.default
+              inputs.catppuccin.homeModules.catppuccin
+            ];
+            users.antoine = import ../../home/antoine/rocinante;
+          };
+        }
+      ];
   };
 }
