@@ -73,7 +73,6 @@
       tidal-hifi
       fastfetch
       brave
-      high-tide
     ];
 
   # Catpuccin flavor and accent
