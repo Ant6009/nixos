@@ -15,6 +15,7 @@
       name = "Roboto";
       size = 11;
     };
+    gtk4.theme = null;
     gtk3 = {
       bookmarks = [
         "file:///home/${userConfig.name}/Documents"
