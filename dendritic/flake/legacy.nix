@@ -62,8 +62,12 @@
   mkDarwinConfiguration = hostname: username:
     inputs.darwin.lib.darwinSystem {
       system = "aarch64-darwin";
+      # Do NOT thread `inputs` or `outputs` through specialArgs here:
+      # darwin's module system strictly evaluates specialArgs, and
+      # flake-parts puts `self` inside `inputs`, which causes infinite
+      # recursion via inputs.self.darwinConfigurations.
       specialArgs = {
-        inherit inputs outputs hostname;
+        inherit hostname;
         userConfig = users.${username};
       };
       modules = [

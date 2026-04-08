@@ -1,19 +1,16 @@
 {...}: let
   hm = ../../modules/home-manager;
 in {
-  # Exposes each legacy home-manager module rocinante uses today as
-  # flake.homeModules.<name>. rocinante-dendritic consumes these by name
-  # via host-specific profile lists in phase 4; for now it takes all of
-  # them, matching the legacy import set exactly.
+  # Baseline home-manager modules shared by every user on every host:
+  # mirrors the legacy modules/home-manager/common/default.nix imports
+  # list (minus the imports-management itself, which is now this file).
   #
-  # Entries intentionally mirror the legacy rocinante module set
-  # (modules/home-manager/common/default.nix imports +
-  # home/antoine/rocinante/default.nix imports). Modules that exist on
-  # disk but are not used by rocinante (bottom, dunst, rofi, wofi,
-  # waybar, kanshi, gtk, xdg, etc.) are deliberately omitted and will
-  # be added in later phases as other hosts opt in.
+  # Linux-desktop-only modules (hyprland, wallpaper, hyprpaper, hyprlock,
+  # ulauncher, easyeffects, zoom) and Linux-only packages live outside
+  # this baseline and are added to specific host configs directly, since
+  # the darwin a.rivoire user must not pull them in.
   flake.homeModules = {
-    # programs
+    # programs — baseline
     aerospace = "${hm}/programs/aerospace";
     alacritty = "${hm}/programs/alacritty";
     bat = "${hm}/programs/bat";
@@ -28,20 +25,7 @@ in {
     opencode = "${hm}/programs/opencode";
     starship = "${hm}/programs/starship";
     tmux = "${hm}/programs/tmux";
-    zoom = "${hm}/programs/zoom";
     zsh = "${hm}/programs/zsh";
-
-    # services
-    easyeffects = "${hm}/services/easyeffects";
-    hyprlock = "${hm}/services/hyprlock";
-    hyprpaper = "${hm}/services/hyprpaper";
-    ulauncher = "${hm}/services/ulauncher";
-
-    # misc
-    wallpaper = "${hm}/misc/wallpaper";
-
-    # desktop
-    hyprland = "${hm}/desktop/hyprland";
 
     # scripts bin
     scripts = "${hm}/scripts";

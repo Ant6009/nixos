@@ -49,8 +49,20 @@ in {
               inputs.nvf.homeManagerModules.default
               inputs.catppuccin.homeModules.catppuccin
             ];
-            users.antoine = {
-              imports = builtins.attrValues self.homeModules;
+            users.antoine = let
+              hm = "${self}/modules/home-manager";
+            in {
+              imports =
+                (builtins.attrValues self.homeModules)
+                ++ [
+                  "${hm}/desktop/hyprland"
+                  "${hm}/programs/zoom"
+                  "${hm}/services/easyeffects"
+                  "${hm}/services/ulauncher"
+                  "${hm}/services/hyprpaper"
+                  "${hm}/services/hyprlock"
+                  "${hm}/misc/wallpaper"
+                ];
               programs.home-manager.enable = true;
               systemd.user.startServices = "sd-switch";
               home.stateVersion = "24.11";
