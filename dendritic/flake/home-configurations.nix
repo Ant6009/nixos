@@ -59,7 +59,7 @@
   hm = "${self}/modules/home-manager";
 in {
   flake.homeConfigurations = {
-    "antoine-dendritic" = mkUserHome {
+    "antoine" = mkUserHome {
       system = "x86_64-linux";
       userConfig = antoine;
       extraModules = [
@@ -73,7 +73,7 @@ in {
       ];
     };
 
-    "a.rivoire-dendritic" = mkUserHome {
+    "a.rivoire" = mkUserHome {
       system = "aarch64-darwin";
       userConfig = a-rivoire;
     };

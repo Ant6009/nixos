@@ -13,7 +13,7 @@
     gitKey = "E4B6639BFD0391F3";
   };
 in {
-  flake.nixosConfigurations.rocinante-dendritic = inputs.nixpkgs.lib.nixosSystem {
+  flake.nixosConfigurations.rocinante = inputs.nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
     specialArgs = {
       inherit inputs outputs userConfig;

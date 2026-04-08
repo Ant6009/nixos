@@ -17,7 +17,7 @@ in {
   # verbatim here — home-manager is NOT wired in at the system level on
   # this host; a.rivoire uses the standalone homeConfigurations entry
   # below instead.
-  flake.darwinConfigurations.MACMNPV9WL3V7-dendritic = inputs.darwin.lib.darwinSystem {
+  flake.darwinConfigurations.MACMNPV9WL3V7 = inputs.darwin.lib.darwinSystem {
     system = "aarch64-darwin";
     # Do NOT thread `inputs` here — darwin strict-evaluates specialArgs
     # and would recurse through inputs.self.darwinConfigurations.
