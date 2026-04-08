@@ -3,6 +3,13 @@
     enable = true;
     enableManpages = true;
     settings.vim = {
+      luaConfigRC.disable-dressing-select = ''
+        local ok, dressing = pcall(require, "dressing")
+        if ok then
+          dressing.setup({ select = { enabled = false } })
+        end
+      '';
+
       theme = {
         enable = true;
         name = "catppuccin";
