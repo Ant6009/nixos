@@ -3,10 +3,29 @@
     enable = true;
     enableManpages = true;
     settings.vim = {
-      luaConfigRC.disable-dressing-select = ''
-        local ok, dressing = pcall(require, "dressing")
-        if ok then
-          dressing.setup({ select = { enabled = false } })
+      luaConfigPost = ''
+        -- Bypass dressing.nvim's broken select wrapper (incompatible with
+        -- Neovim 0.11's stricter vim.validate). Restore a stock, tolerant
+        -- vim.ui.select after all plugins have loaded.
+        vim.ui.select = function(items, opts, on_choice)
+          opts = opts or {}
+          on_choice = on_choice or function() end
+          if type(items) ~= "table" then
+            return on_choice(nil)
+          end
+          local list = {}
+          for _, v in pairs(items) do table.insert(list, v) end
+          local choices = { opts.prompt or "Select one of:" }
+          local format_item = opts.format_item or tostring
+          for i, item in ipairs(list) do
+            table.insert(choices, string.format("%d: %s", i, format_item(item)))
+          end
+          local idx = vim.fn.inputlist(choices)
+          if idx < 1 or idx > #list then
+            on_choice(nil)
+          else
+            on_choice(list[idx], idx)
+          end
         end
       '';
 
