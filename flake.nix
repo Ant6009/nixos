@@ -4,6 +4,9 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    import-tree.url = "github:vic/import-tree";
+
     hardware.url = "github:nixos/nixos-hardware";
 
     nix-colors.url = "github:misterio77/nix-colors";
@@ -34,124 +37,9 @@
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    catppuccin,
-    nix-homebrew,
-    darwin,
-    home-manager,
-    nvf,
-    ...
-  } @ inputs: let
-    inherit (self) outputs;
-
-    users = {
-      antoine = {
-        name = "antoine";
-        email = "ant.rivoire@gmail.com";
-        fullName = "Antoine Rivoire";
-        avatar = ./files/avatar/face;
-        gitKey = "E4B6639BFD0391F3";
-      };
-      "a.rivoire" = {
-        name = "a.rivoire";
-        email = "a.rivoire@ulster.ac.uk";
-        fullName = "Antoine Rivoire";
-        avatar = ./files/avatar/face;
-        gitKey = "41647D6B470660D4";
-      };
+  outputs = inputs:
+    inputs.flake-parts.lib.mkFlake {inherit inputs;} {
+      systems = ["x86_64-linux" "aarch64-darwin"];
+      imports = [(inputs.import-tree ./dendritic)];
     };
-
-    mkNixosConfiguration = hostname: username:
-      nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {
-          inherit inputs outputs hostname;
-          userConfig = users.${username};
-          nixosModules = "${self}/modules/nixos";
-        };
-        modules = [
-          ./hosts/${hostname}
-          home-manager.nixosModules.home-manager
-          {
-            nixpkgs.overlays = [
-              inputs.claude-code.overlays.default
-              inputs.audio.overlays.default
-            ];
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              extraSpecialArgs = {
-                inherit inputs outputs;
-                userConfig = users.${username};
-                nhModules = "${self}/modules/home-manager";
-              };
-              sharedModules = [
-                nvf.homeManagerModules.default
-                catppuccin.homeModules.catppuccin
-              ];
-              users.${username} = import ./home/${username}/${hostname};
-            };
-          }
-        ];
-      };
-
-    # Function for nix-darwin system configuration
-    mkDarwinConfiguration = hostname: username:
-      darwin.lib.darwinSystem {
-        system = "aarch64-darwin";
-        specialArgs = {
-          inherit inputs outputs hostname;
-          userConfig = users.${username};
-        };
-        modules = [
-          ./hosts/${hostname}
-          home-manager.darwinModules.home-manager
-          nix-homebrew.darwinModules.nix-homebrew
-        ];
-      };
-
-    # Function for standalone Home Manager configuration (darwin)
-    mkHomeConfiguration = system: username: hostname:
-      home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          inherit system;
-          overlays = [
-            inputs.claude-code.overlays.default
-            inputs.audio.overlays.default
-          ];
-        };
-        extraSpecialArgs = {
-          inherit inputs outputs;
-          userConfig = users.${username};
-          nhModules = "${self}/modules/home-manager";
-        };
-        modules = [
-          {nixpkgs.config.allowUnfree = true;}
-          ./home/${username}/${hostname}
-          nvf.homeManagerModules.default
-          catppuccin.homeModules.catppuccin
-        ];
-      };
-  in {
-    nixosConfigurations = {
-      rocinante = mkNixosConfiguration "rocinante" "antoine";
-      /*
-      antoine-mac = mkNixosConfiguration "MACMNPV9WL3V7" "antoine";
-      */
-    };
-
-    darwinConfigurations = {
-      "MACMNPV9WL3V7" = mkDarwinConfiguration "MACMNPV9WL3V7" "a.rivoire";
-    };
-
-    homeConfigurations = {
-      # Standalone fallback — rocinante HM is now integrated via nixos-rebuild
-      "antoine" = mkHomeConfiguration "x86_64-linux" "antoine" "rocinante";
-      "a.rivoire" = mkHomeConfiguration "aarch64-darwin" "a.rivoire" "MACMNPV9WL3V7";
-    };
-
-    overlays = import ./overlays {inherit inputs;};
-  };
 }
