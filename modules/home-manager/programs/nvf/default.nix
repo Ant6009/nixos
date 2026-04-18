@@ -77,6 +77,8 @@
         blink-cmp.enable = true;
       };
 
+      repl.conjure.enable = true;
+
       autopairs.nvim-autopairs.enable = true;
 
       git = {
