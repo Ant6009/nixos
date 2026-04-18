@@ -59,6 +59,8 @@
 
         ts.enable = true;
 
+        clojure.enable = true;
+
         python.enable = true;
         python.lsp.enable = true;
 
