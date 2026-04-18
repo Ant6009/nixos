@@ -15,7 +15,10 @@
 
       preload = ["/home/antoine/Pictures/wallpaper/expanse1.jpg"];
 
-      wallpaper = [",/home/antoine/Pictures/wallpaper/expanse1.jpg"];
+      wallpaper = {
+        monitor = "HDMI-A-1";
+        path = "/home/antoine/Pictures/wallpaper/expanse1.jpg";
+      };
     };
   };
 }

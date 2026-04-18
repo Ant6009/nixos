@@ -28,6 +28,7 @@ in {
         inputs.hardware.nixosModules.common-pc-ssd
         ../../hosts/rocinante/hardware-configuration.nix
         "${self}/modules/nixos/desktop/hyprland"
+        "${self}/modules/nixos/services/tftpd"
         {
           networking.hostName = "rocinante";
           system.stateVersion = "24.11";
