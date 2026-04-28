@@ -32,7 +32,7 @@
         formatOnSave = true;
         lspkind.enable = true;
         lightbulb.enable = true;
-        lspsaga.enable = true;
+        lspsaga.enable = false;
         trouble.enable = true;
         otter-nvim.enable = false;
         nvim-docs-view.enable = true;
@@ -59,8 +59,8 @@
 
         ts.enable = true;
 
-        markdown.enable = true;
-        markdown.extensions.markview-nvim.enable = true;
+ #       markdown.enable = true;
+########        markdown.extensions.markview-nvim.enable = true;
 
         clojure.enable = true;
 
@@ -91,7 +91,7 @@
       };
 
       minimap = {
-        minimap-vim.enable = true;
+        minimap-vim.enable = false;
         codewindow.enable = true; # lighter, faster, and uses lua for configuration
       };
       dashboard = {
