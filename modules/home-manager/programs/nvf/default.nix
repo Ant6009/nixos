@@ -59,6 +59,9 @@
 
         ts.enable = true;
 
+        markdown.enable = true;
+        markdown.extensions.markview-nvim.enable = true;
+
         clojure.enable = true;
 
         python.enable = true;
@@ -89,7 +92,7 @@
 
       minimap = {
         minimap-vim.enable = true;
-        codewindow.enable = false; # lighter, faster, and uses lua for configuration
+        codewindow.enable = true; # lighter, faster, and uses lua for configuration
       };
       dashboard = {
         dashboard-nvim.enable = false;
