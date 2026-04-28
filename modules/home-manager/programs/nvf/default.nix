@@ -36,7 +36,10 @@
         trouble.enable = true;
         otter-nvim.enable = false;
         nvim-docs-view.enable = true;
-        harper-ls.enable = true;
+        presets = {
+          tailwindcss-language-server.enable = true;
+          harper.enable = true;
+        };
       };
 
       # Languages with LSP + Treesitter
@@ -51,16 +54,15 @@
         css.enable = true;
         html.enable = true;
         json.enable = true;
-        tailwind.enable = true;
 
         sql.enable = true;
 
         typst.enable = true;
 
-        ts.enable = true;
+        typescript.enable = true;
 
- #       markdown.enable = true;
-########        markdown.extensions.markview-nvim.enable = true;
+        markdown.enable = true;
+        markdown.extensions.markview-nvim.enable = true;
 
         clojure.enable = true;
 
@@ -73,7 +75,7 @@
         nix.enable = true;
         csharp.treesitter.enable = true;
         csharp.lsp.enable = true;
-        csharp.lsp.servers = ["roslyn_ls"];
+        csharp.lsp.servers = ["roslyn-ls"];
       };
 
       autocomplete = {
@@ -91,8 +93,8 @@
       };
 
       minimap = {
-        minimap-vim.enable = false;
-        codewindow.enable = true; # lighter, faster, and uses lua for configuration
+        minimap-vim.enable = true;
+        codewindow.enable = false; # broken: requires removed nvim-treesitter.ts_utils
       };
       dashboard = {
         dashboard-nvim.enable = false;
