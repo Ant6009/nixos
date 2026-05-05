@@ -145,6 +145,7 @@
       #"ollama-app"
       "android-platform-tools"
       "lm-studio"
+      "copilot-cli"
     ];
     brews = [
       "omlx"

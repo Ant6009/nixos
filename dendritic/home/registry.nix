@@ -72,6 +72,7 @@ in {
           powershell
           typst
           go
+          pi-coding-agent
         ]
         ++ lib.optionals stdenv.isDarwin [
           colima
