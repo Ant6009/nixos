@@ -92,10 +92,6 @@
         gitsigns.codeActions.enable = false; # throws an annoying debug message
       };
 
-      minimap = {
-        minimap-vim.enable = true;
-        codewindow.enable = false; # broken: requires removed nvim-treesitter.ts_utils
-      };
       dashboard = {
         dashboard-nvim.enable = false;
         alpha.enable = true;
