@@ -27,6 +27,7 @@
           else "none";
         dynamic_title = false;
         dynamic_padding = true;
+        opacity = 0.85;
         dimensions = {
           columns = 170;
           lines = 45;

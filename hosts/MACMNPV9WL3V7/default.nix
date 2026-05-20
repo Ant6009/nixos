@@ -148,7 +148,7 @@
       "copilot-cli"
     ];
     brews = [
-      "omlx"
+      #"omlx"
     ];
     taps = [
       "nikitabobko/tap"
