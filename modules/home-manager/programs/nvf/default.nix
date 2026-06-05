@@ -39,6 +39,7 @@
         presets = {
           tailwindcss-language-server.enable = true;
           harper.enable = true;
+          typescript-go.enable = true;
         };
       };
 
