@@ -39,7 +39,6 @@
         presets = {
           tailwindcss-language-server.enable = true;
           harper.enable = true;
-          typescript-language-server.enable = true;
         };
       };
 
@@ -60,7 +59,7 @@
 
         typst.enable = true;
 
-        typescript.enable = true;
+        ts.enable = true;
         markdown.enable = true;
         markdown.extensions.markview-nvim.enable = true;
 
