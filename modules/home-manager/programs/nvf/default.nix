@@ -60,8 +60,9 @@
         typst.enable = true;
 
         typescript.enable = true;
-        typescript.lsp.enable = true;
-
+        presets = {
+          typescript.lsp.enable = true;
+        };
         markdown.enable = true;
         markdown.extensions.markview-nvim.enable = true;
 
