@@ -65,6 +65,8 @@ in {
           slack
           discord
           devenv
+          age
+          sops
           powershell
           typst
           go

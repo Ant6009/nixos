@@ -60,6 +60,7 @@
         typst.enable = true;
 
         typescript.enable = true;
+        typescript.lsp.enable = true;
 
         markdown.enable = true;
         markdown.extensions.markview-nvim.enable = true;
@@ -103,6 +104,10 @@
 
       projects = {
         project-nvim.enable = true;
+      };
+
+      navigation = {
+        harpoon.enable = true;
       };
 
       terminal = {
