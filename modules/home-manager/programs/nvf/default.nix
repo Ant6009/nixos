@@ -49,7 +49,6 @@
         enableExtraDiagnostics = true;
 
         bash.enable = true;
-        csharp.enable = true;
 
         css.enable = true;
         html.enable = true;
@@ -59,7 +58,10 @@
 
         typst.enable = true;
 
-        ts.enable = true;
+        typescript.enable = true;
+        typescript.treesitter.enable = true;
+        typescript.lsp.enable = true;
+
         markdown.enable = true;
         markdown.extensions.markview-nvim.enable = true;
 
@@ -72,6 +74,8 @@
         rust.lsp.enable = true;
 
         nix.enable = true;
+
+        csharp.enable = true;
         csharp.treesitter.enable = true;
         csharp.lsp.enable = true;
         csharp.lsp.servers = ["roslyn-ls"];
