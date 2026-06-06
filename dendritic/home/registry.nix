@@ -48,10 +48,6 @@ in {
           else "/home/${userConfig.name}";
       };
 
-      home.sessionVariables = {
-        LITELLM_API_KEY = "sk-wAcBKCQ5Ef9zzF-KB-X6Gw";
-      };
-
       home.packages = with pkgs;
         [
           dig
@@ -92,6 +88,8 @@ in {
         ];
 
       catppuccin = {
+        enable = true;
+        autoEnable = false;
         flavor = "macchiato";
         accent = "lavender";
       };
