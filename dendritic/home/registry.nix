@@ -83,6 +83,7 @@ in {
           grimblast
           showmethekey
           tidal-hifi
+          sone
           fastfetch
           brave
         ];
