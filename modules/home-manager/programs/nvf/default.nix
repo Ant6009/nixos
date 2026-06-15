@@ -10,6 +10,13 @@
         transparent = true;
       };
 
+      opts = {
+        tabstop = 4;
+        shiftwidth = 4;
+        expandtab = true;
+        smartindent = true;
+      };
+
       statusline.lualine.enable = true;
       binds.whichKey.enable = true; # Menu / keybinding helper
       telescope.enable = true; # Fuzzy finder menu
@@ -59,9 +66,11 @@
 
         typst.enable = true;
 
-        typescript.enable = true;
-        typescript.treesitter.enable = true;
-        typescript.lsp.enable = true;
+        typescript = {
+          enable = true;
+          treesitter.enable = true;
+          lsp.enable = true;
+        };
 
         markdown.enable = true;
         markdown.extensions.markview-nvim.enable = true;
@@ -76,10 +85,12 @@
 
         nix.enable = true;
 
-        csharp.enable = true;
-        csharp.treesitter.enable = true;
-        csharp.lsp.enable = true;
-        csharp.lsp.servers = ["roslyn-ls"];
+        csharp = {
+          enable = true;
+          treesitter.enable = true;
+          lsp.enable = true;
+          lsp.servers = ["roslyn-ls"];
+        };
       };
 
       autocomplete = {
