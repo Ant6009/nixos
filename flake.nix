@@ -34,6 +34,8 @@
     };
     claude-code.url = "github:sadjow/claude-code-nix";
 
+    llm-agents.url = "github:numtide/llm-agents.nix";
+
     audio = {
       url = "github:polygon/audio.nix";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -38,6 +38,7 @@ in {
           nixpkgs.overlays = [
             inputs.claude-code.overlays.default
             inputs.audio.overlays.default
+            inputs.llm-agents.overlays.default
           ];
           home-manager = {
             useGlobalPkgs = true;
