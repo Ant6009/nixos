@@ -36,6 +36,7 @@ in {
         inputs.home-manager.nixosModules.home-manager
         {
           nixpkgs.overlays = [
+            inputs.mcp-nixos.overlays.default
             inputs.claude-code.overlays.default
             inputs.audio.overlays.default
             inputs.llm-agents.overlays.shared-nixpkgs

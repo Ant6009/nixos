@@ -36,6 +36,8 @@
 
     llm-agents.url = "github:numtide/llm-agents.nix";
 
+    mcp-nixos.url = "github:utensils/mcp-nixos";
+
     audio = {
       url = "github:polygon/audio.nix";
       inputs.nixpkgs.follows = "nixpkgs";

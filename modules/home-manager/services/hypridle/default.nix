@@ -14,12 +14,12 @@
           on-resume = "notify-send \"Resuming\" && brightnessctl -r";
         }
         {
-          timeout = 360;
+          timeout = 1360;
           on-timeout = "hyprctl dispatch dpms off";
           on-resume = "hyprctl dispatch dpms on";
         }
         {
-          timeout = 1000;
+          timeout = 11000;
           on-timeout = "systemctl suspend";
         }
       ];
