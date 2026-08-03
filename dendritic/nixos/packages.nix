@@ -29,6 +29,7 @@
       ffmpeg
       vcv-rack
       google-chrome
+      nodejs
     ];
   };
 }

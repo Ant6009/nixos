@@ -25,10 +25,11 @@
 
   # Consistent cursor theme across all applications.
   home.pointerCursor = {
+    enable = true;
     gtk.enable = true;
     x11.enable = true;
-    package = pkgs.yaru-theme;
-    name = "Yaru";
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Ice";
     size = 24;
   };
 
@@ -46,7 +47,6 @@
     #     preload = ${config.wallpaper}
     #     wallpaper = HDMI-A-1 , ${config.wallpaper}
     #   '';
-
 
     #   "hypr/hyprlock.conf".text = ''
     #     background {
@@ -207,9 +207,9 @@
 
     "org/gnome/desktop/interface" = {
       "color-scheme" = "prefer-dark";
-      "cursor-theme" = "Yaru";
+      "cursor-theme" = "Bibata-Modern-Ice";
       "font-name" = "Roboto 11";
-      "icon-theme" = "Tela-circle-dark";
+      "icon-theme" = "Papirus-Dark";
     };
 
     "org/gnome/desktop/wm/preferences" = {

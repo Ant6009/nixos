@@ -46,7 +46,9 @@
         presets = {
           tailwindcss-language-server.enable = true;
           harper.enable = true;
-          typescript-go.enable = true;
+          # typescript-go disabled: crashes with "vfs: path is not absolute" and
+          # "ScriptKind must be specified" panics (upstream bugs in tsgo)
+          typescript-go.enable = false;
         };
       };
 

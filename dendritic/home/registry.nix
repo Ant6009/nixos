@@ -70,7 +70,6 @@ in {
           powershell
           typst
           go
-          llm-agents.pi
         ]
         ++ lib.optionals stdenv.isDarwin [
           colima

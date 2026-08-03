@@ -68,7 +68,7 @@ in {
             ];
             users.antoine = let
               hm = "${self}/modules/home-manager";
-            in {
+            in { pkgs, ... }: {
               imports =
                 (builtins.attrValues self.homeModules)
                 ++ [
@@ -80,6 +80,7 @@ in {
                   "${hm}/services/hyprlock"
                   "${hm}/misc/wallpaper"
                 ];
+              home.packages = [ pkgs.llm-agents.pi ];
               programs.home-manager.enable = true;
               systemd.user.startServices = "sd-switch";
               home.stateVersion = "24.11";
