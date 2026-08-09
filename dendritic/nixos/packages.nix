@@ -30,6 +30,7 @@
       vcv-rack
       google-chrome
       nodejs
+      bitwarden-cli
     ];
   };
 }
