@@ -36,6 +36,18 @@
     };
 
     initContent = ''
+      # Bitwarden CLI — auto-unlock on first use of the session
+      bw() {
+        if [ -z "$BW_SESSION" ]; then
+          export BW_SESSION=$(command bw unlock --raw 2>/dev/null)
+          if [ -z "$BW_SESSION" ]; then
+            echo "bw: not logged in. Run 'bw login' first." >&2
+            return 1
+          fi
+        fi
+        command bw "$@"
+      }
+
       # kubectl auto-complete
       # source <(kubectl completion zsh)
 

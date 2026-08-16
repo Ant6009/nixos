@@ -14,6 +14,7 @@
       # Set the prefix to `ctrl + q` instead of `ctrl + b`
       #set -g prefix C-q
       #unbind C-b
+      set -g extented-keys on
 
       # Use | and - to split a window vertically and horizontally instead of " and % respoectively
       #unbind '"'
@@ -47,7 +48,7 @@
 
       # Set default escape-time
       set-option -sg escape-time 10
-      
+
       set -g status-position top
 
       # Smart pane switching with awareness of Vim splits

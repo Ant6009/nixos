@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   services.atftpd = {
     # Toggle to true to re-enable the TFTP server.
-    enable = true;
+    enable = false;
     root = "/srv/tftp";
     extraOptions = [
       "--bind-address 192.168.0.66"
