@@ -11,8 +11,6 @@
     imports = [ inputs.sops-nix.nixosModules.sops ];
 
     sops = {
-      enable = true;
-
       # The age identity (private key) lives on Roci only, in the standard
       # sops/age location. It is never committed to git. If it is lost, the
       # committed .age secrets can no longer be decrypted — keep a backup.
