@@ -1,1 +1,4 @@
 result
+
+# Plaintext secret superseded by secrets/smb.json.age (encrypted, tracked)
+/smb-secrets
