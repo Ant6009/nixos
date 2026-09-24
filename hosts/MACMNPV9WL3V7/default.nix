@@ -124,6 +124,8 @@
   # Zsh configuration
   programs.zsh.enable = true;
 
+  home.packages = [ pkgs.llm-agents.pi ];
+
   # Fonts configuration
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
