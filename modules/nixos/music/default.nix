@@ -38,6 +38,7 @@
     kernelParams = ["quiet" "splash"];
     loader.efi.canTouchEfiVariables = true;
     loader.systemd-boot.enable = true;
+    loader.system-boot.configurationLimit = 3;
 
     # v4l (virtual camera) module settings
     kernelModules = ["v4l2loopback"];

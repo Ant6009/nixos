@@ -17,7 +17,7 @@
       config.nix.registry;
 
     nix.settings = {
-      experimental-features = "nix-command flakes";
+      experimental-features = ["nix-command flakes"];
       auto-optimise-store = true;
       trusted-users = ["root" "antoine" "a.rivoire"];
       extra-substituters = ["https://claude-code.cachix.org"];
