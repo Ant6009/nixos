@@ -142,9 +142,9 @@
       "tidal"
       "bitwarden"
       "Zotero"
-      "ollama-app"
+      #      "ollama-app"
       "android-platform-tools"
-      "lm-studio"
+      #"lm-studio"
       "copilot-cli"
     ];
     brews = [

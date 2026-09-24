@@ -30,7 +30,7 @@
   nix.settings = {
     experimental-features = "nix-command flakes";
     auto-optimise-store = true;
-    trusted-users = ["root" "antoine" "a.rivoire"];
+    trusted-users = ["root" "antoine" "a.rivoire" "a.rivoire-adm"];
   };
 
   # Boot settings

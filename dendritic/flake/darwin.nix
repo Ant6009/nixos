@@ -29,6 +29,29 @@ in {
       ../../hosts/MACMNPV9WL3V7
       inputs.home-manager.darwinModules.home-manager
       inputs.nix-homebrew.darwinModules.nix-homebrew
+      inputs.home-manager.nixosModules.home-manager
+      {
+        nixpkgs.overlays = [
+          inputs.mcp-nixos.overlays.default
+          inputs.claude-code.overlays.default
+          inputs.audio.overlays.default
+          inputs.llm-agents.overlays.shared-nixpkgs
+          # virtualenv-clone 0.5.7's test_clone_contents fails under
+          # python 3.14 (finds the source venv path in the cloned
+          # pyvenv.cfg). Disable the check just for pipenv's copy so
+          # the global python set is untouched.
+          (final: prev: {
+            pipenv = prev.pipenv.override {
+              python3 = prev.python3.override {
+                packageOverrides = _pf: pp: {
+                  virtualenv-clone =
+                    pp.virtualenv-clone.overridePythonAttrs (_: {doCheck = false;});
+                };
+              };
+            };
+          })
+        ];
+      }
     ];
   };
 }

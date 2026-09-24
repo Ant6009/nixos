@@ -15,14 +15,14 @@ in {
     alacritty = "${hm}/programs/alacritty";
     bat = "${hm}/programs/bat";
     btop = "${hm}/programs/btop";
-    claude-code = "${hm}/programs/claude-code";
+    #claude-code = "${hm}/programs/claude-code";
     fzf = "${hm}/programs/fzf";
     git = "${hm}/programs/git";
     gpg = "${hm}/programs/gpg";
     lazygit = "${hm}/programs/lazygit";
     nvf = "${hm}/programs/nvf";
     obs-studio = "${hm}/programs/obs-studio";
-    opencode = "${hm}/programs/opencode";
+    #opencode = "${hm}/programs/opencode";
     starship = "${hm}/programs/starship";
     tmux = "${hm}/programs/tmux";
     zsh = "${hm}/programs/zsh";
@@ -73,6 +73,7 @@ in {
         ]
         ++ lib.optionals stdenv.isDarwin [
           colima
+          dotnetCorePackages.sdk_10_0-bin
         ]
         ++ lib.optionals (!stdenv.isDarwin) [
           pavucontrol
