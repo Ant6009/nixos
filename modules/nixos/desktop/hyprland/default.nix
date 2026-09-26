@@ -9,16 +9,35 @@
     withUWSM = true;
   };
 
-  # greetd display manager with tuigreet
+  # greetd display manager with tuigreety (active tuigreet-compatible fork,
+  # same binary name and CLI; upstream tuigreet is stale).
+  # nixpkgs has no tuigreety yet — built from the flake input via overlay
+  # (see dendritic/flake/rocinante.nix).
   services.greetd = {
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember-session --sessions ${config.services.displayManager.sessionData.desktops}/share/wayland-sessions";
+        command = "${pkgs.tuigreety}/bin/tuigreet --time --remember-session --sessions ${config.services.displayManager.sessionData.desktops}/share/wayland-sessions";
         user = "greeter";
       };
     };
   };
+
+  # --remember-session needs a greeter-owned private cache dir
+  systemd.tmpfiles.rules = [
+    "d /var/cache/tuigreet 0700 greeter greeter - -"
+  ];
+
+  # --- Alternative: wlgreet (graphical Wayland greeter) ---
+  # wlgreet is a wlr-layer-shell client: greetd launches a dedicated
+  # Hyprland instance (greeter user) that runs wlgreet on startup; on
+  # login wlgreet starts the user session and the greeter instance exits.
+  # To try it, create /etc/hyprland/greetd.conf with at least:
+  #   exec-once = wlgreet; hyprctl exit
+  # then swap the default_session above for:
+  #   command = "${pkgs.hyprland}/bin/Hyprland --config /etc/hyprland/greetd.conf";
+  # and add pkgs.wlgreet to environment.systemPackages.
+
 
   # Enables support for Bluetooth
   hardware.bluetooth = {
