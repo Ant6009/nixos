@@ -17,16 +17,14 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.tuigreety}/bin/tuigreet --time --remember-session --sessions ${config.services.displayManager.sessionData.desktops}/share/wayland-sessions";
+        # DIAGNOSTIC: file debug log for the AUTH_ERR investigation
+        # (journal showed pam AUTH_ERR on the new generation; secrets are
+        # redacted from this log by the fork). Remove once resolved.
+        command = "${pkgs.tuigreety}/bin/tuigreet --time --remember-session --sessions ${config.services.displayManager.sessionData.desktops}/share/wayland-sessions --debug /var/cache/tuigreet/debug.log";
         user = "greeter";
       };
     };
   };
-
-  # --remember-session needs a greeter-owned private cache dir
-  systemd.tmpfiles.rules = [
-    "d /var/cache/tuigreet 0700 greeter greeter - -"
-  ];
 
   # --- Alternative: wlgreet (graphical Wayland greeter) ---
   # wlgreet is a wlr-layer-shell client: greetd launches a dedicated
