@@ -43,7 +43,7 @@ in {
       home = {
         username = "${userConfig.name}";
         homeDirectory =
-          if pkgs.stdenv.isDarwin
+          if pkgs.stdenv.hostPlatform.isDarwin
           then "/Users/${userConfig.name}"
           else "/home/${userConfig.name}";
       };
@@ -71,11 +71,11 @@ in {
           typst
           go
         ]
-        ++ lib.optionals stdenv.isDarwin [
+        ++ lib.optionals stdenv.hostPlatform.isDarwin [
           colima
           dotnetCorePackages.sdk_10_0-bin
         ]
-        ++ lib.optionals (!stdenv.isDarwin) [
+        ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [
           pavucontrol
           pulseaudio
           tesseract
