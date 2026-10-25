@@ -36,7 +36,7 @@ in {
         {
           nixpkgs.overlays = [
             inputs.mcp-nixos.overlays.default
-            inputs.claude-code.overlays.default
+            #inputs.claude-code.overlays.default
             inputs.audio.overlays.default
             inputs.llm-agents.overlays.shared-nixpkgs
             # tuigreety: active tuigreet-compatible greeter fork, not in
@@ -58,14 +58,13 @@ in {
                 # the Nix build sandbox (318/323 pass); crate compiles clean.
                 doCheck = false;
                 __structuredAttrs = true;
-                meta = with final.lib;
-                  {
-                    description = "Minimal, configurable console greeter for greetd (tuigreet-compatible fork)";
-                    homepage = "https://github.com/Tobiichi-Origuchi/tuigreety";
-                    license = licenses.gpl3Only;
-                    platforms = platforms.linux;
-                    mainProgram = "tuigreet";
-                  };
+                meta = with final.lib; {
+                  description = "Minimal, configurable console greeter for greetd (tuigreet-compatible fork)";
+                  homepage = "https://github.com/Tobiichi-Origuchi/tuigreety";
+                  license = licenses.gpl3Only;
+                  platforms = platforms.linux;
+                  mainProgram = "tuigreet";
+                };
               };
             })
             # virtualenv-clone 0.5.7's test_clone_contents fails under
@@ -96,23 +95,24 @@ in {
             ];
             users.antoine = let
               hm = "${self}/modules/home-manager";
-            in { pkgs, ... }: {
-              imports =
-                (builtins.attrValues self.homeModules)
-                ++ [
-                  "${hm}/desktop/hyprland"
-                  "${hm}/programs/zoom"
-                  "${hm}/services/easyeffects"
-                  "${hm}/services/ulauncher"
-                  "${hm}/services/hyprpaper"
-                  "${hm}/services/hyprlock"
-                  "${hm}/misc/wallpaper"
-                ];
-              home.packages = [ pkgs.llm-agents.pi ];
-              programs.home-manager.enable = true;
-              systemd.user.startServices = "sd-switch";
-              home.stateVersion = "24.11";
-            };
+            in
+              {pkgs, ...}: {
+                imports =
+                  (builtins.attrValues self.homeModules)
+                  ++ [
+                    "${hm}/desktop/hyprland"
+                    "${hm}/programs/zoom"
+                    "${hm}/services/easyeffects"
+                    "${hm}/services/ulauncher"
+                    "${hm}/services/hyprpaper"
+                    "${hm}/services/hyprlock"
+                    "${hm}/misc/wallpaper"
+                  ];
+                home.packages = [pkgs.llm-agents.pi];
+                programs.home-manager.enable = true;
+                systemd.user.startServices = "sd-switch";
+                home.stateVersion = "24.11";
+              };
           };
         }
       ];
