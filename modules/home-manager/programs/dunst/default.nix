@@ -9,7 +9,7 @@ services.dunst = {
     };
     settings = {
       global = {
-        rounded = "yes";
+        rounded = "no";
         origin = "top-right";
         monitor = "0";
         alignment = "left";
@@ -21,7 +21,7 @@ services.dunst = {
         progress_bar = true;
         transparency = 0;
         text_icon_padding = 0;
-        separator_color = "#494d64";
+        separator_color = "#12232c";
         sort = "yes";
         idle_threshold = 120;
         line_height = 0;
@@ -33,12 +33,12 @@ services.dunst = {
         sticky_history = "yes";
         history_length = 20;
         always_run_script = true;
-        corner_radius = 20;
+        corner_radius = 0;
         follow = "mouse";
         font = "Roboto 14";
         format = "<b>%s</b>\\n%b";
-        frame_color = "#c6a0f6";
-        frame_width = 2;
+        frame_color = "#2de2e6";
+        frame_width = 3;
         offset = "15x15";
         horizontal_padding = 10;
         icon_position = "left";
@@ -60,19 +60,19 @@ services.dunst = {
       fullscreen_delay_everything = {fullscreen = "delay";};
 
       urgency_critical = {
-        background = "#24273a";
-        foreground = "#ed8796";
-        frame_color = "#ed8796";
+        background = "#0a1419";
+        foreground = "#ff8080";
+        frame_color = "#ff4d4d";
       };
       urgency_low = {
-        background = "#24273a";
-        foreground = "#a5adcb";
-        frame_color = "#494d64";
+        background = "#0a1419";
+        foreground = "#96b8bf";
+        frame_color = "#1a8a8f";
       };
       urgency_normal = {
-        background = "#24273a";
-        foreground = "#cad3f5";
-        frame_color = "#c6a0f6";
+        background = "#0a1419";
+        foreground = "#dceef2";
+        frame_color = "#2de2e6";
       };
     };
   };
