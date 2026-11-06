@@ -67,28 +67,35 @@
       bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "pbcopy"
       bind P paste-buffer
       bind -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "pbcopy"
+
+      # ---- Rocinante / MCRN console styling ------------------------------
+      # Replaces the Catppuccin tmux plugin: same top status bar idea, ship
+      # palette, no rounded nothing. Colours need truecolor, which the
+      # terminal-overrides RGB line above already enables.
+      set -g status-style "bg=#0a1419,fg=#96b8bf"
+      set -g status-interval 10
+      set -g status-left-length 30
+      set -g status-right-length 60
+      set -g status-left "#[bg=#2de2e6,fg=#05101d,bold] #S "
+      set -g status-right "#[fg=#5c8189]#H #[fg=#1a8a8f]| #[fg=#2de2e6]%H:%M #[fg=#96b8bf]%d %b"
+
+      set -g window-status-current-style "bg=#2de2e6,fg=#05101d,bold"
+      set -g window-status-current-format " #I:#W "
+      set -g window-status-style "bg=#0a1419,fg=#5c8189"
+      set -g window-status-format " #I:#W "
+      set -g window-status-activity-style "bg=#0a1419,fg=#ffb454"
+      set -g window-status-bell-style "bg=#ff4d4d,fg=#05101d"
+      set -g window-status-separator ""
+
+      set -g pane-border-style "fg=#12232c"
+      set -g pane-active-border-style "fg=#1a8a8f"
+      set -g message-style "bg=#2de2e6,fg=#05101d"
+      set -g message-command-style "bg=#ffb454,fg=#05101d"
+      set -g mode-style "bg=#1a8a8f,fg=#eafcff"
+      set -g clock-mode-colour "#2de2e6"
+      set -g clock-mode-style 24
+      set -g display-panes-colour "#ffb454"
+      set -g display-panes-active-colour "#2de2e6"
     '';
-  };
-
-  # Enable catppuccin theming for tmux.
-  catppuccin = {
-    tmux = {
-      enable = true;
-      extraConfig = ''
-        set -g @catppuccin_flavor "macchiato"
-        set -g @catppuccin_status_background "none"
-
-        set -g @catppuccin_window_current_number_color "#{@thm_peach}"
-        set -g @catppuccin_window_current_text " #W"
-        set -g @catppuccin_window_current_text_color "#{@thm_bg}"
-        set -g @catppuccin_window_number_color "#{@thm_blue}"
-        set -g @catppuccin_window_text " #W"
-        set -g @catppuccin_window_text_color "#{@thm_surface_0}"
-        set -g @catppuccin_status_left_separator "█"
-
-        set -g status-right "#{E:@catppuccin_status_host}#{E:@catppuccin_status_date_time}"
-        set -g status-left ""
-      '';
-    };
   };
 }

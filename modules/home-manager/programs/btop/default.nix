@@ -4,9 +4,10 @@
     enable = true;
     settings = {
       vim_keys = true;
+      color_theme = "rocinante.theme";
     };
   };
 
-  # Enable catppuccin theming for btop.
-  catppuccin.btop.enable = true;
+  # Console palette theme file, replacing the Catppuccin one.
+  xdg.configFile."btop/themes/rocinante.theme".source = ./rocinante.theme;
 }

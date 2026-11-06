@@ -1,0 +1,83 @@
+# Rocinante / MCRN console theme for btop.
+# Palette shared with hyprland.conf, hyprlock, waybar/style.css,
+# alacritty colors and ~/.pi/agent/themes/rocinante.json.
+
+# Main background
+theme[main_bg]="#0a1419"
+
+# Main text color
+theme[main_fg]="#dceef2"
+
+# Title color for boxes
+theme[title]="#2de2e6"
+
+# Highlight color for keyboard shortcuts
+theme[hi_fg]="#2de2e6"
+
+# Background color of selected item in processes box
+theme[selected_bg]="#1a8a8f"
+
+# Foreground color of selected item in processes box
+theme[selected_fg]="#eafcff"
+
+# Color of inactive/disabled text
+theme[inactive_fg]="#5c8189"
+
+# Color of text appearing on top of graphs
+theme[graph_text]="#ffb454"
+
+# Background color of the percentage meters
+theme[meter_bg]="#12232c"
+
+# Misc colors for processes box
+theme[proc_misc]="#96b8bf"
+
+# CPU, Memory, Network, Proc box outline colors
+theme[cpu_box]="#2de2e6"   # holographic cyan
+theme[mem_box]="#4fd6a0"   # life-support green
+theme[net_box]="#ff4d4d"   # alarm red
+theme[proc_box]="#ffb454"  # tactical amber
+
+# Box divider line and small boxes line color
+theme[div_line]="#1a8a8f"
+
+# Temperature graph color (Green -> Amber -> Red)
+theme[temp_start]="#4fd6a0"
+theme[temp_mid]="#ffb454"
+theme[temp_end]="#ff4d4d"
+
+# CPU graph
+theme[cpu_start]="#1a8a8f"
+theme[cpu_mid]="#2de2e6"
+theme[cpu_end]="#7dd3d8"
+
+# Mem box: free / cached / available / used
+theme[free_start]="#2d8fb5"
+theme[free_mid]="#6fc0d8"
+theme[free_end]="#7dd3d8"
+
+theme[cached_start]="#1a8a8f"
+theme[cached_mid]="#2d8fb5"
+theme[cached_end]="#6fc0d8"
+
+theme[available_start]="#4fd6a0"
+theme[available_mid]="#2de2e6"
+theme[available_end]="#7dd3d8"
+
+theme[used_start]="#ffb454"
+theme[used_mid]="#ff8080"
+theme[used_end]="#ff4d4d"
+
+# Network graph
+theme[download_start]="#4fd6a0"
+theme[download_mid]="#2de2e6"
+theme[download_end]="#7dd3d8"
+
+theme[upload_start]="#ffb454"
+theme[upload_mid]="#ffd08a"
+theme[upload_end]="#eafcff"
+
+# Process box bar color
+theme[process_start]="#2de2e6"
+theme[process_mid]="#4fd6a0"
+theme[process_end]="#ffb454"
