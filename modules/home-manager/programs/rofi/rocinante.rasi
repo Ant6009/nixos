@@ -1,0 +1,120 @@
+/*
+ * Rocinante / MCRN console theme for rofi 2.x.
+ *
+ * Palette shared with:
+ *   modules/home-manager/desktop/hyprland/hyprland.conf
+ *   modules/home-manager/services/hyprlock/default.nix
+ *   modules/home-manager/services/waybar/style.css
+ *   ~/.pi/agent/themes/rocinante.json
+ *
+ * Rofi 2.x notes: window geometry and location are theme properties now
+ * (width in percent of the screen), border-radius is gone, and hard edges are
+ * the default, which suits the console look.
+ */
+* {
+    bg0:       #0a1419;   /* panel fill            */
+    bg1:       #05101d;   /* bridge night          */
+    bg2:       #2de2e61e; /* lit hologram wash     */
+    bg3:       #1a8a8f;   /* dim hologram hairline */
+    fg0:       #dceef2;
+    fg1:       #96b8bf;
+    fg2:       #5c8189;
+    accent:    #2de2e6;   /* holographic cyan      */
+    accent2:   #ffb454;   /* tactical amber        */
+    urgent:    #ff4d4d;   /* access denied / alarm */
+
+    background-color: transparent;
+    text-color: var(fg0);
+    font: "Roboto 14";
+    margin: 0;
+    padding: 0;
+    spacing: 0;
+}
+
+window {
+    width: 20%;
+    location: center;
+    background-color: var(bg0);
+    border: 3px solid;
+    border-color: var(accent);
+}
+
+mainbox {
+    padding: 24px;
+    spacing: 18px;
+    border: 0;
+}
+
+inputbar {
+    children: [ "prompt", "entry" ];
+    background-color: var(bg1);
+    padding: 14px 18px;
+    spacing: 14px;
+    border: 1px solid;
+    border-color: var(bg3);
+}
+
+prompt {
+    background-color: var(accent);
+    text-color: var(bg1);
+    padding: 6px 14px;
+    font: "JetBrainsMono Nerd Font Bold 12";
+}
+
+entry {
+    placeholder: "Type to search";
+    placeholder-color: var(fg2);
+    cursor-color: var(accent);
+}
+
+listview {
+    scrollbar: false;
+    spacing: 4px;
+    border: 0;
+}
+
+element {
+    padding: 10px 14px;
+    spacing: 16px;
+    border: 0;
+}
+
+element normal.normal {
+    background-color: transparent;
+    text-color: var(fg1);
+}
+
+element normal.urgent {
+    text-color: var(urgent);
+}
+
+element selected.normal {
+    background-color: var(bg2);
+    text-color: var(fg0);
+    border: 1px solid;
+    border-color: var(accent);
+}
+
+element selected.urgent {
+    background-color: var(urgent);
+    text-color: var(bg1);
+}
+
+element-icon {
+    size: 32px;
+}
+
+element-text {
+    text-color: inherit;
+}
+
+message {
+    background-color: var(bg1);
+    padding: 12px;
+    border: 1px solid;
+    border-color: var(bg3);
+}
+
+textbox {
+    text-color: var(fg1);
+}
