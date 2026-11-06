@@ -50,15 +50,15 @@
       }
 
       window {
-          background-color: rgba(30, 32, 48, 0.85);
+          background-color: rgba(5, 16, 29, 0.88);
       }
 
       button {
           margin: 12px;
-          color: #cad3f5;
-          background-color: rgba(54, 58, 79, 0.8);
-          border: 2px solid #494d64;
-          border-radius: 16px;
+          color: #96b8bf;
+          background-color: rgba(10, 20, 25, 0.85);
+          border: 2px solid #1a8a8f;
+          border-radius: 0;
           background-repeat: no-repeat;
           background-position: center;
           background-size: 25%;
@@ -67,10 +67,28 @@
       button:active,
       button:focus,
       button:hover {
-          color: #b7bdf8;
-          background-color: rgba(54, 58, 79, 1);
-          border-color: #b7bdf8;
+          color: #05101d;
+          background-color: rgba(45, 226, 230, 0.85);
+          border-color: #2de2e6;
           outline-style: none;
+      }
+
+      /* destructive actions carry the alarm frame rather than a cyan glow */
+      #shutdown,
+      #reboot {
+          color: #ff8080;
+          border-color: #ff4d4d;
+      }
+
+      #shutdown:active,
+      #shutdown:focus,
+      #shutdown:hover,
+      #reboot:active,
+      #reboot:focus,
+      #reboot:hover {
+          color: #05101d;
+          background-color: rgba(255, 77, 77, 0.9);
+          border-color: #ff8080;
       }
 
       #lock {

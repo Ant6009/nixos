@@ -1,0 +1,96 @@
+@OBSThemeMeta {
+    name: 'Rocinante';
+    id: 'com.obsproject.Rocinante';
+    extends: 'com.obsproject.Yami';
+    author: 'antoine';
+    dark: 'true';
+}
+
+/*
+ * Rocinante / MCRN console palette for OBS Studio.
+ * Extends OBS's own Yami theme and only remaps its colour variables, so all
+ * of OBS's layout rules stay intact. Select it in OBS > Settings > General >
+ * Theme. Palette shared with hyprland.conf, waybar/style.css, hyprlock,
+ * alacritty and ~/.pi/agent/themes/rocinante.json.
+ */
+@OBSThemeVars {
+    /* holographic cyan */
+    --teal1: #7dd3d8;
+    --teal2: #2de2e6;
+    --teal3: #1a8a8f;
+    --teal4: #147075;
+    --teal5: #0f565a;
+    --teal6: #0a3f42;
+
+    /* instrument blue */
+    --blue1: #8fd0e8;
+    --blue2: #6fc0d8;
+    --blue3: #2d8fb5;
+    --blue4: #24718f;
+    --blue5: #1b5670;
+    --blue6: #133c4f;
+
+    /* alarm red */
+    --red1: #ff8080;
+    --red2: #ff4d4d;
+    --red3: #d13c3c;
+    --red4: #a52f2f;
+    --red5: #7a2424;
+    --red6: #521818;
+
+    /* lit alert salmon */
+    --pink1: #f5b0ab;
+    --pink2: #e88b86;
+    --pink3: #c97470;
+    --pink4: #9c5a57;
+    --pink5: #734341;
+    --pink6: #4d2d2b;
+
+    /* secondary hologram (replaces OBS purple) */
+    --purple1: #7dd3d8;
+    --purple2: #2de2e6;
+    --purple3: #1a8a8f;
+    --purple4: #147075;
+    --purple5: #0f565a;
+    --purple6: #0a3f42;
+
+    /* life-support green */
+    --green1: #7ff0b5;
+    --green2: #4fd6a0;
+    --green3: #3fae83;
+    --green4: #318a68;
+    --green5: #24664e;
+    --green6: #174334;
+
+    /* tactical amber */
+    --yellow1: #ffd08a;
+    --yellow2: #ffb454;
+    --yellow3: #d1913f;
+    --yellow4: #a5722f;
+    --yellow5: #7a5423;
+    --yellow6: #523817;
+
+    /* bridge night panel ramp (replaces grey) */
+    --grey1: #5c8189;
+    --grey2: #46666e;
+    --grey3: #233a45;
+    --grey4: #12232c;
+    --grey5: #0f1d25;
+    --grey6: #0a1419;
+    --grey7: #071119;
+    --grey8: #05101d;
+
+    /* readout text */
+    --white1: #eafcff;
+    --white2: #dceef2;
+    --white3: #cfe3e7;
+    --white4: #96b8bf;
+    --white5: #7ba3ab;
+
+    /* panel fill / hairlines */
+    --black1: #05101d;
+    --black2: #0a1419;
+    --black3: #12232c;
+    --black4: #1a8a8f;
+    --black5: #5c8189;
+}

@@ -1,0 +1,64 @@
+/* Rocinante / MCRN console palette for ulauncher.
+   Shared with hyprland.conf, hyprlock, waybar/style.css, alacritty and
+   ~/.pi/agent/themes/rocinante.json. Hard edges on purpose.
+   Colours are written inline rather than as GTK named colours so plain CSS
+   tooling can parse this file. */
+
+.app {
+  background-color: #0a1419;
+  border-color: #2de2e6;
+  border-width: 3px;
+  border-radius: 0;
+}
+
+.input {
+  color: #2de2e6;
+}
+
+.input *:selected,
+.input *:focus,
+*:selected:focus {
+  background-color: rgba(45, 226, 230, 0.35);
+  color: #dceef2;
+}
+
+.item-text {
+  color: #dceef2;
+}
+
+.item-name {
+  color: #dceef2;
+  font-size: 1.2rem;
+}
+
+.selected.item-box {
+  background-color: rgba(45, 226, 230, 0.22);
+  border: 1px solid #2de2e6;
+  border-radius: 0;
+}
+
+.selected.item-box .item-text {
+  color: #dceef2;
+}
+
+.selected.item-box .item-name {
+  color: #dceef2;
+}
+
+.shortcut-dock-search,
+.shortcut-dock-icon,
+.item-loaderIcon {
+  color: #96b8bf;
+}
+
+.result-container {
+  background-color: #0a1419;
+}
+
+.logo-icon {
+  color: #2de2e6;
+}
+
+.logo-icon:disabled {
+  color: #ff4d4d;
+}
