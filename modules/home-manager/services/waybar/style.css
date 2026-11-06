@@ -1,0 +1,316 @@
+/* Rocinante - MCRN tactical console (waybar)
+ *
+ * Palette shared with:
+ *   modules/home-manager/services/hyprlock/default.nix  (ship identity at the lock screen)
+ *   ~/.pi/agent/themes/rocinante.json                   (pi TUI)
+ * Inks for state colours taken from the Roci display frames in ~/Pictures/roci.jpg
+ * (measured: alert red #de5255 mid / #e88b86 lit, phosphor green #7ccd75, warm amber #edc699).
+ *
+ * Angular plates, hairline separators, uppercase telemetry: no rounded corners.
+ */
+
+* {
+  font-family: "JetBrainsMono Nerd Font";
+  font-weight: bold;
+  min-height: 0;
+  font-size: 100%;
+  font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
+  padding: 0px;
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+
+window#waybar {
+  background: rgba(0, 0, 0, 0);
+  color: #dceef2;
+}
+
+window#waybar.hidden {
+  opacity: 0.4;
+}
+
+/* ---------------------------------------------------------------- plates --- */
+
+.modules-left,
+.modules-center,
+.modules-right {
+  background-color: rgba(10, 20, 25, 0.90);
+  background-image: linear-gradient(180deg, rgba(10, 20, 25, 0.92), rgba(5, 16, 29, 0.95));
+  border: 1px solid rgba(45, 226, 230, 0.28);
+  border-top: 2px solid rgba(45, 226, 230, 0.55);
+  border-radius: 0;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.modules-center {
+  border-top-color: rgba(255, 180, 84, 0.60);
+}
+
+/* ------------------------------------------------------------- readouts --- */
+
+#backlight,
+#battery,
+#bluetooth,
+#clock,
+#cpu,
+#custom-notification,
+#custom-power,
+#custom-recorder,
+#custom-ship,
+#language,
+#memory,
+#pulseaudio,
+#temperature,
+#tray,
+#workspaces {
+  color: #dceef2;
+  padding: 0px 10px;
+  border-radius: 0;
+}
+
+/* hairline separators between subsystem readouts */
+#cpu,
+#memory,
+#temperature,
+#backlight,
+#pulseaudio#microphone {
+  border-left: 1px solid rgba(26, 138, 143, 0.35);
+}
+
+/* ship identity: lit console key */
+#custom-ship {
+  color: #05101d;
+  background-color: #2de2e6;
+  letter-spacing: 0.18em;
+  padding: 0px 12px;
+}
+
+/* ship's clock: amber, spaced */
+#clock {
+  color: #ffb454;
+  letter-spacing: 0.14em;
+  padding: 0px 16px;
+}
+
+/* telemetry cluster: cold readout */
+#cpu,
+#memory,
+#temperature {
+  color: #7dd3d8;
+}
+
+#backlight,
+#language,
+#tray {
+  color: #96b8bf;
+}
+
+#custom-notification {
+  color: #1a8a8f;
+}
+
+/* ------------------------------------------------------------- stations --- */
+
+#workspaces button {
+  padding: 3px 8px;
+  margin: 3px 2px;
+  color: #1a8a8f;
+  background-color: transparent;
+  border: 1px solid rgba(26, 138, 143, 0.25);
+  border-radius: 0;
+}
+
+#workspaces button:hover {
+  color: #dceef2;
+  background-color: rgba(26, 138, 143, 0.22);
+  border-color: rgba(45, 226, 230, 0.45);
+}
+
+#workspaces button.focused {
+  color: #2de2e6;
+  background-color: rgba(26, 138, 143, 0.18);
+  border-bottom: 2px solid #ffb454;
+}
+
+#workspaces button.active {
+  color: #05101d;
+  background-color: #2de2e6;
+  border-color: #2de2e6;
+}
+
+#workspaces button.urgent {
+  color: #05101d;
+  background-color: #de5255;
+  border-color: #ff4d4d;
+}
+
+#workspaces button.persistent {
+  border-style: dashed;
+  border-color: rgba(26, 138, 143, 0.45);
+}
+
+#taskbar button.active {
+  background-color: rgba(45, 226, 230, 0.22);
+  border-bottom: 2px solid #2de2e6;
+}
+
+/* -------------------------------------------------------------- status --- */
+
+/* power: nominal green, comms cyan, alarm amber/red */
+#battery {
+  color: #4fd6a0;
+}
+
+#battery.good {
+  color: #4fd6a0;
+}
+
+#battery.charging,
+#battery.plugged {
+  color: #2de2e6;
+}
+
+#battery.full {
+  color: #7ccd75;
+}
+
+#battery.warning:not(.charging) {
+  color: #ffb454;
+}
+
+#battery.critical:not(.charging) {
+  color: #ff4d4d;
+  background-color: rgba(222, 82, 85, 0.20);
+  animation-name: alarm;
+  animation-duration: 0.8s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes alarm {
+  to {
+    color: #05101d;
+    background-color: #de5255;
+  }
+}
+
+#temperature.critical {
+  color: #05101d;
+  background-color: #de5255;
+}
+
+#pulseaudio {
+  color: #7dd3d8;
+}
+
+#pulseaudio.muted {
+  color: #1a8a8f;
+  background-color: rgba(222, 82, 85, 0.14);
+}
+
+#bluetooth.connected {
+  color: #4fd6a0;
+}
+
+#custom-recorder {
+  color: #05101d;
+  background-color: #de5255;
+  letter-spacing: 0.10em;
+}
+
+#custom-power {
+  color: #1a8a8f;
+}
+
+#custom-power:hover {
+  color: #05101d;
+  background-color: #ffb454;
+}
+
+/* -------------------------------- inference telemetry (strata on donnager) --- */
+
+#custom-strata,
+#custom-strata-decode,
+#custom-strata-prefill,
+#custom-strata-gpu,
+#custom-strata-power {
+  padding: 0px 10px;
+  border-left: 1px solid rgba(26, 138, 143, 0.35);
+}
+
+/* fixed slots, so the cluster keeps its width as the numbers change */
+#custom-strata {
+  min-width: 80px;
+}
+
+#custom-strata-decode {
+  min-width: 125px;
+}
+
+#custom-strata-prefill,
+#custom-strata-gpu,
+#custom-strata-power {
+  min-width: 132px;
+}
+
+/* link plate: idle is a dim socket, busy is a lit key */
+#custom-strata {
+  color: #1a8a8f;
+  background-color: rgba(26, 138, 143, 0.16);
+  border-left: none;
+  letter-spacing: 0.18em;
+}
+
+#custom-strata.busy {
+  color: #05101d;
+  background-color: #2de2e6;
+}
+
+#custom-strata-decode,
+#custom-strata-prefill {
+  color: #7dd3d8;
+}
+
+#custom-strata-decode.idle,
+#custom-strata-prefill.idle {
+  color: #5c8189;
+}
+
+#custom-strata-decode.busy,
+#custom-strata-prefill.busy {
+  color: #2de2e6;
+}
+
+#custom-strata-gpu.good,
+#custom-strata-power.good {
+  color: #4fd6a0;
+}
+
+#custom-strata-gpu.warning,
+#custom-strata-power.warning {
+  color: #ffb454;
+}
+
+/* over temp, or the link is down */
+#custom-strata-gpu.critical,
+#custom-strata-power.critical,
+#custom-strata.critical {
+  color: #05101d;
+  background-color: #de5255;
+}
+
+/* ------------------------------------------------------------- tooltips --- */
+tooltip {
+  background-color: rgba(5, 16, 29, 0.96);
+  border: 1px solid rgba(45, 226, 230, 0.35);
+  border-top: 2px solid rgba(45, 226, 230, 0.60);
+  border-radius: 0;
+}
+
+tooltip label {
+  color: #dceef2;
+  margin-right: 6px;
+  margin-left: 6px;
+}

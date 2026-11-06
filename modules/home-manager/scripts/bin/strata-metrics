@@ -1,0 +1,185 @@
+#!/usr/bin/env bash
+# strata-metrics - waybar feed for the Strata inference server on donnager.
+#
+# One /metrics fetch is shared by every bar module through a short-lived cache,
+# so five modules cost one HTTP request per STRATA_TTL seconds (default 2).
+#
+# Usage: strata-metrics [identity|decode|prefill|gpu|power|status|raw]
+# Each subcommand prints one waybar custom-module JSON object:
+#   {"text": "...", "class": "...", "tooltip": "..."}
+#
+# Env: STRATA_URL (default http://192.168.68.128:8081)
+#      STRATA_API_KEY (default: .strata.key from ~/.pi/agent/auth.json)
+#      STRATA_TTL (cache seconds, default 2)
+
+set -uo pipefail
+
+BASE="${STRATA_URL:-http://192.168.68.128:8081}"
+TTL="${STRATA_TTL:-2}"
+CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/strata"
+CACHE="$CACHE_DIR/metrics.json"
+LOCK="$CACHE_DIR/fetch.lock"
+KEY="${STRATA_API_KEY:-$(jq -r '.strata.key // ""' "$HOME/.pi/agent/auth.json" 2>/dev/null)}"
+
+mkdir -p "$CACHE_DIR"
+
+# age of the cached payload in seconds (99999 if missing)
+cache_age() {
+  [ -f "$CACHE" ] || { echo 99999; return; }
+  echo $(( $(date +%s) - $(stat -c %Y "$CACHE" 2>/dev/null || echo 0) ))
+}
+
+refresh() {
+  # -n: if another module is already fetching, everyone else just reuses the cache
+  (
+    flock -n 9 || exit 0
+    if curl -sf --max-time 2 -H "Authorization: Bearer $KEY" "$BASE/metrics" -o "$CACHE.tmp"; then
+      mv -f "$CACHE.tmp" "$CACHE"
+    else
+      rm -f "$CACHE.tmp"
+      touch "$CACHE_DIR/stale"
+    fi
+  ) 9>"$LOCK"
+}
+
+payload() {
+  local age
+  age="$(cache_age)"
+  if [ "$age" -ge "$TTL" ]; then refresh; age="$(cache_age)"; fi
+  # the payload ages out if the server stops answering, so the bar flips to OFFLINE
+  if [ ! -f "$CACHE" ] || [ "$age" -gt $((TTL * 5)) ]; then return 1; fi
+  jq -c . "$CACHE" 2>/dev/null
+}
+
+offline_json() {
+  jq -nc --arg t "${1:-STRATA OFFLINE}" --arg c "critical" \
+    '{text: $t, class: $c, tooltip: "Strata unreachable at '"$BASE"'"}'
+}
+
+mode="${1:-gpu}"
+data="$(payload)" || data=""
+
+# Fixed-size readout fields, so the bar segments never change width:
+#   STRATA   DEC 088 t/s   PRE 0511 t/s   GPU 63C 100%   PWR 190/200W
+# when the server is unreachable the same slots are filled with dashes.
+if [ -z "$data" ]; then
+  case "$mode" in
+    identity) offline_json "STRATA" ;;
+    decode) offline_json "DEC --- t/s" ;;
+    prefill) offline_json "PRE ---- t/s" ;;
+    gpu) offline_json "GPU --C ---%" ;;
+    power) offline_json "PWR ---/---W" ;;
+    status) offline_json " N/A" ;;
+    *) offline_json " N/A" ;;
+  esac
+  exit 0
+fi
+
+# live.* is populated only while a slot is working; hardware.* carries the rolling mean
+# (kept in a shell variable, not a shared file: five modules run at the same instant)
+parsed="$(jq -r '
+  def fmt1: (. * 10 | round / 10);
+  (.live // {}) as $live |
+  (.hardware // {}) as $hw |
+  ((.requests // [])[0] // {}) as $last |
+  (if ($live.state // "idle") != "idle" then "busy" else "idle" end) as $state |
+  ($live.tok_s // $hw.tok_s_mean // 0) as $decode |
+  (($live.prefill_tok_s_mean // 0) as $lp |
+    if $lp > 0 then $lp
+    elif ($last.prompt_ms // 0) > 0 then (($last.prompt_read // 0) * 1000 / $last.prompt_ms)
+    else 0 end) as $prefill |
+  ($hw.gpu_temp // 0) as $temp |
+  ($hw.gpu_power // 0) as $power |
+  ($hw.gpu_power_limit // 0) as $plimit |
+  ($hw.gpu_util // 0) as $util |
+  ($hw.gpu_mem_used // 0) as $memu |
+  ($hw.gpu_mem_total // 0) as $memt |
+  ($live.state // "idle") as $phase |
+  ($live.phase // "") as $ptext |
+  (.engine.model // "?") as $model |
+  (.hardware_static.gpu_name // "GPU") as $gpu |
+  ((.totals.output_tokens // 0) / 1000 | floor) as $kout |
+  ((.totals.prompt_tokens // 0) / 1000 | floor) as $kin |
+  ($kout * 1000) as $out_tok |
+  ($kin * 1000) as $in_tok |
+  (if ($last.prompt_ms // 0) > 0 then (($last.prompt_total // 0) * 1000 / $last.prompt_ms) else 0 end) as $pre_eff |
+  "MODEL=\($model)|GPU=\($gpu)|\($ptext // $phase)|DEC=\($decode|fmt1) t/s|PRE=\($prefill|fmt1) t/s compute, \($pre_eff|fmt1) t/s effective|TEMP=\($temp)C|PWR=\($power|fmt1)/\($plimit)W|UTIL=\($util)%|VRAM=\(($memu/1048576|floor))/\(($memt/1048576|floor))MiB|IN=\($in_tok)|OUT=\($out_tok)" as $tip |
+  if $state == "busy" then
+    { state: "busy", decode: $decode, prefill: $prefill, temp: $temp, power: $power, plimit: $plimit, util: $util, tooltip: $tip }
+  else
+    { state: "idle", decode: $decode, prefill: $prefill, temp: $temp, power: $power, plimit: $plimit, util: $util, tooltip: $tip }
+  end
+' "$CACHE" 2>/dev/null)"
+
+if [ -z "$parsed" ]; then
+  case "$mode" in
+    identity) offline_json "STRATA" ;;
+    decode) offline_json "DEC --- t/s" ;;
+    prefill) offline_json "PRE ---- t/s" ;;
+    gpu) offline_json "GPU --C ---%" ;;
+    power) offline_json "PWR ---/---W" ;;
+    status) offline_json " N/A" ;;
+    *) offline_json " N/A" ;;
+  esac
+  exit 0
+fi
+
+# temperature and power-limit headroom drive the colour classes
+read -r state decode prefill temp power plimit util tip < <(
+  jq -r '[.state, (.decode|floor), (.prefill|floor), .temp, .power, .plimit, .util, .tooltip] | @tsv' <<<"$parsed"
+)
+
+gpu_class=$(awk -v t="${temp:-0}" -v p="${power:-0}" -v l="${plimit:-0}" -v u="${util:-0}" -v s="${state:-idle}" '
+  BEGIN {
+    c = "good";
+    if (t >= 70) c = "warning";
+    if (t >= 82 || (t >= 75 && u >= 100)) c = "critical";
+    # busy but far below the power cap means something is starved or throttled
+    if (c == "good" && s == "busy" && l > 0 && p < 0.5 * l) c = "warning";
+    print c;
+  }')
+
+# one awk pass builds the fixed-width readouts (clamped so a runaway value
+# cannot widen a segment); tooltips keep the unrounded numbers
+IFS='|' read -r txt_decode txt_prefill txt_gpu txt_power < <(
+  awk -v d="${decode:-0}" -v pr="${prefill:-0}" -v t="${temp:-0}" -v u="${util:-0}" \
+      -v w="${power:-0}" -v l="${plimit:-0}" '
+    BEGIN {
+      if (d > 999) d = 999; if (d < 0) d = 0;
+      if (pr > 9999) pr = 9999; if (pr < 0) pr = 0;
+      if (t > 99) t = 99; if (t < 0) t = 0;
+      if (u > 999) u = 999; if (u < 0) u = 0;
+      if (w > 999) w = 999; if (w < 0) w = 0;
+      if (l > 999) l = 999; if (l < 0) l = 0;
+      printf "DEC %03d t/s|PRE %04d t/s|GPU %02dC %03d%%|PWR %03d/%03dW", d, pr, t, u, w, l;
+    }'
+)
+
+case "$mode" in
+  identity)
+    if [ "$state" = "busy" ]; then jq -nc '{text: "STRATA", class: "busy"}'
+    else jq -nc '{text: "STRATA", class: "idle"}'; fi
+    ;;
+  decode)
+    jq -nc --arg t "$txt_decode" --arg c "$state" --arg s "$tip" '{text: $t, class: $c, tooltip: $s}'
+    ;;
+  prefill)
+    jq -nc --arg t "$txt_prefill" --arg c "$state" --arg s "$tip" '{text: $t, class: $c, tooltip: $s}'
+    ;;
+  gpu)
+    jq -nc --arg t "$txt_gpu" --arg c "$gpu_class" --arg s "$tip" '{text: $t, class: $c, tooltip: $s}'
+    ;;
+  power)
+    jq -nc --arg t "$txt_power" --arg c "$gpu_class" --arg s "$tip" '{text: $t, class: $c, tooltip: $s}'
+    ;;
+  status)
+    jq -nc --arg t "${state}" --arg s "$tip" '{text: $t, class: (if $t == "busy" then "busy" else "idle" end), tooltip: $s}'
+    ;;
+  raw)
+    cat "$CACHE"
+    ;;
+  *)
+    echo "usage: strata-metrics [identity|decode|prefill|gpu|power|status|raw]" >&2
+    exit 2
+    ;;
+esac

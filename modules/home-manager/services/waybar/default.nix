@@ -1,4 +1,4 @@
-{...}: {
+{config, ...}: {
   # Install and configure waybar via home-manager module
   programs.waybar = {
     enable = true;
@@ -16,6 +16,7 @@
         margin-right = 4;
 
         modules-left = [
+          "custom/ship"
           "custom/power"
           "hyprland/workspaces"
           "cpu"
@@ -26,6 +27,11 @@
 
         modules-center = [
           "clock"
+          "custom/strata"
+          "custom/strata-decode"
+          "custom/strata-prefill"
+          "custom/strata-gpu"
+          "custom/strata-power"
         ];
 
         modules-right = [
@@ -88,7 +94,7 @@
         };
 
         clock = {
-          format = "{:%b %d %H:%M}";
+          format = "{:%H:%M}";
           format-alt = " {:%H:%M   %Y, %d %B, %A}";
           tooltip-format = "<tt><small>{calendar}</small></tt>";
           calendar = {
@@ -97,11 +103,11 @@
             weeks-pos = "right";
             on-scroll = 1;
             format = {
-              months = "<span color='#ffead3'><b>{}</b></span>";
-              days = "<span color='#ecc6d9'><b>{}</b></span>";
-              weeks = "<span color='#99ffdd'><b>W{}</b></span>";
-              weekdays = "<span color='#ffcc66'><b>{}</b></span>";
-              today = "<span color='#ff6699'><b><u>{}</u></b></span>";
+              months = "<span color='#2de2e6'><b>{}</b></span>";
+              days = "<span color='#7dd3d8'><b>{}</b></span>";
+              weeks = "<span color='#4fd6a0'><b>W{}</b></span>";
+              weekdays = "<span color='#ffb454'><b>{}</b></span>";
+              today = "<span color='#ff4d4d'><b><u>{}</u></b></span>";
             };
           };
         };
@@ -206,6 +212,46 @@
           on-click = "screen-recorder";
         };
 
+        "custom/ship" = {
+          format = "{}";
+          exec = "hostname | tr a-z A-Z";
+          interval = "once";
+          tooltip = false;
+        };
+
+        # donnager's Strata inference server, fed by ~/.local/bin/strata-metrics
+        # (one shared /metrics fetch per 2s for the whole cluster)
+        "custom/strata" = {
+          exec = "${config.home.homeDirectory}/.local/bin/strata-metrics identity";
+          interval = 2;
+          return-type = "json";
+          tooltip = false;
+        };
+
+        "custom/strata-decode" = {
+          exec = "${config.home.homeDirectory}/.local/bin/strata-metrics decode";
+          interval = 2;
+          return-type = "json";
+        };
+
+        "custom/strata-prefill" = {
+          exec = "${config.home.homeDirectory}/.local/bin/strata-metrics prefill";
+          interval = 2;
+          return-type = "json";
+        };
+
+        "custom/strata-gpu" = {
+          exec = "${config.home.homeDirectory}/.local/bin/strata-metrics gpu";
+          interval = 2;
+          return-type = "json";
+        };
+
+        "custom/strata-power" = {
+          exec = "${config.home.homeDirectory}/.local/bin/strata-metrics power";
+          interval = 2;
+          return-type = "json";
+        };
+
         "custom/power" = {
           format = " ⏻ ";
           tooltip = false;
@@ -213,120 +259,6 @@
         };
       };
     };
-    style = ''
-      * {
-        font-family: "JetBrainsMono Nerd Font";
-        font-weight: bold;
-        min-height: 0;
-        font-size: 100%;
-        font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
-        padding: 0px;
-        margin-top: 1px;
-        margin-bottom: 1px;
-      }
-
-      window#waybar {
-        background: rgba(0, 0, 0, 0);
-      }
-
-      window#waybar.hidden {
-        opacity: 0.5;
-      }
-
-      tooltip {
-        background: #1e1e2e;
-        border-radius: 8px;
-      }
-
-      tooltip label {
-        color: #cad3f5;
-        margin-right: 5px;
-        margin-left: 5px;
-      }
-
-      .modules-right,
-      .modules-center,
-      .modules-left {
-        background-color: rgba(0, 0, 0, 0.6);
-        border: 0px solid #b4befe;
-        border-radius: 8px;
-      }
-
-      #workspaces button {
-        padding: 2px;
-        color: #6e6a86;
-        margin-right: 5px;
-      }
-
-      #workspaces button.active {
-        color: #dfdfdf;
-        border-radius: 3px 3px 3px 3px;
-      }
-
-      #workspaces button.focused {
-        color: #d8dee9;
-      }
-
-      #workspaces button.urgent {
-        color: #ed8796;
-        border-radius: 8px;
-      }
-
-      #workspaces button:hover {
-        color: #dfdfdf;
-        border-radius: 3px;
-      }
-
-      #backlight,
-      #battery,
-      #bluetooth,
-      #clock,
-      #cpu,
-      #custom-notification,
-      #custom-recorder,
-      #language,
-      #memory,
-      #tray,
-      #pulseaudio,
-      #temperature,
-      #workspaces {
-        color: #dfdfdf;
-        padding: 0px 10px;
-        border-radius: 8px;
-      }
-
-      #temperature.critical {
-        background-color: #ff0000;
-      }
-
-      @keyframes blink {
-        to {
-          color: #000000;
-        }
-      }
-
-      #taskbar button.active {
-        background-color: #7f849c;
-      }
-
-      #battery.critical:not(.charging) {
-        color: #f53c3c;
-        animation-name: blink;
-        animation-duration: 0.5s;
-        animation-timing-function: linear;
-        animation-iteration-count: infinite;
-        animation-direction: alternate;
-      }
-
-      #custom-recorder {
-        color: #ff2800;
-      }
-
-      #custom-power {
-        color: #dfdfdf;
-        padding: 0px 10px;
-        border-radius: 8px;
-      }
-    '';
+    style = builtins.readFile ./style.css;
   };
 }
