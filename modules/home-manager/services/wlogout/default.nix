@@ -1,4 +1,14 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  # Hyprland 0.55+ parses `hyprctl dispatch` in the syntax of the *running*
+  # config format, which only changes at login. Probe it with a side-effect
+  # free dispatcher rather than trusting which config file is on disk.
+  hyprLogout = pkgs.writeShellScriptBin "hypr-logout" ''
+    if hyprctl dispatch "hl.dsp.no_op()" 2>&1 | grep -q "Invalid dispatcher"; then
+      exec hyprctl dispatch exit
+    fi
+    exec hyprctl dispatch "hl.dsp.exit()"
+  '';
+in {
   home.packages = with pkgs; [
     wlogout
   ];
@@ -13,7 +23,7 @@
       }
       {
         label = "logout";
-        action = "hyprctl dispatch exit";
+        action = "${hyprLogout}/bin/hypr-logout";
         text = "Logout";
         keybind = "e";
       }

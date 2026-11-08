@@ -3,6 +3,28 @@
   lib,
   ...
 }: let
+  # "Quit All Applications" shortcut. Hyprland 0.55+ parses `hyprctl dispatch`
+  # in the syntax of the *running* config format, which only changes at login,
+  # so probe it with a side-effect free dispatcher: a legacy session rejects
+  # hl.dsp.no_op().
+  closeAllWindows = pkgs.writeShellScriptBin "hypr-close-all-windows" ''
+    set -uo pipefail
+    if [ "''${XDG_SESSION_TYPE:-wayland}" = "wayland" ]; then
+      if hyprctl dispatch "hl.dsp.no_op()" 2>&1 | grep -q "Invalid dispatcher"; then
+        cmds=$(hyprctl -j clients | jq -j '.[] | "dispatch closewindow address:\\(.address); "')
+      else
+        cmds=$(hyprctl -j clients | jq -j '.[] | "dispatch hl.dsp.window.close({ window = \\"\\(.address)\\" }); "')
+      fi
+      [ -n "$cmds" ] && exec hyprctl --batch "$cmds"
+      exit 0
+    fi
+    WIN_IDs=$(wmctrl -l | grep -vwE "Desktop$|xfce4-panel$" | cut -f1 -d' ')
+    for i in $WIN_IDs; do wmctrl -ic "$i"; done
+    while test "$WIN_IDs"; do
+      sleep 0.1
+      WIN_IDs=$(wmctrl -l | grep -vwE "Desktop$|xfce4-panel$" | cut -f1 -d' ')
+    done
+  '';
   manageShortcutsScript = pkgs.writeScriptBin "manage-ulauncher-shortcuts" ''
     #!/usr/bin/env bash
     set -euo pipefail
@@ -30,7 +52,7 @@
           "id": "0eb1c1b7-8e36-4a13-abd4-0b6bb1f7bdb9",
           "name": "Quit All Applications",
           "keyword": "quit",
-          "cmd": "#!/usr/bin/env bash\nif [ \"$XDG_SESSION_TYPE\" = \"wayland\" ]; then\n\tHYPRCMDS=$(hyprctl -j clients | jq -j '.[] | \"dispatch closewindow address:\\(.address); \"')\n\thyprctl --batch \"$HYPRCMDS\" 2>&1\nelse\n\tWIN_IDs=$(wmctrl -l | grep -vwE \"Desktop$|xfce4-panel$\" | cut -f1 -d' ')\n\tfor i in $WIN_IDs; do wmctrl -ic \"$i\"; done\n\twhile test \"$WIN_IDs\"; do\n\t\tsleep 0.1\n\t\tWIN_IDs=$(wmctrl -l | grep -vwE \"Desktop$|xfce4-panel$\" | cut -f1 -d' ')\n\tdone\nfi",
+          "cmd": "hypr-close-all-windows",
           "icon": "~/.config/ulauncher/quit.png",
           "is_default_search": false,
           "run_without_argument": true,
@@ -56,6 +78,7 @@ in {
   # Ulauncher package
   home.packages = with pkgs; [
     ulauncher
+    closeAllWindows
   ];
 
   # Ulauncher service configuration

@@ -35,10 +35,12 @@
 
   services.hyprpaper.enable = true;
 
-  # Source hyprland config from the home-manager store
+  # Hyprland 0.55+ prefers ~/.config/hypr/hyprland.lua and only warns about a
+  # legacy hyprland.conf; 0.57 removes hyprlang parsing altogether. Installing
+  # the Lua file (and no .conf) keeps the choice unambiguous.
   xdg.configFile = {
-    "hypr/hyprland.conf" = {
-      source = ./hyprland.conf;
+    "hypr/hyprland.lua" = {
+      source = ./hyprland.lua;
     };
 
     #   "hypr/hyprpaper.conf".text = ''
