@@ -10,6 +10,10 @@ in {
   # this baseline and are added to specific host configs directly, since
   # the darwin a.rivoire user must not pull them in.
   flake.homeModules = {
+    # palette single source of truth + the rocinante.palette option every
+    # themed module reads
+    theme = "${hm}/theme";
+
     # programs — baseline
     aerospace = "${hm}/programs/aerospace";
     alacritty = "${hm}/programs/alacritty";

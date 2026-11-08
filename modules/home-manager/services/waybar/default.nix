@@ -1,4 +1,7 @@
-{config, ...}: {
+{config, ...}: let
+  palette = import ../../theme/palette.nix;
+  p = palette.for config.rocinante.palette;
+in {
   # Install and configure waybar via home-manager module
   programs.waybar = {
     enable = true;
@@ -103,11 +106,11 @@
             weeks-pos = "right";
             on-scroll = 1;
             format = {
-              months = "<span color='#2de2e6'><b>{}</b></span>";
-              days = "<span color='#7dd3d8'><b>{}</b></span>";
-              weeks = "<span color='#4fd6a0'><b>W{}</b></span>";
-              weekdays = "<span color='#ffb454'><b>{}</b></span>";
-              today = "<span color='#ff4d4d'><b><u>{}</u></b></span>";
+              months = "<span color='#${p.primary}'><b>{}</b></span>";
+              days = "<span color='#${p.light}'><b>{}</b></span>";
+              weeks = "<span color='#${p.green}'><b>W{}</b></span>";
+              weekdays = "<span color='#${p.amber}'><b>{}</b></span>";
+              today = "<span color='#${p.alert}'><b><u>{}</u></b></span>";
             };
           };
         };
@@ -259,6 +262,6 @@
         };
       };
     };
-    style = builtins.readFile ./style.css;
+    style = palette.substitute config.rocinante.palette (builtins.readFile ./style.css);
   };
 }

@@ -1,5 +1,10 @@
 /* Rocinante - MCRN tactical console (waybar)
  *
+ * The hex values below are the CLASSIC palette and act as substitution keys:
+ * home-manager rewrites them (and their decimal rgba triples) for the variant
+ * selected by the rocinante.palette option, via modules/home-manager/theme/palette.nix.
+ * Edit colours here, do not hardcode variant values elsewhere.
+ *
  * Palette shared with:
  *   modules/home-manager/services/hyprlock/default.nix  (ship identity at the lock screen)
  *   ~/.pi/agent/themes/rocinante.json                   (pi TUI)

@@ -4,7 +4,9 @@
   nhModules,
   pkgs,
   ...
-}: {
+}: let
+  palette = import ../../theme/palette.nix;
+in {
   imports = [
     "${nhModules}/misc/gtk"
     "${nhModules}/misc/wallpaper"
@@ -40,7 +42,8 @@
   # the Lua file (and no .conf) keeps the choice unambiguous.
   xdg.configFile = {
     "hypr/hyprland.lua" = {
-      source = ./hyprland.lua;
+      # Checked-in file, colours rewritten for the selected palette variant.
+      text = palette.substitute config.rocinante.palette (builtins.readFile ./hyprland.lua);
     };
 
     #   "hypr/hyprpaper.conf".text = ''

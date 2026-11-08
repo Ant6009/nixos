@@ -1,10 +1,13 @@
 {config, ...}: let
-  # Rocinante / The Expanse MCRN tactical-display palette
-  cyan = "rgb(2de2e6)"; # holographic primary
-  cyanDim = "rgb(1a8a8f)"; # muted hologram
-  amber = "rgb(ffb454)"; # tactical accent / verifying
-  alert = "rgb(ff4d4d)"; # access denied
-  navy = "rgba(0a1419ee)"; # dark panel fill
+  # Rocinante / The Expanse MCRN tactical-display palette, variant selected by
+  # the rocinante.palette option (see modules/home-manager/theme/palette.nix).
+  palette = import ../../theme/palette.nix;
+  p = palette.for config.rocinante.palette;
+  cyan = "rgb(${p.primary})"; # holographic primary
+  cyanDim = "rgb(${p.dim})"; # muted hologram
+  amber = "rgb(${p.amber})"; # tactical accent / verifying
+  alert = "rgb(${p.alert})"; # access denied
+  navy = "rgba(0a1419ee)"; # dark panel fill (ink, identical in every variant)
 in {
   programs.hyprlock = {
     enable = true;

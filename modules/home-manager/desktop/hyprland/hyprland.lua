@@ -1,4 +1,7 @@
 -- Hyprland config for rocinante, Lua format (Hyprland 0.55+).
+-- The hex values here are the CLASSIC palette and act as substitution keys:
+-- modules/home-manager/desktop/hyprland/default.nix rewrites them for the
+-- variant selected by the rocinante.palette option (theme/palette.nix).
 -- Converted from the hyprlang hyprland.conf on 2026-11-08: 0.56 warns that the
 -- legacy format is outdated and 0.57 drops it entirely, so there is no
 -- automatic migration path for a hand-written .conf.

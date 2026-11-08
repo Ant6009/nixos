@@ -107,6 +107,7 @@ in {
                     "${hm}/services/hyprlock"
                     "${hm}/misc/wallpaper"
                   ];
+                rocinante.palette = "faded";
                 home.packages = [pkgs.llm-agents.pi];
                 programs.home-manager.enable = true;
                 systemd.user.startServices = "sd-switch";
