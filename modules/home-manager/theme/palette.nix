@@ -20,6 +20,10 @@
 #   faded     primary  7.7  dim 3.6  amber  8.3  green  7.8  alert 4.9
 #   patina    primary  6.7  dim 3.7  amber  6.7  green  6.2  alert 4.8
 #   steel     primary  5.8  dim 3.7  amber  7.3  green  5.5  alert 4.6
+#
+# Edge alphas (hairlines, borders, separators) are scaled down in the weathered
+# variants so lines read scratched rather than glowing. Panel fills and the
+# translucent background washes are NOT scaled: they carry the plate structure.
 let
   # Roles that weather. Anything not listed here is identical in all variants.
   weatheredRoles = [
@@ -53,11 +57,44 @@ let
     e = 14;
     f = 15;
   };
+  hexChars = [
+    "0"
+    "1"
+    "2"
+    "3"
+    "4"
+    "5"
+    "6"
+    "7"
+    "8"
+    "9"
+    "a"
+    "b"
+    "c"
+    "d"
+    "e"
+    "f"
+  ];
 
-  byteOf = hex: i: (hexDigits.${builtins.substring (2 * i) 1 hex}) * 16 + (hexDigits.${builtins.substring (2 * i + 1) 1 hex});
+  hexPairToInt = pair: hexDigits.${builtins.substring 0 1 pair} * 16 + hexDigits.${builtins.substring 1 1 pair};
+  byteOf = hex: i: hexPairToInt (builtins.substring (2 * i) 2 hex);
 
-  # "2de2e6" -> "45, 226, 230", the form CSS rgba() triples use here.
+  # "2de2e6" -> "45, 226, 230", the form the CSS rgba() triples use here.
   toRgbTriple = hex: builtins.concatStringsSep ", " (map (i: builtins.toString (byteOf hex i)) [ 0 1 2 ]);
+
+  # Nix has builtins.div but no modulo builtin.
+  mod = a: b: a - b * builtins.div a b;
+
+  intToHexPair = n: builtins.elemAt hexChars (builtins.div n 16) + builtins.elemAt hexChars (mod n 16);
+
+  # Round to two decimals but keep the trailing zero, so 0.20 renders as 0.20.
+  toAlpha = x:
+    let
+      n = builtins.floor (x * 100 + 0.5);
+      whole = builtins.div n 100;
+      frac = mod n 100;
+    in
+      builtins.toString whole + "." + (if frac < 10 then "0" else "") + builtins.toString frac;
 
   variants = {
     classic = {
@@ -132,23 +169,96 @@ let
       panelDeep = "05101d";
     };
   };
+
+  # How much of the classic line alpha survives in each variant.
+  edgeScale = {
+    classic = 1.0;
+    faded = 0.72;
+    patina = 0.68;
+    steel = 0.62;
+  };
+
+  # Edge alphas as written in CSS rgba() triples, per role.
+  cssEdgeAlphas = [
+    {
+      role = "primary";
+      alpha = "0.28";
+    }
+    {
+      role = "primary";
+      alpha = "0.35";
+    }
+    {
+      role = "primary";
+      alpha = "0.45";
+    }
+    {
+      role = "primary";
+      alpha = "0.55";
+    }
+    {
+      role = "primary";
+      alpha = "0.60";
+    }
+    {
+      role = "dim";
+      alpha = "0.25";
+    }
+    {
+      role = "dim";
+      alpha = "0.35";
+    }
+    {
+      role = "dim";
+      alpha = "0.45";
+    }
+    {
+      role = "amber";
+      alpha = "0.60";
+    }
+  ];
+
+  # Edge alphas appended to the hex, the form Hyprland uses: rgba(2de2e6ee).
+  hexEdgeAlphas = [
+    {
+      role = "primary";
+      alpha = "ee";
+    }
+    {
+      role = "dim";
+      alpha = "55";
+    }
+  ];
 in
 {
-  inherit variants weatheredRoles toRgbTriple;
+  inherit variants weatheredRoles toRgbTriple edgeScale;
 
   # The selected variant as a role -> hex attrset (no leading #).
   for = name: variants.${name} or variants.classic;
 
   # Rewrite a checked-in file that carries the classic colours. Both spellings
-  # are handled: the bare/#-prefixed hex (hyprland rgba(...ee), CSS #hex) and
+  # are handled: the bare/#-prefixed hex (CSS #hex, hyprland rgba(...ee)) and
   # the decimal triples CSS rgba() uses here. Bare-hex replacement also covers
   # the # form, since "#2de2e6" contains "2de2e6".
+  #
+  # Full rgba() literals with an edge alpha are replaced first, so the alpha is
+  # rescaled for the variant before the plain colour/triple pass runs.
   substitute = name: text:
     let
-      from = builtins.map (r: variants.classic.${r}) weatheredRoles
-        ++ builtins.map (r: toRgbTriple variants.classic.${r}) weatheredRoles;
-      to = builtins.map (r: variants.${name}.${r}) weatheredRoles
-        ++ builtins.map (r: toRgbTriple variants.${name}.${r}) weatheredRoles;
+      v = variants.${name} or variants.classic;
+      s = edgeScale.${name} or 1.0;
+
+      cssAlphaFrom = builtins.map (e: "rgba(${toRgbTriple variants.classic.${e.role}}, ${e.alpha})") cssEdgeAlphas;
+      cssAlphaTo = builtins.map (e: "rgba(${toRgbTriple v.${e.role}}, ${toAlpha (builtins.fromJSON e.alpha * s)})") cssEdgeAlphas;
+
+      hexAlphaFrom = builtins.map (e: variants.classic.${e.role} + e.alpha) hexEdgeAlphas;
+      hexAlphaTo = builtins.map (e: v.${e.role} + intToHexPair (builtins.floor (hexPairToInt e.alpha * s + 0.5))) hexEdgeAlphas;
+
+      colourFrom = builtins.map (r: variants.classic.${r}) weatheredRoles;
+      colourTo = builtins.map (r: v.${r}) weatheredRoles;
+
+      tripleFrom = builtins.map (r: toRgbTriple variants.classic.${r}) weatheredRoles;
+      tripleTo = builtins.map (r: toRgbTriple v.${r}) weatheredRoles;
     in
-      builtins.replaceStrings from to text;
+      builtins.replaceStrings (cssAlphaFrom ++ hexAlphaFrom ++ colourFrom ++ tripleFrom) (cssAlphaTo ++ hexAlphaTo ++ colourTo ++ tripleTo) text;
 }
