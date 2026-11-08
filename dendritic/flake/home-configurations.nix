@@ -8,10 +8,7 @@
   mkPkgs = system:
     import inputs.nixpkgs {
       inherit system;
-      overlays = [
-        inputs.claude-code.overlays.default
-        inputs.audio.overlays.default
-      ];
+      overlays = [inputs.audio.overlays.default];
     };
 
   mkUserHome = {

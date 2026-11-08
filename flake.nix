@@ -32,8 +32,6 @@
       url = "github:notashelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    claude-code.url = "github:sadjow/claude-code-nix";
-
     llm-agents.url = "github:numtide/llm-agents.nix";
 
     mcp-nixos.url = "github:utensils/mcp-nixos";

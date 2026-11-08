@@ -32,7 +32,6 @@ in {
       {
         nixpkgs.overlays = [
           inputs.mcp-nixos.overlays.default
-          inputs.claude-code.overlays.default
           inputs.audio.overlays.default
           inputs.llm-agents.overlays.shared-nixpkgs
           # virtualenv-clone 0.5.7's test_clone_contents fails under

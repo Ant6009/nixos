@@ -15,7 +15,6 @@ in {
     alacritty = "${hm}/programs/alacritty";
     bat = "${hm}/programs/bat";
     btop = "${hm}/programs/btop";
-    #claude-code = "${hm}/programs/claude-code";
     fzf = "${hm}/programs/fzf";
     git = "${hm}/programs/git";
     gpg = "${hm}/programs/gpg";

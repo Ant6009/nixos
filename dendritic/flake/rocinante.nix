@@ -36,7 +36,6 @@ in {
         {
           nixpkgs.overlays = [
             inputs.mcp-nixos.overlays.default
-            #inputs.claude-code.overlays.default
             inputs.audio.overlays.default
             inputs.llm-agents.overlays.shared-nixpkgs
             # tuigreety: active tuigreet-compatible greeter fork, not in
