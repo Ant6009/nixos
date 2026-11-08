@@ -40,14 +40,6 @@
         ++ extraModules;
     };
 
-  antoine = {
-    name = "antoine";
-    email = "ant.rivoire@gmail.com";
-    fullName = "Antoine Rivoire";
-    avatar = ../../files/avatar/face;
-    gitKey = "E4B6639BFD0391F3";
-  };
-
   a-rivoire = {
     name = "a.rivoire";
     email = "a.rivoire@ulster.ac.uk";
@@ -56,23 +48,15 @@
     gitKey = "41647D6B470660D4";
   };
 
-  hm = "${self}/modules/home-manager";
 in {
+  # rocinante (antoine) is NOT here on purpose: home-manager is wired into
+  # nixosConfigurations.rocinante as a NixOS module, so its HM generation is
+  # baked into the system generation and re-activated at boot by
+  # home-manager-antoine.service. A standalone homeConfigurations entry there
+  # would build a second, divergent home whose activation is thrown away on the
+  # next boot/switch. Activate antoine with:
+  #   sudo nixos-rebuild switch --flake .#rocinante
   flake.homeConfigurations = {
-    "antoine" = mkUserHome {
-      system = "x86_64-linux";
-      userConfig = antoine;
-      extraModules = [
-        "${hm}/desktop/hyprland"
-        "${hm}/programs/zoom"
-        "${hm}/services/easyeffects"
-        "${hm}/services/ulauncher"
-        "${hm}/services/hyprpaper"
-        "${hm}/services/hyprlock"
-        "${hm}/misc/wallpaper"
-      ];
-    };
-
     "a.rivoire" = mkUserHome {
       system = "aarch64-darwin";
       userConfig = a-rivoire;

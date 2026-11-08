@@ -29,7 +29,6 @@ in {
       ../../hosts/MACMNPV9WL3V7
       inputs.home-manager.darwinModules.home-manager
       inputs.nix-homebrew.darwinModules.nix-homebrew
-      inputs.home-manager.nixosModules.home-manager
       {
         nixpkgs.overlays = [
           inputs.mcp-nixos.overlays.default
