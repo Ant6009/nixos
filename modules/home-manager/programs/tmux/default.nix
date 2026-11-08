@@ -1,4 +1,7 @@
-{...}: {
+{ config, ... }:
+let
+  palette = import ../../theme/palette.nix;
+in {
   # Tmux terminal multiplexer configuration
   programs.tmux = {
     enable = true;
@@ -10,7 +13,7 @@
     sensibleOnTop = false;
     terminal = "screen-256color";
 
-    extraConfig = ''
+    extraConfig = palette.substitute config.rocinante.palette ''
       # Set the prefix to `ctrl + q` instead of `ctrl + b`
       #set -g prefix C-q
       #unbind C-b

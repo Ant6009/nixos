@@ -1,14 +1,18 @@
 {
   userConfig,
+  config,
   pkgs,
   ...
 }: let
+  palette = import ../../theme/palette.nix;
+
   # Rocinante / MCRN console palette, layered onto plain Adwaita (dark)
   # through GTK named colors. Adwaita reads these variables, so selection,
   # headerbar, popover, tooltip and scrollbar colors all follow the same
-  # palette as hyprland.conf, hyprlock, waybar/style.css, alacritty and
-  # ~/.pi/agent/themes/rocinante.json.
-  consolePaletteCss = ''
+  # palette as hyprland, hyprlock, waybar/style.css, alacritty and
+  # ~/.pi/agent/themes/rocinante.json. The literals below are the classic
+  # variant; palette.substitute rewrites them for rocinante.palette.
+  consolePaletteCss = palette.substitute config.rocinante.palette ''
     @define-color window_bg_color #05101d;
     @define-color window_fg_color #dceef2;
 

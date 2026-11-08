@@ -1,4 +1,6 @@
-{pkgs, ...}: let
+{ pkgs, config, ... }: let
+  palette = import ../../theme/palette.nix;
+
   # Hyprland 0.55+ parses `hyprctl dispatch` in the syntax of the *running*
   # config format, which only changes at login. Probe it with a side-effect
   # free dispatcher rather than trusting which config file is on disk.
@@ -52,7 +54,7 @@ in {
         keybind = "r";
       }
     ];
-    style = ''
+    style = palette.substitute config.rocinante.palette ''
       * {
           background-image: none;
           font-family: "Roboto", sans-serif;

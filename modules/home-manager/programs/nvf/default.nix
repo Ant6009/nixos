@@ -1,4 +1,7 @@
-{...}: {
+{ config, ... }:
+let
+  palette = import ../../theme/palette.nix;
+in {
   programs.nvf = {
     enable = true;
     enableManpages = true;
@@ -9,7 +12,7 @@
       # Background stays transparent so alacritty's bridge-night shows through.
       theme.enable = false;
 
-      luaConfigPost = ''
+      luaConfigPost = palette.substitute config.rocinante.palette ''
         -- rocinante: MCRN console colourscheme --------------------------------
         local pal = {
           fg = '#dceef2',

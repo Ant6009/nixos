@@ -1,8 +1,10 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }: let
+  palette = import ../../theme/palette.nix;
   # "Quit All Applications" shortcut. Hyprland 0.55+ parses `hyprctl dispatch`
   # in the syntax of the *running* config format, which only changes at login,
   # so probe it with a side-effect free dispatcher: a legacy session rejects
@@ -98,12 +100,19 @@ in {
     Install.WantedBy = ["graphical-session.target"];
   };
 
-  # Source ulauncher configuration from this repository
+  # Source ulauncher configuration from this repository. The Rocinante theme
+  # lives in ./theme rather than ./config so its colours can be rewritten for
+  # the host's rocinante.palette; everything else (icons, extension prefs, the
+  # leftover Catppuccin theme) is copied verbatim.
   xdg.configFile = {
     "ulauncher" = {
       recursive = true;
       source = ./config;
     };
+
+    "ulauncher/user-themes/Rocinante/theme.css".text = palette.substitute config.rocinante.palette (builtins.readFile ./theme/Rocinante/theme.css);
+    "ulauncher/user-themes/Rocinante/theme-gtk-3.20.css".text = palette.substitute config.rocinante.palette (builtins.readFile ./theme/Rocinante/theme-gtk-3.20.css);
+    "ulauncher/user-themes/Rocinante/manifest.json".text = palette.substitute config.rocinante.palette (builtins.readFile ./theme/Rocinante/manifest.json);
   };
 
   # A bit nasty, but shortcuts file has to be writeble by the ulauncher

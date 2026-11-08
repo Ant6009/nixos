@@ -1,5 +1,8 @@
 { config, lib, pkgs, ... }:
 
+let
+  palette = import ../../theme/palette.nix;
+in
 {
 services.dunst = {
     enable = true;
@@ -7,7 +10,7 @@ services.dunst = {
       name = "Papirus-Dark";
       package = pkgs.papirus-icon-theme;
     };
-    settings = {
+    settings = palette.substituteAll config.rocinante.palette {
       global = {
         rounded = "no";
         origin = "top-right";

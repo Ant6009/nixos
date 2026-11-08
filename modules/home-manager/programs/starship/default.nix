@@ -1,4 +1,7 @@
-{...}: {
+{ config, ... }:
+let
+  palette = import ../../theme/palette.nix;
+in {
   # Starship configuration
   programs.starship = {
     enable = true;
@@ -63,7 +66,7 @@
       # "bold pink") resolve to ship colors, and starship's own ANSI colors
       # (green/yellow/red) already pick up the themed alacritty palette.
       palette = "rocinante";
-      palettes.rocinante = {
+      palettes.rocinante = palette.substituteAll config.rocinante.palette {
         rosewater = "#dceef2";
         flamingo = "#e88b86";
         pink = "#f5b0ab";

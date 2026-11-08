@@ -1,5 +1,9 @@
-{pkgs, ...}: let
-  rofiTheme = pkgs.writeText "rocinante.rasi" (builtins.readFile ./rocinante.rasi);
+{ pkgs, config, ... }: let
+  palette = import ../../theme/palette.nix;
+
+  # The checked-in .rasi carries the classic colours; rewrite them, and the
+  # edge alphas, for the host's rocinante.palette.
+  rofiTheme = pkgs.writeText "rocinante.rasi" (palette.substitute config.rocinante.palette (builtins.readFile ./rocinante.rasi));
 in {
   home.packages = [pkgs.papirus-icon-theme];
 

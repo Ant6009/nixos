@@ -1,4 +1,7 @@
-{pkgs, ...}: {
+{ config, pkgs, ... }:
+let
+  palette = import ../../theme/palette.nix;
+in {
   # Install alacritty via home-manager module
   programs.alacritty = {
     enable = true;
@@ -72,8 +75,9 @@
       };
 
       # Rocinante / MCRN console palette (shared with hyprland, hyprlock,
-      # waybar and ~/.pi/agent/themes/rocinante.json)
-      colors = {
+      # waybar and ~/.pi/agent/themes/rocinante.json). The literals are the
+      # classic variant, rewritten for the host's rocinante.palette.
+      colors = palette.substituteAll config.rocinante.palette {
         primary = {
           background = "#05101d";
           foreground = "#dceef2";
