@@ -7,7 +7,7 @@
 # Secrets are committed as ciphertext (secrets/*.age) and decrypted to the
 # Nix store at build time using an age key that only exists on Roci.
 { inputs, ... }: {
-  flake.nixosModules.sops = {...}: {
+  flake.nixosModules.sops = { config, ... }: {
     imports = [ inputs.sops-nix.nixosModules.sops ];
 
     sops = {
@@ -26,6 +26,18 @@
         format = "json";
         key = "";
         sopsFile = ../../secrets/smb.json.age;
+      };
+
+      # OPNsense API credentials for the `pi-mcp` user, as {"key":..,"secret":..}.
+      # Read by pi running as the invoking user, so this one cannot stay
+      # at the sops-nix default of root:root 0400.
+      secrets."opnsense-apikey" = {
+        format = "json";
+        key = "";
+        sopsFile = ../../secrets/opnsense-apikey.age;
+        owner = config.users.users.antoine.name;
+        group = config.users.users.antoine.group;
+        mode = "0400";
       };
     };
   };
