@@ -38,34 +38,6 @@ in {
             inputs.mcp-nixos.overlays.default
             inputs.audio.overlays.default
             inputs.llm-agents.overlays.shared-nixpkgs
-            # tuigreety: active tuigreet-compatible greeter fork, not in
-            # nixpkgs yet. Pure-Rust build, no native deps. Binary is
-            # still named `tuigreet` for greetd config compatibility.
-            # Pinned to release 0.11.1 (tag rev 0a36f9af).
-            (final: _prev: {
-              tuigreety = final.rustPlatform.buildRustPackage {
-                pname = "tuigreety";
-                version = "0.11.1";
-                src = final.fetchFromGitHub {
-                  owner = "Tobiichi-Origuchi";
-                  repo = "tuigreety";
-                  rev = "0a36f9af38989cc52a13163317e4dcf3a0994c66";
-                  hash = "sha256-4UT5quFIWr8eFLx7Blpla05A23ViacHpuqSLvl5HhEg=";
-                };
-                cargoHash = "sha256-ZFDfpGd2Z800l189wTfunATSEPght7fhej1pgJv6NXA=";
-                # 5 timing-sensitive power-supervisor unit tests fail inside
-                # the Nix build sandbox (318/323 pass); crate compiles clean.
-                doCheck = false;
-                __structuredAttrs = true;
-                meta = with final.lib; {
-                  description = "Minimal, configurable console greeter for greetd (tuigreet-compatible fork)";
-                  homepage = "https://github.com/Tobiichi-Origuchi/tuigreety";
-                  license = licenses.gpl3Only;
-                  platforms = platforms.linux;
-                  mainProgram = "tuigreet";
-                };
-              };
-            })
             # virtualenv-clone 0.5.7's test_clone_contents fails under
             # python 3.14 (finds the source venv path in the cloned
             # pyvenv.cfg). Disable the check just for pipenv's copy so
