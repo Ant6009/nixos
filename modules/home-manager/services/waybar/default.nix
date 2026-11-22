@@ -222,8 +222,8 @@ in {
           tooltip = false;
         };
 
-        # donnager's Strata inference server, fed by ~/.local/bin/strata-metrics
-        # (one shared /metrics fetch per 2s for the whole cluster)
+        # donnager's inference server, fed by ~/.local/bin/strata-metrics
+        # (Maya 8080 first, Strata 8081 fallback; one shared state per 2s)
         "custom/strata" = {
           exec = "${config.home.homeDirectory}/.local/bin/strata-metrics identity";
           interval = 2;

@@ -1,44 +1,99 @@
 #!/usr/bin/env bash
-# strata-metrics - waybar feed for the Strata inference server on donnager.
+# strata-metrics - waybar feed for the inference engine on donnager.
+# Legacy filename retained: it now selects Maya (8080) first, then Strata (8081).
 #
-# One /metrics fetch is shared by every bar module through a short-lived cache,
-# so five modules cost one HTTP request per STRATA_TTL seconds (default 2).
+# One state fetch is shared by every bar module, so the five modules cost at
+# most two HTTP requests per TTL (one per engine).
 #
 # Usage: strata-metrics [identity|decode|prefill|gpu|power|status|raw]
 # Each subcommand prints one waybar custom-module JSON object:
 #   {"text": "...", "class": "...", "tooltip": "..."}
 #
-# Env: STRATA_URL (default http://192.168.68.128:8081)
+# Env: MAYA_URL (default http://192.168.68.128:8080)
+#      STRATA_URL (default http://192.168.68.128:8081)
+#      MAYA_API_KEY (default: .maya.key from ~/.pi/agent/auth.json)
 #      STRATA_API_KEY (default: .strata.key from ~/.pi/agent/auth.json)
-#      STRATA_TTL (cache seconds, default 2)
+#      INFERENCE_TTL or STRATA_TTL (cache seconds, default 2)
 
 set -uo pipefail
 
-BASE="${STRATA_URL:-http://192.168.68.128:8081}"
-TTL="${STRATA_TTL:-2}"
-CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/strata"
-CACHE="$CACHE_DIR/metrics.json"
+TTL="${INFERENCE_TTL:-${STRATA_TTL:-2}}"
+CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/inference"
+CACHE="$CACHE_DIR/engine.json"
 LOCK="$CACHE_DIR/fetch.lock"
-KEY="${STRATA_API_KEY:-$(jq -r '.strata.key // ""' "$HOME/.pi/agent/auth.json" 2>/dev/null)}"
+AUTH="$HOME/.pi/agent/auth.json"
+
+MAYA_URL="${MAYA_URL:-http://192.168.68.128:8080}"
+STRATA_URL="${STRATA_URL:-http://192.168.68.128:8081}"
+MAYA_KEY="${MAYA_API_KEY:-$(jq -r '.maya.key // ""' "$AUTH" 2>/dev/null)}"
+STRATA_KEY="${STRATA_API_KEY:-$(jq -r '.strata.key // ""' "$AUTH" 2>/dev/null)}"
+OFFLINE_TIP="Neither Maya ($MAYA_URL) nor Strata ($STRATA_URL) answered /metrics"
 
 mkdir -p "$CACHE_DIR"
 
-# age of the cached payload in seconds (99999 if missing)
+# age of the cached state in seconds (99999 if missing)
 cache_age() {
   [ -f "$CACHE" ] || { echo 99999; return; }
   echo $(( $(date +%s) - $(stat -c %Y "$CACHE" 2>/dev/null || echo 0) ))
+}
+
+fetch_metrics() {
+  local url="$1" key="$2" out="$3"
+  curl -sf --max-time 2 -H "Authorization: Bearer $key" "$url/metrics" -o "$out" || return 1
+  jq -e 'has("engine") and has("live") and has("hardware")' "$out" >/dev/null
 }
 
 refresh() {
   # -n: if another module is already fetching, everyone else just reuses the cache
   (
     flock -n 9 || exit 0
-    if curl -sf --max-time 2 -H "Authorization: Bearer $KEY" "$BASE/metrics" -o "$CACHE.tmp"; then
-      mv -f "$CACHE.tmp" "$CACHE"
+    local maya_tmp="$CACHE_DIR/maya.tmp"
+    local strata_tmp="$CACHE_DIR/strata.tmp"
+    local state_tmp="$CACHE_DIR/engine.tmp"
+    local maya_ok=false strata_ok=false
+    local engine=none label="" url="" metrics=null
+
+    rm -f "$maya_tmp" "$strata_tmp" "$state_tmp"
+
+    if fetch_metrics "$MAYA_URL" "$MAYA_KEY" "$maya_tmp"; then maya_ok=true; fi
+    if fetch_metrics "$STRATA_URL" "$STRATA_KEY" "$strata_tmp"; then strata_ok=true; fi
+
+    if [ "$maya_ok" = true ]; then
+      engine="maya"
+      label="MAYA  "
+      url="$MAYA_URL"
+      metrics="$(cat "$maya_tmp")"
+    elif [ "$strata_ok" = true ]; then
+      engine="strata"
+      label="STRATA"
+      url="$STRATA_URL"
+      metrics="$(cat "$strata_tmp")"
     else
-      rm -f "$CACHE.tmp"
-      touch "$CACHE_DIR/stale"
+      # Keep the last good state so short outages do not blank all five slots.
+      rm -f "$maya_tmp" "$strata_tmp"
+      exit 0
     fi
+
+    if jq -nc \
+      --argjson checked "$(date +%s)" \
+      --arg engine "$engine" \
+      --arg label "$label" \
+      --arg url "$url" \
+      --argjson maya_ok "$maya_ok" \
+      --argjson strata_ok "$strata_ok" \
+      --argjson metrics "$metrics" \
+      '{
+        checked_at: $checked,
+        engine: $engine,
+        label: $label,
+        url: $url,
+        maya_ok: $maya_ok,
+        strata_ok: $strata_ok,
+        metrics: $metrics
+      }' > "$state_tmp"; then
+      mv -f "$state_tmp" "$CACHE"
+    fi
+    rm -f "$maya_tmp" "$strata_tmp" "$state_tmp"
   ) 9>"$LOCK"
 }
 
@@ -46,25 +101,25 @@ payload() {
   local age
   age="$(cache_age)"
   if [ "$age" -ge "$TTL" ]; then refresh; age="$(cache_age)"; fi
-  # the payload ages out if the server stops answering, so the bar flips to OFFLINE
+  # the state ages out if no engine answers, so the bar flips to NO ENGINE
   if [ ! -f "$CACHE" ] || [ "$age" -gt $((TTL * 5)) ]; then return 1; fi
-  jq -c . "$CACHE" 2>/dev/null
+  jq -c 'select(.engine != "none")' "$CACHE" 2>/dev/null
 }
 
 offline_json() {
-  jq -nc --arg t "${1:-STRATA OFFLINE}" --arg c "critical" \
-    '{text: $t, class: $c, tooltip: "Strata unreachable at '"$BASE"'"}'
+  jq -nc --arg t "${1:-NO ENGINE}" --arg tip "${2:-$OFFLINE_TIP}" \
+    '{text: $t, class: "critical", tooltip: $tip}'
 }
 
 mode="${1:-gpu}"
 data="$(payload)" || data=""
 
 # Fixed-size readout fields, so the bar segments never change width:
-#   STRATA   DEC 088 t/s   PRE 0511 t/s   GPU 63C 100%   PWR 190/200W
-# when the server is unreachable the same slots are filled with dashes.
+#   MAYA     DEC 088 t/s   PRE 0511 t/s   GPU 63C 100%   PWR 190/200W
+# when no engine is reachable the same slots are filled with dashes.
 if [ -z "$data" ]; then
   case "$mode" in
-    identity) offline_json "STRATA" ;;
+    identity) offline_json "NO ENGINE" ;;
     decode) offline_json "DEC --- t/s" ;;
     prefill) offline_json "PRE ---- t/s" ;;
     gpu) offline_json "GPU --C ---%" ;;
@@ -75,13 +130,18 @@ if [ -z "$data" ]; then
   exit 0
 fi
 
+engine="$(jq -r '.engine // "none"' <<<"$data")"
+label="$(jq -r '.label // "NO ENGINE"' <<<"$data")"
+url="$(jq -r '.url // ""' <<<"$data")"
+
 # live.* is populated only while a slot is working; hardware.* carries the rolling mean
 # (kept in a shell variable, not a shared file: five modules run at the same instant)
-parsed="$(jq -r '
+parsed="$(jq -r --arg engine "$engine" --arg url "$url" '
   def fmt1: (. * 10 | round / 10);
-  (.live // {}) as $live |
-  (.hardware // {}) as $hw |
-  ((.requests // [])[0] // {}) as $last |
+  (.metrics // {}) as $m |
+  ($m.live // {}) as $live |
+  ($m.hardware // {}) as $hw |
+  (($m.requests // [])[0] // {}) as $last |
   (if ($live.state // "idle") != "idle" then "busy" else "idle" end) as $state |
   ($live.tok_s // $hw.tok_s_mean // 0) as $decode |
   (($live.prefill_tok_s_mean // 0) as $lp |
@@ -96,24 +156,24 @@ parsed="$(jq -r '
   ($hw.gpu_mem_total // 0) as $memt |
   ($live.state // "idle") as $phase |
   ($live.phase // "") as $ptext |
-  (.engine.model // "?") as $model |
-  (.hardware_static.gpu_name // "GPU") as $gpu |
-  ((.totals.output_tokens // 0) / 1000 | floor) as $kout |
-  ((.totals.prompt_tokens // 0) / 1000 | floor) as $kin |
+  ($m.engine.model // "?") as $model |
+  ($m.hardware_static.gpu_name // "GPU") as $gpu |
+  (($m.totals.output_tokens // 0) / 1000 | floor) as $kout |
+  (($m.totals.prompt_tokens // 0) / 1000 | floor) as $kin |
   ($kout * 1000) as $out_tok |
   ($kin * 1000) as $in_tok |
   (if ($last.prompt_ms // 0) > 0 then (($last.prompt_total // 0) * 1000 / $last.prompt_ms) else 0 end) as $pre_eff |
-  "MODEL=\($model)|GPU=\($gpu)|\($ptext // $phase)|DEC=\($decode|fmt1) t/s|PRE=\($prefill|fmt1) t/s compute, \($pre_eff|fmt1) t/s effective|TEMP=\($temp)C|PWR=\($power|fmt1)/\($plimit)W|UTIL=\($util)%|VRAM=\(($memu/1048576|floor))/\(($memt/1048576|floor))MiB|IN=\($in_tok)|OUT=\($out_tok)" as $tip |
+  "ENGINE=\($engine)|URL=\($url)|MODEL=\($model)|GPU=\($gpu)|\($ptext // $phase)|DEC=\($decode|fmt1) t/s|PRE=\($prefill|fmt1) t/s compute, \($pre_eff|fmt1) t/s effective|TEMP=\($temp)C|PWR=\($power|fmt1)/\($plimit)W|UTIL=\($util)%|VRAM=\(($memu/1048576|floor))/\(($memt/1048576|floor))MiB|IN=\($in_tok)|OUT=\($out_tok)" as $tip |
   if $state == "busy" then
     { state: "busy", decode: $decode, prefill: $prefill, temp: $temp, power: $power, plimit: $plimit, util: $util, tooltip: $tip }
   else
     { state: "idle", decode: $decode, prefill: $prefill, temp: $temp, power: $power, plimit: $plimit, util: $util, tooltip: $tip }
   end
-' "$CACHE" 2>/dev/null)"
+' <<<"$data" 2>/dev/null)"
 
 if [ -z "$parsed" ]; then
   case "$mode" in
-    identity) offline_json "STRATA" ;;
+    identity) offline_json "NO ENGINE" ;;
     decode) offline_json "DEC --- t/s" ;;
     prefill) offline_json "PRE ---- t/s" ;;
     gpu) offline_json "GPU --C ---%" ;;
@@ -157,8 +217,8 @@ IFS='|' read -r txt_decode txt_prefill txt_gpu txt_power < <(
 
 case "$mode" in
   identity)
-    if [ "$state" = "busy" ]; then jq -nc '{text: "STRATA", class: "busy"}'
-    else jq -nc '{text: "STRATA", class: "idle"}'; fi
+    jq -nc --arg t "$label" --arg c "$state" --arg s "$tip" \
+      '{text: $t, class: $c, tooltip: $s}'
     ;;
   decode)
     jq -nc --arg t "$txt_decode" --arg c "$state" --arg s "$tip" '{text: $t, class: $c, tooltip: $s}'
@@ -176,7 +236,7 @@ case "$mode" in
     jq -nc --arg t "${state}" --arg s "$tip" '{text: $t, class: (if $t == "busy" then "busy" else "idle" end), tooltip: $s}'
     ;;
   raw)
-    cat "$CACHE"
+    printf '%s\n' "$data"
     ;;
   *)
     echo "usage: strata-metrics [identity|decode|prefill|gpu|power|status|raw]" >&2
