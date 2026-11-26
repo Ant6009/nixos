@@ -34,7 +34,7 @@ hl.config({
 
         -- touchpad = { natural_scroll = false },
 
-        sensitivity = -1.0, -- -1.0 - 1.0, 0 means no modification.
+        sensitivity = @POINTER_SENSITIVITY@, -- -1.0 - 1.0, 0 means no modification.
     },
 })
 

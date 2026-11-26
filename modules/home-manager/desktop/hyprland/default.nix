@@ -8,6 +8,7 @@
   palette = import ../../theme/palette.nix;
 in {
   imports = [
+    "${nhModules}/desktop/input.nix"
     "${nhModules}/misc/gtk"
     "${nhModules}/misc/wallpaper"
     "${nhModules}/misc/xdg"
@@ -42,8 +43,10 @@ in {
   # the Lua file (and no .conf) keeps the choice unambiguous.
   xdg.configFile = {
     "hypr/hyprland.lua" = {
-      # Checked-in file, colours rewritten for the selected palette variant.
-      text = palette.substitute config.rocinante.palette (builtins.readFile ./hyprland.lua);
+      # Checked-in file, colours and pointer sensitivity rewritten for this host.
+      text = builtins.replaceStrings [ "@POINTER_SENSITIVITY@" ] [
+        (toString config.rocinante.input.sensitivity)
+      ] (palette.substitute config.rocinante.palette (builtins.readFile ./hyprland.lua));
     };
 
     #   "hypr/hyprpaper.conf".text = ''
