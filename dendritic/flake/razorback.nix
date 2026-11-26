@@ -16,6 +16,20 @@ in {
   flake.nixosConfigurations.razorback = mkNixosHost {
     hostname = "razorback";
     inherit userConfig;
+    extraNixosModules = [
+      {
+        # CapsLock: Control when held, Escape when tapped.
+        services.keyd = {
+          enable = true;
+          keyboards.default = {
+            ids = [ "*" ];
+            settings = {
+              main.capslock = "overload(control, esc)";
+            };
+          };
+        };
+      }
+    ];
     hardwareModules = [
       inputs.hardware.nixosModules.lenovo-thinkpad-t490
       inputs.hardware.nixosModules.common-pc-ssd
