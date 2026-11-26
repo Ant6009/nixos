@@ -107,8 +107,9 @@ payload() {
 }
 
 offline_json() {
+  # Waybar treats a space-separated class string as one class; use an array.
   jq -nc --arg t "${1:-NO ENGINE}" --arg tip "${2:-$OFFLINE_TIP}" \
-    '{text: $t, class: "critical", tooltip: $tip}'
+    '{text: $t, class: ["offline", "critical"], tooltip: $tip}'
 }
 
 mode="${1:-gpu}"
