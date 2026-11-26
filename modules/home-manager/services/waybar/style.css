@@ -306,13 +306,15 @@ window#waybar.hidden {
   background-color: #de5255;
 }
 
-/* no engine: hide the telemetry slots so the centre shows only the clock */
+/* no engine: empty text hides the modules; collapse any leftover spacing */
 #custom-strata.offline,
 #custom-strata-decode.offline,
 #custom-strata-prefill.offline,
 #custom-strata-gpu.offline,
 #custom-strata-power.offline {
-  display: none;
+  min-width: 0;
+  padding: 0;
+  border-left: 0;
 }
 
 /* ------------------------------------------------------------- tooltips --- */

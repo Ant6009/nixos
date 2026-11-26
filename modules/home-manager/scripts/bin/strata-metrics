@@ -107,9 +107,9 @@ payload() {
 }
 
 offline_json() {
-  # Waybar treats a space-separated class string as one class; use an array.
-  jq -nc --arg t "${1:-NO ENGINE}" --arg tip "${2:-$OFFLINE_TIP}" \
-    '{text: $t, class: ["offline", "critical"], tooltip: $tip}'
+  # Empty text makes Waybar hide the custom module; the class is kept for CSS.
+  jq -nc --arg tip "${2:-$OFFLINE_TIP}" \
+    '{text: "", class: "offline", tooltip: $tip}'
 }
 
 mode="${1:-gpu}"

@@ -223,11 +223,13 @@ in {
         };
 
         # donnager's inference server, fed by ~/.local/bin/strata-metrics
-        # (Maya 8080 first, Strata 8081 fallback; one shared state per 2s)
+        # (Maya 8080 first, Strata 8081 fallback; one shared state per 2s).
+        # When no engine answers, the script returns empty text and Waybar hides these modules.
         "custom/strata" = {
           exec = "${config.home.homeDirectory}/.local/bin/strata-metrics identity";
           interval = 2;
           return-type = "json";
+          hide-empty-text = true;
           tooltip = false;
         };
 
@@ -235,24 +237,28 @@ in {
           exec = "${config.home.homeDirectory}/.local/bin/strata-metrics decode";
           interval = 2;
           return-type = "json";
+          hide-empty-text = true;
         };
 
         "custom/strata-prefill" = {
           exec = "${config.home.homeDirectory}/.local/bin/strata-metrics prefill";
           interval = 2;
           return-type = "json";
+          hide-empty-text = true;
         };
 
         "custom/strata-gpu" = {
           exec = "${config.home.homeDirectory}/.local/bin/strata-metrics gpu";
           interval = 2;
           return-type = "json";
+          hide-empty-text = true;
         };
 
         "custom/strata-power" = {
           exec = "${config.home.homeDirectory}/.local/bin/strata-metrics power";
           interval = 2;
           return-type = "json";
+          hide-empty-text = true;
         };
 
         "custom/power" = {
