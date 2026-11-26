@@ -35,6 +35,8 @@ in {
           enable = true;
           enablePam = true;
         };
+        # throttled introspects org.freedesktop.UPower on the system bus.
+        services.upower.enable = true;
       }
     ];
     extraHomeModules = [
