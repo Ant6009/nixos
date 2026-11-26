@@ -29,6 +29,23 @@ in {
           };
         };
       }
+      {
+        # Fingerprint unlock for Ly and other PAM services.
+        services.fprintd = {
+          enable = true;
+          enablePam = true;
+        };
+      }
+    ];
+    extraHomeModules = [
+      {
+        # Rofi: double the width and roughly halve the height by halving the
+        # number of visible rows (7 -> 3).
+        rocinante.rofi = {
+          width = "40%";
+          lines = 3;
+        };
+      }
     ];
     hardwareModules = [
       inputs.hardware.nixosModules.lenovo-thinkpad-t490
