@@ -43,6 +43,8 @@ in {
       {
         # Touchpad: remove the shared -1.0 sensitivity reduction.
         rocinante.input.sensitivity = 0.0;
+        # Hyprlock reads the fingerprint directly over fprintd's D-Bus API.
+        programs.hyprlock.settings.auth.fingerprint.enabled = true;
         # Rofi: double the width and roughly halve the height by halving the
         # number of visible rows (7 -> 3).
         rocinante.rofi = {

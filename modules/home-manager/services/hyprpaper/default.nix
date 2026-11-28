@@ -13,11 +13,15 @@
 
       splash = false;
 
-      preload = ["/home/antoine/Pictures/wallpaper/expanse1.jpg"];
-
       wallpaper = {
-        monitor = "HDMI-A-1";
-        path = "/home/antoine/Pictures/wallpaper/expanse1.jpg";
+        # Empty monitor is hyprpaper's fallback: every monitor without a
+        # wallpaper-specific entry gets this image.
+        monitor = "";
+        path = "/home/antoine/Pictures/wallpaper";
+        order = "random";
+        # hyprpaper shuffles the directory at startup, then rotates after
+        # this timeout. Keep it longer than any session to pick once.
+        timeout = 2147483647;
       };
     };
   };
